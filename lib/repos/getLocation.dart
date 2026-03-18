@@ -8,6 +8,14 @@ Future<Position> determinePosition() async {
 
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {
+
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+
     return Future.error('Location services are disabled.');
   }
 
@@ -15,11 +23,13 @@ Future<Position> determinePosition() async {
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
+
       return Future.error('Location permissions are denied');
     }
   }
   
   if (permission == LocationPermission.deniedForever) {
+
     return Future.error(
       'Location permissions are permanently denied, we cannot request permissions.');
   } 
@@ -27,6 +37,17 @@ Future<Position> determinePosition() async {
   saveLocation(position.latitude, position.longitude);
   return position;
 }
+
+    // Permissions are denied forever, handle appropriately. 
+    return Future.error(
+      'Location permissions are permanently denied, we cannot request permissions.');
+  } 
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition();
+}
+
 
 Future<void> saveLocation(double latitude, double longitude) async {
   final prefs = await SharedPreferences.getInstance();
@@ -41,4 +62,3 @@ Future<Map<String, double>?> getLocation() async {
   if (lat == null || lon == null) return null;
   return {'latitude': lat, 'longitude': lon};
 }
-

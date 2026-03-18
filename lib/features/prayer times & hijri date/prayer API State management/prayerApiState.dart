@@ -1,4 +1,4 @@
-import 'package:app/features/prayer%20times%20&%20hijri%20date/models/prayerTimesModel.dart';
+import 'package:app/mainDataModel/dataModel.dart';
 import 'package:equatable/equatable.dart';
 sealed class PrayerApiState extends Equatable {}
 
@@ -8,12 +8,12 @@ class PrayerLoading extends PrayerApiState {
 }
 
 class PrayerLoaded extends PrayerApiState {
-  final PrayerTimesModel times;
+  final Data apiData;
 
-  PrayerLoaded({required this.times});
+  PrayerLoaded({required this.apiData});
 
   @override
-  List<Object?> get props => [times];
+  List<Object?> get props => [apiData];
 }
 
 class PrayerError extends PrayerApiState {

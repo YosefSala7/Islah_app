@@ -1,5 +1,4 @@
 import 'package:app/Pages/home.dart';
-import 'package:app/main.dart';
 import 'package:app/repos/getLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';

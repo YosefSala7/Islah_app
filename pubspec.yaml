@@ -39,3 +39,7 @@ flutter:
   assets:
     - ".env"
     - "assets/imgs/appIcon.png"
+  fonts:
+  - family: Cairo
+    fonts:
+      - asset: "assets/fonts/Cairo-VariableFont_slnt,wght.ttf"

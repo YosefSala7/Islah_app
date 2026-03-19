@@ -1,0 +1,36 @@
+{
+    "prayer_times": {
+        "fajr": "الفجر",
+        "sunrise": "الشروق",
+        "dhuhr": "الظهر",
+        "asr": "العصر",
+        "sunset": "الغروب",
+        "maghrib": "المغرب",
+        "isha": "العشاء",
+        "imsak": "الإمساك",
+        "midnight": "منتصف الليل",
+        "firstthird": "الثلث الأول",
+        "lastthird": "الثلث الأخير"
+    },
+    "qibla": {
+        "direction": "اتجاه القبلة",
+        "degrees": "درجة",
+        "distance": "المسافة",
+        "unit": "كم"
+    },
+    "prohibited_times": {
+        "title": "الأوقات المنهي عنها",
+        "sunrise_warning": "عند الشروق",
+        "noon_warning": "عند الاستواء (الظهيرة)",
+        "sunset_warning": "عند الغروب",
+        "start": "تبدأ من",
+        "end": "تنتهي في"
+    },
+    "date_info": {
+        "hijri": "التاريخ الهجري",
+        "gregorian": "التاريخ الميلادي",
+        "month": "الشهر",
+        "year": "السنة",
+        "day": "اليوم"
+    }
+}

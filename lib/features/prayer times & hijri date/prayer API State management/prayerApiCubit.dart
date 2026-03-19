@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PrayerApiCubit extends Cubit<PrayerApiState> {
   PrayerApiCubit():super(PrayerLoading());
   
-getData() async {
+Future<void> getData() async {
   try {
     Welcome response = await getPrayerTimes();
     emit(PrayerLoaded(apiData: response.data));

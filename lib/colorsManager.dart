@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+
+class ColorManager {
+  static const Color primary = Color(0xFF1F3B57); 
+  static const Color secondary = Color(0xFF7FA9C9); 
+  static const Color accent = Color(0xFFF4A825); 
+  static const Color accentSoft = Color(0xFFFFD27A);
+  static const Color grey = Color(0xFF8A7F86);
+}
+class LightColors {
+  static const Color background = Color(0xFFF5F7FA);
+  static const Color card = Color(0xFFFFFFFF);
+
+  static const Color textPrimary = ColorManager.primary;
+  static const Color textSecondary = Color(0xFF6B7280);
+
+  static const Color border = Color(0xFFE5E7EB);
+
+  static const Color appBar = Color(0xFFFFFFFF);
+  static const Color navBar = Color(0xFFFFFFFF);
+
+  static const Color iconActive = ColorManager.accent;
+  static const Color iconInactive = Color(0xFF9CA3AF);
+}
+class DarkColors {
+  static const Color background = Color(0xFF0F172A);
+  static const Color card = Color(0xFF1E293B);
+
+  static const Color textPrimary = Color(0xFFE2E8F0);
+  static const Color textSecondary = Color(0xFF94A3B8);
+
+  static const Color border = Color(0xFF334155);
+
+  static const Color appBar = Color(0xFF1E293B);
+  static const Color navBar = Color(0xFF1E293B);
+
+  static const Color iconActive = ColorManager.accent;
+  static const Color iconInactive = Color(0xFF64748B);
+}

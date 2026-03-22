@@ -2,26 +2,44 @@ import 'package:app/mainDataModel/dataModel.dart';
 import 'package:app/repos/getLocation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-Future<Welcome>getPrayerTimes()async{
+Future<Welcome?> getPrayerTimes() async {
   final location = await getLocation();
   String apiUrl = dotenv.env['API_KEY']!;
   double lat = location!['latitude']!;
   double lon = location['longitude']!;
 
-  var url = Uri.https(
-    'islamicapi.com',
-    '/api/v1/prayer-time',
-    {
-      "lat": lat.toString(),
-      "lon": lon.toString(),
-      "method": "5",
-      "school": "1",
-      "api_key": apiUrl,
-    },
-  );
+  var url = Uri.https('islamicapi.com', '/api/v1/prayer-time', {
+    "lat": lat.toString(),
+    "lon": lon.toString(),
+    "method": "5",
+    "school": "1",
+    "api_key": apiUrl,
+  });
 
-  var response = await http.get(url);
+  try {
+    var response = await http.get(url);
+    saveApiData(response.body);
+    return welcomeFromJson(response.body);
+  } catch (e) {
+    final offlineDate = await getCachedBody();
+    if (offlineDate != null) {
+      return welcomeFromJson(offlineDate);
+    }
+  }
+}
 
-  return welcomeFromJson(response.body);
+Future<void> saveApiData(String responseBody) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('cached_body', responseBody);
+}
+
+Future<String?> getCachedBody() async {
+  final prefs = await SharedPreferences.getInstance();
+  String? savedBody = prefs.getString('cached_body');
+  if (savedBody != null) {
+    return savedBody;
+  }
+  return null;
 }

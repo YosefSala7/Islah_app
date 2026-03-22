@@ -1,3 +1,5 @@
+import 'package:app/Pages/home.dart';
+import 'package:app/authGate.dart';
 import 'package:app/splashScreen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      home: Splashscreen(),
+      home: AuthGate(),
     );
   }
 }

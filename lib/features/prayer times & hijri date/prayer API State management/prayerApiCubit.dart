@@ -8,9 +8,8 @@ class PrayerApiCubit extends Cubit<PrayerApiState> {
   
 Future<void> getData() async {
   try {
-    Welcome response = await getPrayerTimes();
-    emit(PrayerLoaded(apiData: response.data));
-
+    Welcome? response = await getPrayerTimes();
+    emit(PrayerLoaded(apiData: response!.data));
   } catch (e) {
     emit(PrayerError(errorMessage: "فشل جلب البيانات: ${e.toString()}"));
   }

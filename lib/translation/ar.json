@@ -1,5 +1,7 @@
 {
     "prayer_times": {
+        "am" :"ص",
+        "pm" :"م",
         "fajr": "الفجر",
         "sunrise": "الشروق",
         "dhuhr": "الظهر",

@@ -11,8 +11,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PrayerApiCubit>(
-      create: (context) => PrayerApiCubit()..getData(),
+    return BlocProvider.value(
+      value: context.read<PrayerApiCubit>(),
       child: Scaffold(
         body: BlocBuilder<PrayerApiCubit, PrayerApiState>(
           builder: (context, state) {

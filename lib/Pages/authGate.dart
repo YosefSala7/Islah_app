@@ -1,10 +1,14 @@
 import 'dart:io';
 import 'package:app/Pages/home.dart';
+import 'package:app/Pages/navBar.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiCubit.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiState.dart';
 import 'package:app/repos/fetchPrayerTimesAPI.dart';
 import 'package:app/repos/getLocation.dart';
 import 'package:app/Pages/splashScreen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -38,29 +42,34 @@ class _AuthGateState extends State<AuthGate> {
             content: Text(message.tr()),
             actions: [
               TextButton(
-                onPressed: () => exit(0), 
-                child: Text(exitLabel.tr(), style: const TextStyle(color: Colors.red)),
+                onPressed: () => exit(0),
+                child: Text(
+                  exitLabel.tr(),
+                  style: const TextStyle(color: Colors.red),
+                ),
               ),
               ElevatedButton(
-                onPressed: () => Navigator.pop(context, true), 
+                onPressed: () => Navigator.pop(context, true),
                 child: Text(retryLabel.tr()),
               ),
             ],
           ),
-        ) ?? false;
+        ) ??
+        false;
   }
 
   Future<String> _determineTargetScreen() async {
     final prefs = await SharedPreferences.getInstance();
-    
+
     if (prefs.getString('cached_body') != null) return 'go_to_home';
 
     bool isSuccess = false;
 
     while (!isSuccess) {
-      
       var connectivityResult = await (Connectivity().checkConnectivity());
-      bool isConnected = connectivityResult.any((res) => res != ConnectivityResult.none);
+      bool isConnected = connectivityResult.any(
+        (res) => res != ConnectivityResult.none,
+      );
 
       if (!isConnected) {
         await _showErrorDialog(
@@ -69,14 +78,14 @@ class _AuthGateState extends State<AuthGate> {
           retryLabel: "wifi_error_button_text",
           exitLabel: "exit_app",
         );
-        continue; 
+        continue;
       }
 
       try {
-        await determinePosition(); 
-        
+        await determinePosition();
+
         await getPrayerTimes();
-        
+
         isSuccess = true;
       } catch (e) {
         await _showErrorDialog(
@@ -100,7 +109,18 @@ class _AuthGateState extends State<AuthGate> {
           return const Splashscreen();
         }
 
-        return const Home();
+        return BlocProvider<PrayerApiCubit>(
+          create: (context) => PrayerApiCubit()..getData(),
+          child: BlocBuilder<PrayerApiCubit, PrayerApiState>(
+            builder: (context, state) {
+              if(state is PrayerLoading){
+                return AnotherSplashScreen();
+              }else{
+                return Navbar();
+              }
+            },
+          ),
+        );
       },
     );
   }

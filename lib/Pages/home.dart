@@ -1,3 +1,4 @@
+import 'package:app/Pages/splashScreen.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiState.dart';
 import 'package:app/translation/translateClockNumbers.dart';
@@ -17,7 +18,7 @@ class Home extends StatelessWidget {
           builder: (context, state) {
             switch (state) {
               case PrayerLoading():
-                return Center(child: CircularProgressIndicator());
+                return AnotherSplashScreen();
               case PrayerLoaded():
                 return Center(
                   child: Column(
@@ -67,5 +68,13 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

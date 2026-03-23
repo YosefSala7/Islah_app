@@ -2,6 +2,9 @@
     "wifi_error_message":"بما أن هذه هي المرة الأولى، نحتاج للاتصال بالإنترنت لتحميل مواقيت الصلاة لمدينتك لكي تعمل لاحقاً بدون إنترنت.",
     "wifi_error_welcome":"مرحبا بك!",
     "wifi_error_button_text":"حاول مرة اخرى",
+    "location_error_cancle_button":"لا",
+    "location_error_title":"نحتاج للوصول للموقع",
+    "location_error_content":"نحتاج للوصول للموقع لتحديد مواقيت الصلاة",
     "prayer_times": {
         "am" :"ص",
         "pm" :"م",

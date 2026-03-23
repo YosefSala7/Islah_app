@@ -11,7 +11,8 @@ Future<void> getData() async {
     Welcome? response = await getPrayerTimes();
     emit(PrayerLoaded(apiData: response!.data));
   } catch (e) {
-    emit(PrayerError(errorMessage: "فشل جلب البيانات: ${e.toString()}"));
+    final offlineData = await getCachedBody();
+    emit(PrayerError(errorMessage: "فشل جلب البيانات: ${e.toString()}",cachedDate: welcomeFromJson(offlineData!)));
   }
 }
 }

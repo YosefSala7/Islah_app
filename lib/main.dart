@@ -1,6 +1,4 @@
-import 'package:app/Pages/home.dart';
-import 'package:app/authGate.dart';
-import 'package:app/splashScreen.dart';
+import 'package:app/Pages/authGate.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

@@ -18,8 +18,9 @@ class PrayerLoaded extends PrayerApiState {
 
 class PrayerError extends PrayerApiState {
   final String errorMessage;
+  final Welcome? cachedDate ;
 
-  PrayerError({required this.errorMessage});
+  PrayerError({required this.errorMessage,required this.cachedDate});
 
   @override
   List<Object?> get props => [errorMessage];

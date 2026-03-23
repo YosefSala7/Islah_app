@@ -41,7 +41,27 @@ class Home extends StatelessWidget {
                   ),
                 );
               case PrayerError():
-                return Center(child: Text(state.errorMessage));
+                return Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        "${"prayer_times.fajr".tr()}:${format12hours(state.cachedDate?.times.fajr)}",
+                      ),
+                      Text(
+                        "${"prayer_times.dhuhr".tr()}:${format12hours(state.cachedDate?.times.dhuhr)}",
+                      ),
+                      Text(
+                        "${"prayer_times.asr".tr()}:${format12hours(state.cachedDate?.times.asr)}",
+                      ),
+                      Text(
+                        "${"prayer_times.maghrib".tr()}:${format12hours(state.cachedDate?.times.maghrib)}",
+                      ),
+                      Text(
+                        "${"prayer_times.isha".tr()}:${format12hours(state.cachedDate?.times.isha)}",
+                      ),
+                    ],
+                  ),
+                );
             }
           },
         ),

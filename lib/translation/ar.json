@@ -10,6 +10,8 @@
     "Settings":"الأعدادات",
     "Quran":"القراَن الكريم",
     "Dark Mode": "الوضع الليلي",
+    "remaining_time":"الوقت المتبقي",
+    "Loading...":"جار التحميل...",
     "prayer_times": {
         "am" :"ص",
         "pm" :"م",

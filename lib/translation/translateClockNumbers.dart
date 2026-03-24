@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
+
 extension ArabicConversion on String {
   String get toAr => replaceAll('0', '٠')
       .replaceAll('1', '١')
@@ -15,12 +16,23 @@ extension ArabicConversion on String {
       .replaceAll("PM", "م");
 }
 
-String format12hours(String t) {
-  List<String> time = t.split(':');
-  int hour = int.parse(time[0]);
-  String period = hour >= 12 ? "prayer_times.pm".tr() : "prayer_times.am".tr();
-  int h12 = hour % 12;
-  if (h12 == 0) h12 = 12;
-  String hourStr = h12.toString().padLeft(2, '0');
-  return "$hourStr:${time[1]} $period";
+String format12hours(String? t) {
+  if (t == null || t == "null" || !t.contains(':')) {
+    return "Loading...".tr(); 
+  }
+
+  try {
+    List<String> time = t.split(':');
+    int hour = int.parse(time[0].trim());
+    
+    String period = hour >= 12 ? "prayer_times.pm".tr() : "prayer_times.am".tr();
+    
+    int h12 = hour % 12;
+    if (h12 == 0) h12 = 12;
+    
+    String hourStr = h12.toString().padLeft(2, '0');
+    return "$hourStr:${time[1]} $period";
+  } catch (e) {
+    return "--:--"; 
+  }
 }

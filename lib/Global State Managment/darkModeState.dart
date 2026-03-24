@@ -1,3 +1,4 @@
+import 'package:app/Global%20State%20Managment/darkModeCubit.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class DarkModeState extends Equatable {
@@ -10,7 +11,7 @@ sealed class DarkModeState extends Equatable {
 }
 
 class DarkModeInitial extends DarkModeState {
-  const DarkModeInitial() : super(isDark: false);
+  DarkModeInitial(bool isDark) : super(isDark: isDark);
 }
 
 class DarkModeUpdated extends DarkModeState {

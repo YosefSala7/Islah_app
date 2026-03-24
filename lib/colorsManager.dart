@@ -40,62 +40,95 @@ class DarkColors {
 
 // --- Light Theme ---
 final lightTheme = ThemeData(
+  fontFamily: "Cairo",
   useMaterial3: true,
   brightness: Brightness.light,
-  scaffoldBackgroundColor: LightColors.background,
-  cardColor: LightColors.card,
+  scaffoldBackgroundColor: const Color(0xFFF0F4F8), // خلفية سماوي فاتح جداً
+  cardColor: Colors.white,
   
+  // --- ألوان الأيقونات ---
+  iconTheme: const IconThemeData(color: Color(0xFF1A365D), size: 24), // كحلي غامق
+
+  // --- ألوان الزراير ---
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF2B6CB0), // خلفية الزرار (أزرق زاهي)
+      foregroundColor: Colors.white,            // لون نص الزرار
+      textStyle: const TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.bold),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
+  ),
+
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: LightColors.textPrimary), // النص الأساسي
-    bodyMedium: TextStyle(color: LightColors.textSecondary), // النص الفرعي
+    bodyLarge: TextStyle(color: Color(0xFF1A365D),fontWeight: FontWeight.bold,fontSize: 20), // نص كحلي غامق
+    bodyMedium: TextStyle(color: Color(0xFF4A5568)), // نص رمادي مزرق
   ),
 
   appBarTheme: const AppBarTheme(
-    backgroundColor: LightColors.appBar,
-    foregroundColor: LightColors.textPrimary, // لون العناوين والأيقونات في الـ Appbar
+    backgroundColor: Color(0xFF2B6CB0), // أزرق براند
+    foregroundColor: Colors.white, 
     elevation: 0,
   ),
-
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: LightColors.navBar,
-    selectedItemColor: LightColors.iconActive,
-    unselectedItemColor: LightColors.iconInactive,
-  ),
+  backgroundColor: Colors.white, // خلفية الناف بار
+  selectedItemColor: Color(0xFF2B6CB0), // لون الأيقونة المختارة (أزرق زاهي)
+  unselectedItemColor: Color(0xFF718096), // لون الأيقونة غير المختارة (رمادي مزرق)
+  showUnselectedLabels: true,
+  selectedLabelStyle: TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.bold),
+  unselectedLabelStyle: TextStyle(fontFamily: "Cairo"),
+),
 
   colorScheme: const ColorScheme.light(
-    primary: ColorManager.primary,
-    secondary: ColorManager.secondary,
-    outline: LightColors.border, 
+    primary: Color(0xFF2B6CB0),
+    secondary: Color(0xFF63B3ED), // أزرق فاتح للتفاصيل
+    surface: Colors.white,
   ),
 );
 
 // --- Dark Theme ---
 final darkTheme = ThemeData(
+  fontFamily: "Cairo",
   useMaterial3: true,
   brightness: Brightness.dark,
-  scaffoldBackgroundColor: DarkColors.background,
-  cardColor: DarkColors.card,
+  scaffoldBackgroundColor: const Color(0xFF0A192F), // كحلي غامق جداً (ليلي)
+  cardColor: const Color(0xFF172A45), // أزرق غامق للكروت
+
+  // --- ألوان الأيقونات ---
+  iconTheme: const IconThemeData(color: Color(0xFF63B3ED), size: 24), // أزرق سماوي ينور في الضلمة
+
+  // --- ألوان الزراير ---
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF63B3ED), // زرار فاتح عشان يبان في الغامق
+      foregroundColor: const Color(0xFF0A192F), // نص كحلي غامق فوق الزرار الفاتح
+      textStyle: const TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.bold),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
+  ),
 
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: DarkColors.textPrimary),
-    bodyMedium: TextStyle(color: DarkColors.textSecondary),
+    bodyLarge: TextStyle(color: Color(0xFFE6F1FF),fontWeight: FontWeight.bold,fontSize: 20), // نص أبيض مزرق
+    bodyMedium: TextStyle(color: Color(0xFF8892B0)), // نص رمادي هادئ
   ),
 
   appBarTheme: const AppBarTheme(
-    backgroundColor: DarkColors.appBar,
-    foregroundColor: DarkColors.textPrimary,
+    backgroundColor: Color(0xFF0A192F),
+    foregroundColor: Color(0xFF63B3ED),
     elevation: 0,
   ),
 
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: DarkColors.navBar,
-    selectedItemColor: DarkColors.iconActive,
-    unselectedItemColor: DarkColors.iconInactive,
-  ),
+  backgroundColor: Color(0xFF112240), // كحلي أغمق درجة من الكروت
+  selectedItemColor: Color(0xFF63B3ED), // لون الأيقونة المختارة (لبني فاتح)
+  unselectedItemColor: Color(0xFF8892B0), // لون الأيقونة غير المختارة
+  showUnselectedLabels: true,
+  selectedLabelStyle: TextStyle(fontFamily: "Cairo", fontWeight: FontWeight.bold),
+  unselectedLabelStyle: TextStyle(fontFamily: "Cairo"),
+),
 
   colorScheme: const ColorScheme.dark(
-    primary: ColorManager.primary,
-    secondary: ColorManager.secondary,
-    outline: DarkColors.border,
+    primary: Color(0xFF63B3ED),
+    secondary: Color(0xFF2B6CB0),
+    surface: const Color(0xFF172A45),
   ),
 );

@@ -1,6 +1,9 @@
 import 'package:app/Pages/splashScreen.dart';
+import 'package:app/components/card.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiState.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerTimeCubit.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerTimeState.dart';
 import 'package:app/translation/translateClockNumbers.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,68 +16,158 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: context.read<PrayerApiCubit>(),
-      child: Scaffold(
-        body: BlocBuilder<PrayerApiCubit, PrayerApiState>(
-          builder: (context, state) {
-            switch (state) {
-              case PrayerLoading():
-                return AnotherSplashScreen();
-              case PrayerLoaded():
-                return Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "${"prayer_times.fajr".tr()}:${format12hours(state.apiData.times.fajr)}",
-                      ),
-                      Text(
-                        "${"prayer_times.dhuhr".tr()}:${format12hours(state.apiData.times.dhuhr)}",
-                      ),
-                      Text(
-                        "${"prayer_times.asr".tr()}:${format12hours(state.apiData.times.asr)}",
-                      ),
-                      Text(
-                        "${"prayer_times.maghrib".tr()}:${format12hours(state.apiData.times.maghrib)}",
-                      ),
-                      Text(
-                        "${"prayer_times.isha".tr()}:${format12hours(state.apiData.times.isha)}",
-                      ),
-                    ],
-                  ),
-                );
-              case PrayerError():
-                return Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "${"prayer_times.fajr".tr()}:${format12hours(state.cachedDate?.times.fajr)}",
-                      ),
-                      Text(
-                        "${"prayer_times.dhuhr".tr()}:${format12hours(state.cachedDate?.times.dhuhr)}",
-                      ),
-                      Text(
-                        "${"prayer_times.asr".tr()}:${format12hours(state.cachedDate?.times.asr)}",
-                      ),
-                      Text(
-                        "${"prayer_times.maghrib".tr()}:${format12hours(state.cachedDate?.times.maghrib)}",
-                      ),
-                      Text(
-                        "${"prayer_times.isha".tr()}:${format12hours(state.cachedDate?.times.isha)}",
-                      ),
-                    ],
-                  ),
-                );
-            }
-          },
-        ),
+      child: BlocBuilder<PrayerApiCubit, PrayerApiState>(
+        builder: (context, state) {
+          switch (state) {
+            case PrayerLoading():
+              return AnotherSplashScreen();
+            case PrayerLoaded():
+              return HomePage(
+                fajr: state.apiData.times.fajr,
+                dhuhr: state.apiData.times.dhuhr,
+                asr: state.apiData.times.asr,
+                maghrib: state.apiData.times.maghrib,
+                isha: state.apiData.times.isha,
+                day: state.apiData.date.gregorian.day,
+                year: state.apiData.date.gregorian.year,
+                month: state.apiData.date.gregorian.month.en,
+                hijriYear: state.apiData.date.hijri.year,
+                hijriMonth: state.apiData.date.hijri.month.en,
+                hijriDay: state.apiData.date.hijri.day,
+              );
+            case PrayerError():
+              return HomePage(
+                fajr: state.cachedDate?.times.fajr,
+                dhuhr: state.cachedDate?.times.dhuhr,
+                asr: state.cachedDate?.times.asr,
+                maghrib: state.cachedDate?.times.maghrib,
+                isha: state.cachedDate?.times.isha,
+                day: state.cachedDate?.data.date.gregorian.day,
+                year: state.cachedDate?.data.date.gregorian.year,
+                month: state.cachedDate?.data.date.gregorian.month.en,
+                hijriYear: state.cachedDate?.data.date.hijri.year,
+                hijriMonth: state.cachedDate?.data.date.hijri.month.en,
+                hijriDay: state.cachedDate?.data.date.hijri.day,
+              );
+          }
+        },
       ),
     );
   }
 }
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
 
+class HomePage extends StatelessWidget {
+  HomePage({
+    super.key,
+    required this.fajr,
+    required this.dhuhr,
+    required this.asr,
+    required this.maghrib,
+    required this.isha,
+    required this.hijriYear,
+    required this.hijriMonth,
+    required this.hijriDay,
+    required this.year,
+    required this.month,
+    required this.day,
+  });
+  String fajr;
+  String dhuhr;
+  String asr;
+  String maghrib;
+  String isha;
+  List<Map> get prayers => [
+    {"name": "prayer_times.fajr".tr(), "time": fajr},
+    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr},
+    {"name": "prayer_times.asr".tr(), "time": asr},
+    {"name": "prayer_times.maghrib".tr(), "time": maghrib},
+    {"name": "prayer_times.isha".tr(), "time": isha},
+  ];
+  String? hijriYear;
+  String? hijriDay;
+  String? hijriMonth;
+  String? year;
+  String? day;
+  String? month;
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocProvider(
+      create: (context) => PrayerTimeCubit(prayers),
+      child: Scaffold(
+        body: SafeArea(
+          child: ListView(
+            children: [
+              Column(
+                children: [
+                  BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
+                    builder: (context, state) {
+                      return Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: MyCard(
+                          20,
+                          150,
+                          double.infinity,
+                          Theme.of(context).cardColor,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  state.nextPrayer["name"] ??"Loading...".tr().toString(),
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  format12hours(
+                                    state.nextPrayer["time"] ??
+                                        "Loading...".tr().toString(),
+                                  ),
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                              MyCard(
+                                50,
+                                30,
+                                190,
+                                Theme.of(context).cardColor,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.hourglass_bottom_rounded,
+                                      color: Theme.of(context).iconTheme.color,
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      "${"remaining_time".tr()}: ",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                    Text(
+                                      state.nextPrayer["remaining"]??"Loading...".tr().toString(),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -37,3 +37,65 @@ class DarkColors {
   static const Color iconActive = ColorManager.accent;
   static const Color iconInactive = Color(0xFF64748B);
 }
+
+// --- Light Theme ---
+final lightTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.light,
+  scaffoldBackgroundColor: LightColors.background,
+  cardColor: LightColors.card,
+  
+  textTheme: const TextTheme(
+    bodyLarge: TextStyle(color: LightColors.textPrimary), // النص الأساسي
+    bodyMedium: TextStyle(color: LightColors.textSecondary), // النص الفرعي
+  ),
+
+  appBarTheme: const AppBarTheme(
+    backgroundColor: LightColors.appBar,
+    foregroundColor: LightColors.textPrimary, // لون العناوين والأيقونات في الـ Appbar
+    elevation: 0,
+  ),
+
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: LightColors.navBar,
+    selectedItemColor: LightColors.iconActive,
+    unselectedItemColor: LightColors.iconInactive,
+  ),
+
+  colorScheme: const ColorScheme.light(
+    primary: ColorManager.primary,
+    secondary: ColorManager.secondary,
+    outline: LightColors.border, 
+  ),
+);
+
+// --- Dark Theme ---
+final darkTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.dark,
+  scaffoldBackgroundColor: DarkColors.background,
+  cardColor: DarkColors.card,
+
+  textTheme: const TextTheme(
+    bodyLarge: TextStyle(color: DarkColors.textPrimary),
+    bodyMedium: TextStyle(color: DarkColors.textSecondary),
+  ),
+
+  appBarTheme: const AppBarTheme(
+    backgroundColor: DarkColors.appBar,
+    foregroundColor: DarkColors.textPrimary,
+    elevation: 0,
+  ),
+
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: DarkColors.navBar,
+    selectedItemColor: DarkColors.iconActive,
+    unselectedItemColor: DarkColors.iconInactive,
+  ),
+
+  colorScheme: const ColorScheme.dark(
+    primary: ColorManager.primary,
+    secondary: ColorManager.secondary,
+    outline: DarkColors.border,
+  ),
+);

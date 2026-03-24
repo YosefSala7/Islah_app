@@ -1,7 +1,7 @@
 import 'package:app/Pages/azkarPage.dart';
 import 'package:app/Pages/home.dart';
 import 'package:app/Pages/quranPage.dart';
-import 'package:app/colorsManager.dart';
+import 'package:app/Pages/settingPages.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiCubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,6 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
-        backgroundColor: LightColors.navBar,
         tabs: [
           PersistentTabConfig(
             screen: BlocProvider.value(
@@ -30,8 +29,14 @@ class _NavbarState extends State<Navbar> {
               child: const Home(),
             ),
             item: ItemConfig(
-              icon: FaIcon(FontAwesomeIcons.houseChimney,color: LightColors.iconActive,),
-              inactiveIcon: FaIcon(FontAwesomeIcons.house,color: LightColors.iconInactive,),
+              icon: Icon(FlutterIslamicIcons.solidMosque),
+              activeForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.selectedItemColor!,
+              inactiveForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.unselectedItemColor!,
+              inactiveIcon: Icon(FlutterIslamicIcons.mosque),
               title: "Home".tr(),
             ),
           ),
@@ -43,6 +48,12 @@ class _NavbarState extends State<Navbar> {
             item: ItemConfig(
               icon: Icon(FlutterIslamicIcons.solidTasbih3),
               inactiveIcon: Icon(FlutterIslamicIcons.tasbih3),
+              activeForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.selectedItemColor!,
+              inactiveForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.unselectedItemColor!,
               title: "Azkar".tr(),
             ),
           ),
@@ -51,11 +62,43 @@ class _NavbarState extends State<Navbar> {
               value: context.read<PrayerApiCubit>(),
               child: const QuranPage(),
             ),
-            item: ItemConfig(icon: Icon(Icons.settings), title: "Settings"),
+            item: ItemConfig(
+              icon: Icon(FlutterIslamicIcons.solidQuran),
+              inactiveIcon: Icon(FlutterIslamicIcons.quran),
+              activeForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.selectedItemColor!,
+              inactiveForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.unselectedItemColor!,
+              title: "Quran".tr(),
+            ),
+          ),
+          PersistentTabConfig(
+            screen: BlocProvider.value(
+              value: context.read<PrayerApiCubit>(),
+              child: const SettingPage(),
+            ),
+            item: ItemConfig(
+              icon: Icon(Icons.settings),
+              inactiveIcon: Icon(Icons.settings_outlined),
+              activeForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.selectedItemColor!,
+              inactiveForegroundColor: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.unselectedItemColor!,
+              title: "Settings".tr(),
+            ),
           ),
         ],
-        navBarBuilder: (navBarConfig) =>
-            Style1BottomNavBar(navBarConfig: navBarConfig),
+
+        navBarBuilder: (navBarConfig) => Style1BottomNavBar(
+          navBarConfig: navBarConfig,
+          navBarDecoration: NavBarDecoration(
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
+          ),
+        ),
       ),
     );
   }

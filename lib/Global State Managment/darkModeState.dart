@@ -1,0 +1,18 @@
+import 'package:equatable/equatable.dart';
+
+sealed class DarkModeState extends Equatable {
+  final bool isDark; 
+
+  const DarkModeState({required this.isDark});
+
+  @override
+  List<Object?> get props => [isDark];
+}
+
+class DarkModeInitial extends DarkModeState {
+  const DarkModeInitial() : super(isDark: false);
+}
+
+class DarkModeUpdated extends DarkModeState {
+  const DarkModeUpdated({required bool DarkStatus}) : super(isDark: DarkStatus);
+}

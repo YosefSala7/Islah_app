@@ -5,6 +5,11 @@
     "location_error_cancle_button":"لا",
     "location_error_title":"نحتاج للوصول للموقع",
     "location_error_content":"نحتاج للوصول للموقع لتحديد مواقيت الصلاة",
+    "Home":"الرئيسية",
+    "Azkar":"الأذكار",
+    "Settings":"الأعدادات",
+    "Quran":"القراَن الكريم",
+    "Dark Mode": "الوضع الليلي",
     "prayer_times": {
         "am" :"ص",
         "pm" :"م",

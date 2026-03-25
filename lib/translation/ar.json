@@ -12,6 +12,8 @@
     "Dark Mode": "الوضع الليلي",
     "remaining_time":"الوقت المتبقي",
     "Loading...":"جار التحميل...",
+    "next_prayer":"الصلاة القادمة ",
+    "in":"في",
     "prayer_times": {
         "am" :"ص",
         "pm" :"م",

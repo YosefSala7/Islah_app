@@ -1,5 +1,6 @@
 import 'package:app/Pages/splashScreen.dart';
 import 'package:app/components/card.dart';
+import 'package:app/components/myShimmer.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiState.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerTimeCubit.dart';
@@ -8,6 +9,9 @@ import 'package:app/translation/translateClockNumbers.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -77,11 +81,11 @@ class HomePage extends StatelessWidget {
   String maghrib;
   String isha;
   List<Map> get prayers => [
-    {"name": "prayer_times.fajr".tr(), "time": fajr},
-    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr},
-    {"name": "prayer_times.asr".tr(), "time": asr},
-    {"name": "prayer_times.maghrib".tr(), "time": maghrib},
-    {"name": "prayer_times.isha".tr(), "time": isha},
+    {"name": "prayer_times.fajr".tr(), "time": fajr,"icon": Icon(WeatherIcons.sunrise)},
+    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr,"icon": Icon(WeatherIcons.day_sunny)},
+    {"name": "prayer_times.asr".tr(), "time": asr,"icon": Icon(WeatherIcons.cloud_down)},
+    {"name": "prayer_times.maghrib".tr(), "time": maghrib,"icon": Icon(WeatherIcons.sunset)},
+    {"name": "prayer_times.isha".tr(), "time": isha,"icon": Icon(WeatherIcons.moon_alt_full)},
   ];
   String? hijriYear;
   String? hijriDay;
@@ -96,14 +100,15 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
-              Column(
-                children: [
-                  BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
-                    builder: (context, state) {
-                      return Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: MyCard(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
+                      builder: (context, state) {
+                        return MyCard(
                           20,
                           150,
                           double.infinity,
@@ -111,58 +116,100 @@ class HomePage extends StatelessWidget {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Text("next_prayer".tr()),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  state.nextPrayer["name"] ??"Loading...".tr().toString(),
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  format12hours(
-                                    state.nextPrayer["time"] ??
-                                        "Loading...".tr().toString(),
+                                padding: const EdgeInsets.all(4.0),
+                                child: MyShimmer(
+                                  hight: 25,
+                                  width: 90,
+                                  isLoading: state.nextPrayer["name"] == null,
+                                  child: Shimmer.fromColors(
+                                    loop: 8,
+                                    direction: ShimmerDirection.rtl,
+                                    baseColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    highlightColor: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    child: Text(
+                                      state.nextPrayer["name"].toString(),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge,
+                                    ),
                                   ),
-                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
-                              MyCard(
-                                50,
-                                30,
-                                190,
-                                Theme.of(context).cardColor,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.hourglass_bottom_rounded,
-                                      color: Theme.of(context).iconTheme.color,
-                                      size: 20,
-                                    ),
-                                    Text(
-                                      "${"remaining_time".tr()}: ",
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: MyShimmer(
+                                  hight: 25,
+                                  width: 105,
+                                  isLoading: state.nextPrayer["time"] == null,
+                                  child: Shimmer.fromColors(
+                                    loop: 8,
+                                    baseColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    highlightColor: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    child: Text(
+                                      "${"in".tr()} ${format12hours(state.nextPrayer["time"].toString())}",
                                       style: Theme.of(
                                         context,
-                                      ).textTheme.bodyMedium,
+                                      ).textTheme.bodyLarge,
                                     ),
-                                    Text(
-                                      state.nextPrayer["remaining"]??"Loading...".tr().toString(),
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodyMedium,
-                                    ),
-                                  ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: MyCard(
+                                  50,
+                                  30,
+                                  190,
+                                  Theme.of(context).cardColor,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.hourglass_bottom_rounded,
+                                        color: Theme.of(context).iconTheme.color,
+                                        size: 20,
+                                      ),
+                                      Text(
+                                        "${"remaining_time".tr()}: ",
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium,
+                                      ),
+                                      MyShimmer(
+                                        hight: 15,
+                                        isLoading:
+                                            state.nextPrayer["remaining"] == null,
+                                        width: 40,
+                                        child: Text(
+                                          state.nextPrayer["remaining"] ??
+                                              "Loading...".tr().toString(),
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

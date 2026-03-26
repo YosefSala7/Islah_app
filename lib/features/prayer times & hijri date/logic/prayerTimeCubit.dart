@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerTimeState.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeState.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

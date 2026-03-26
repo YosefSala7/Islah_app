@@ -1,6 +1,6 @@
-import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiState.dart';
-import 'package:app/mainDataModel/dataModel.dart';
-import 'package:app/repos/fetchPrayerTimesAPI.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/Models/dataModel.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/fetchPrayerTimesAPI.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PrayerApiCubit extends Cubit<PrayerApiState> {

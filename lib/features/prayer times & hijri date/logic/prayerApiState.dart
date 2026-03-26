@@ -1,4 +1,4 @@
-import 'package:app/mainDataModel/dataModel.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/Models/dataModel.dart';
 import 'package:equatable/equatable.dart';
 sealed class PrayerApiState extends Equatable {}
 

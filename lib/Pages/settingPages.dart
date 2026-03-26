@@ -1,5 +1,5 @@
-import 'package:app/Global%20State%20Managment/darkModeCubit.dart';
-import 'package:app/Global%20State%20Managment/darkModeState.dart';
+import 'package:app/core/Global%20State%20Managment/darkModeCubit.dart';
+import 'package:app/core/Global%20State%20Managment/darkModeState.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

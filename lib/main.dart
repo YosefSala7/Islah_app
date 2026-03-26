@@ -1,7 +1,7 @@
-import 'package:app/Global%20State%20Managment/darkModeCubit.dart';
-import 'package:app/Global%20State%20Managment/darkModeState.dart';
+import 'package:app/core/Global%20State%20Managment/darkModeCubit.dart';
+import 'package:app/core/Global%20State%20Managment/darkModeState.dart';
 import 'package:app/Pages/authGate.dart';
-import 'package:app/colorsManager.dart';
+import 'package:app/core/colorsManager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +18,7 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('ar')],
-      path: 'lib/translation',
+      path: 'lib/core/translation',
       fallbackLocale: const Locale('ar'),
       child: BlocProvider<DarkCubit>(
         create: (context) => DarkCubit(savedDark),

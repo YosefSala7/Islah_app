@@ -1,4 +1,4 @@
-import 'package:app/Global%20State%20Managment/darkModeState.dart';
+import 'package:app/core/Global%20State%20Managment/darkModeState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

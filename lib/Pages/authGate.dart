@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:app/Pages/home.dart';
 import 'package:app/Pages/navBar.dart';
-import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiCubit.dart';
-import 'package:app/features/prayer%20times%20&%20hijri%20date/prayer%20API%20State%20management/prayerApiState.dart';
-import 'package:app/repos/fetchPrayerTimesAPI.dart';
-import 'package:app/repos/getLocation.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/fetchPrayerTimesAPI.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/geoCoding.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/getLocation.dart';
 import 'package:app/Pages/splashScreen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -26,6 +26,7 @@ class _AuthGateState extends State<AuthGate> {
   void initState() {
     super.initState();
     _targetScreenFuture = _determineTargetScreen();
+    getGeoLocation();
   }
 
   Future<bool> _showErrorDialog({

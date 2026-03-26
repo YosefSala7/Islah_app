@@ -1,5 +1,5 @@
-import 'package:app/mainDataModel/dataModel.dart';
-import 'package:app/repos/getLocation.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/Models/dataModel.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/getLocation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';

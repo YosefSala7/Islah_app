@@ -18,8 +18,8 @@ class CurrentPrayerWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: MyCard(
-            20,
-            165,
+            25,
+            MediaQuery.heightOf(context) / 4,
             double.infinity,
             Theme.of(context).cardColor,
             Column(
@@ -27,7 +27,7 @@ class CurrentPrayerWidget extends StatelessWidget {
               children: [
                 Text(
                   "next_prayer".tr(),
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -68,8 +68,8 @@ class CurrentPrayerWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: MyCard(
                     50,
-                    30,
-                    190,
+                    MediaQuery.heightOf(context)/24,
+                    MediaQuery.widthOf(context)/1.65,
                     Theme.of(context).cardColor,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

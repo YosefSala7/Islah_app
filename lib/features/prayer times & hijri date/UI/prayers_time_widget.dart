@@ -7,84 +7,71 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PrayersTime extends StatelessWidget {
-  PrayersTime({super.key,required this.prayers});
-  List <Map> prayers;
+  PrayersTime({super.key, required this.prayers});
+  List<Map> prayers;
+
   @override
   Widget build(BuildContext context) {
+    // حساب عرض الكارت بناءً على عرض الشاشة
+    // قسمة العرض على 4.5 عشان يظهر 4 كروت ونص (النص ده عشان اليوزر يعرف ان فيه سكرول)
+    double cardWidth = MediaQuery.of(context).size.width / 5.6;
+
     return BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
       builder: (context, state) {
         return SizedBox(
-                          height: 85,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: prayers.length,
-                            itemBuilder: (context, index) {
-                              if (prayers[index]["name"] ==
-                                  state.nextPrayer["name"]) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Shimmer.fromColors(
-                                    child: MyCard(
-                                      10,
-                                      80,
-                                      64,
-                                      Theme.of(
-                                        context,
-                                      ).colorScheme.outline.withAlpha(70),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(prayers[index]["icon"]),
-                                          Text(prayers[index]["name"]),
-                                          Text(
-                                            format12hours(
-                                              prayers[index]["time"],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    baseColor: Theme.of(
-                                      context,
-                                    ).colorScheme.outline.withAlpha(255),
-                                    highlightColor: Theme.of(
-                                      context,
-                                    ).colorScheme.secondary,
-                                  ),
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: MyCard(
-                                    10,
-                                    80,
-                                    64,
-                                    Theme.of(context).cardColor,
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(prayers[index]["icon"]),
-                                        Text(prayers[index]["name"]),
-                                        Text(
-                                          format12hours(
-                                            prayers[index]["time"],
-                                          ).trim(),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        );
+          height: MediaQuery.of(context).size.height / 7.8,
+          width: double.infinity,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+          physics: NeverScrollableScrollPhysics(),
+            itemCount: prayers.length,
+            itemBuilder: (context, index) {
+              if (prayers[index]["name"] == state.nextPrayer["name"]) {
+                return Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Shimmer.fromColors(
+                    child: MyCard(
+                      15,
+                      100,
+                      cardWidth, // تم استبدال الثابت بالعرض المتغير
+                      Theme.of(context).colorScheme.outline.withAlpha(70),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(prayers[index]["icon"], size: 20,),
+                          Text(prayers[index]["name"], style: Theme.of(context).textTheme.bodySmall,),
+                          Text(format12hours(prayers[index]["time"]), style: Theme.of(context).textTheme.bodySmall,),
+                        ],
+                      ),
+                    ),
+                    baseColor: Theme.of(context).colorScheme.outline.withAlpha(255),
+                    highlightColor: Theme.of(context).colorScheme.secondary,
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: MyCard(
+                    15,
+                    100,
+                    cardWidth, // تم استبدال الثابت بالعرض المتغير
+                    Theme.of(context).cardColor,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(prayers[index]["icon"], size: 20,),
+                        Text(prayers[index]["name"], style: Theme.of(context).textTheme.bodySmall,),
+                        Text(format12hours(prayers[index]["time"]).trim(), style: Theme.of(context).textTheme.bodySmall,),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
+        );
       },
     );
   }

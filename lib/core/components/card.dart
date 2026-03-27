@@ -23,7 +23,7 @@ class MyCard extends StatelessWidget {
         color: backgroundColor,
         border: Border.all(
           color: Theme.of(context).colorScheme.outline,
-          width: 2,
+          width: 1,
         ),
         borderRadius: BorderRadius.circular(bordeRadius),
       ),

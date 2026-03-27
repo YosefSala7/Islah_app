@@ -1,19 +1,16 @@
+import 'dart:ui' as ui;
+
 import 'package:app/Pages/splashScreen.dart';
-import 'package:app/core/components/card.dart';
-import 'package:app/core/components/myShimmer.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/current_prayer_widget.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/date_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/prayers_time_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeCubit.dart';
-import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeState.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/geoCoding.dart';
-import 'package:app/core/translation/translateClockNumbers.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 class Home extends StatelessWidget {
@@ -41,6 +38,7 @@ class Home extends StatelessWidget {
                 hijriYear: state.apiData.date.hijri.year,
                 hijriMonth: state.apiData.date.hijri.month.en,
                 hijriDay: state.apiData.date.hijri.day,
+                dayName: state.apiData.date.hijri.weekday.en,
               );
             case PrayerError():
               return HomePage(
@@ -55,6 +53,7 @@ class Home extends StatelessWidget {
                 hijriYear: state.cachedDate?.data.date.hijri.year,
                 hijriMonth: state.cachedDate?.data.date.hijri.month.en,
                 hijriDay: state.cachedDate?.data.date.hijri.day,
+                dayName: state.cachedDate?.data.date.hijri.weekday.en,
               );
           }
         },
@@ -77,28 +76,28 @@ class HomePage extends StatelessWidget {
     required this.year,
     required this.month,
     required this.day,
+    required this.dayName,
   });
   String fajr;
   String dhuhr;
   String asr;
   String maghrib;
   String isha;
+  String? hijriYear;
+  String? hijriDay;
+  String? hijriMonth;
+  String? dayName;
+  String? year;
+  String? day;
+  String? month;
   List<Map> get prayers => [
     {
       "name": "prayer_times.fajr".tr(),
       "time": fajr,
       "icon": WeatherIcons.sunrise,
     },
-    {
-      "name": "prayer_times.dhuhr".tr(),
-      "time": dhuhr,
-      "icon": Icons.sunny,
-    },
-    {
-      "name": "prayer_times.asr".tr(),
-      "time": asr,
-      "icon": WeatherIcons.cloudy,
-    },
+    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr, "icon": Icons.sunny},
+    {"name": "prayer_times.asr".tr(), "time": asr, "icon": WeatherIcons.cloudy},
     {
       "name": "prayer_times.maghrib".tr(),
       "time": maghrib,
@@ -110,65 +109,93 @@ class HomePage extends StatelessWidget {
       "icon": Icons.nights_stay_sharp,
     },
   ];
-  String? hijriYear;
-  String? hijriDay;
-  String? hijriMonth;
-  String? year;
-  String? day;
-  String? month;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PrayerTimeCubit(prayers),
       child: Scaffold(
         body: SafeArea(
-          child: ListView(
+          child: CustomScrollView(
             physics: BouncingScrollPhysics(),
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-                    FutureBuilder(
-                      future: getGeolocationFromCache(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const CircularProgressIndicator();
-                        }
+            slivers: [
+              SliverAppBar(
+                surfaceTintColor: Colors.transparent,
+                centerTitle: true,
+                backgroundColor: Colors.transparent,
+                pinned: true,
+                expandedHeight: MediaQuery.heightOf(context)/10,
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  background: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Assalamu_Alaikum".tr(),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            FutureBuilder(
+                              future: getGeolocationFromCache(),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) return const SizedBox();
+                                final data = snapshot.data!;
+                                List address =
+                                    [
+                                          data["cityName"],
+                                          data["subCity"],
+                                          data["goveronrate"],
+                                        ]
+                                        .where((e) => e != null && e.isNotEmpty)
+                                        .toList();
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  textDirection: ui.TextDirection.ltr,
+                                  children: [
+                                    Icon(Icons.location_on, size: 18),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      address.join(", "),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  expandedTitleScale: 1.2,
+                ),
+              ),
 
-                        if (snapshot.hasError || !snapshot.hasData) {
-                          return const Text("الموقع غير محدد");
-                        }
-
-                        final data = snapshot.data!;
-                        final List address = [];
-                        if (data["cityName"]!.isNotEmpty) {
-                          address.add(data["cityName"]!.toString());
-                        }
-                        if (data["subCity"]!.isNotEmpty) {
-                          address.add(data["subCity"]!.toString());
-                        }
-                        if (data["governorate"]!.isNotEmpty) {
-                          address.add(data["governorate"]!.toString());
-                        }
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Row(
-                            children: [
-                              Icon(Icons.location_on),
-                              Text(
-                                address.join(","),
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+              SliverToBoxAdapter(
+                child: GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        CurrentPrayerWidget(),
+                        PrayersTime(prayers: prayers),
+                        DateWidget(
+                          dayName: dayName,
+                          hijriDay: hijriDay,
+                          hijriMonth: hijriMonth,
+                          hijriYear: hijriYear,
+                          year: year,
+                          month: month,
+                          day: day,
+                        ),
+                      ],
                     ),
-                    CurrentPrayerWidget(),
-                    PrayersTime(prayers: prayers),
-                  ],
+                  ),
                 ),
               ),
             ],

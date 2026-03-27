@@ -3,8 +3,92 @@ import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeS
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// class PrayerTimeCubit extends Cubit<PrayerTimeState> {
+//   final List<Map> allPrayers; 
+//   Timer? _timer;
+
+//   PrayerTimeCubit(this.allPrayers) : super(PrayerTimeInit()) {
+//     _startTimer();
+//   }
+
+//   void _startTimer() {
+//     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+//       final now = DateTime.now();
+
+//       Map next = _findNextPrayer(now);
+
+//       String remaining = _calculateRemaining(next['time']);
+
+//       emit(
+//         PrayerTimeUpdate(DateFormat('hh:mm:ss a').format(now), {
+//           'name': next['name'],
+//           'time': next['time'],
+//           'remaining': remaining,
+//         }),
+//       );
+//     });
+//   }
+
+// Map _findNextPrayer(DateTime now) {
+//   for (var prayer in allPrayers) {
+//     final prayerTime = _parseTimeToday(prayer['time']);
+    
+//     if (prayerTime.isAfter(now)) {
+//       return prayer;
+//     }
+//   }
+  
+//   return allPrayers[0]; 
+// }
+
+// DateTime _parseTimeToday(String? timeStr) {
+//   if (timeStr == null || !timeStr.contains(':')) return DateTime.now();
+
+//   try {
+//     final parts = timeStr.split(':');
+//     final now = DateTime.now();
+//     int hour = int.tryParse(parts[0].trim()) ?? 0;
+//     int minute = int.tryParse(parts[1].trim()) ?? 0;
+//     return DateTime(now.year, now.month, now.day, hour, minute);
+//   } catch (e) {
+//     return DateTime.now();
+//   }
+// }
+
+// String _calculateRemaining(String? targetTime) {
+//   if (targetTime == null || targetTime.isEmpty || !targetTime.contains(':')) {
+//     return "--:--:--"; 
+//   }
+
+//   try {
+//     final targetDateTime = _parseTimeToday(targetTime);
+//     final diff = targetDateTime.difference(DateTime.now());
+
+//     if (diff.isNegative) {
+//       return "00:00:00"; 
+//     }
+
+//     String h = diff.inHours.toString().padLeft(2, '0');
+//     String m = (diff.inMinutes % 60).toString().padLeft(2, '0');
+//     String s = (diff.inSeconds % 60).toString().padLeft(2, '0');
+
+//     return "$h:$m:$s";
+    
+//   } catch (e) {
+//     return "--:--:--";
+//   }
+// }
+
+//   @override
+//   Future<void> close() {
+//     _timer?.cancel();
+//     return super.close();
+//   }
+// }
+
+
 class PrayerTimeCubit extends Cubit<PrayerTimeState> {
-  final List<Map> allPrayers; 
+  final List<Map> allPrayers;
   Timer? _timer;
 
   PrayerTimeCubit(this.allPrayers) : super(PrayerTimeInit()) {
@@ -14,70 +98,64 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       final now = DateTime.now();
-
+      
       Map next = _findNextPrayer(now);
+      DateTime nextPrayerDateTime = next['dateTime'];
 
-      String remaining = _calculateRemaining(next['time']);
+      String remaining = _calculateRemaining(nextPrayerDateTime);
 
       emit(
         PrayerTimeUpdate(DateFormat('hh:mm:ss a').format(now), {
           'name': next['name'],
-          'time': next['time'],
+          'time': next['time'], 
           'remaining': remaining,
         }),
       );
     });
   }
 
-Map _findNextPrayer(DateTime now) {
-  for (var prayer in allPrayers) {
-    final prayerTime = _parseTimeToday(prayer['time']);
-    
-    if (prayerTime.isAfter(now)) {
-      return prayer;
+  Map _findNextPrayer(DateTime now) {
+    for (var prayer in allPrayers) {
+      DateTime prayerTime = _parseToDateTime(prayer['time'], false);
+      
+      if (prayerTime.isAfter(now)) {
+        return {...prayer, 'dateTime': prayerTime};
+      }
     }
+    
+    DateTime tomorrowFirstPrayer = _parseToDateTime(allPrayers[0]['time'], true);
+    return {...allPrayers[0], 'dateTime': tomorrowFirstPrayer};
   }
-  
-  return allPrayers[0]; 
-}
 
-DateTime _parseTimeToday(String? timeStr) {
-  if (timeStr == null || !timeStr.contains(':')) return DateTime.now();
+  DateTime _parseToDateTime(String? timeStr, bool isTomorrow) {
+    if (timeStr == null || !timeStr.contains(':')) return DateTime.now();
 
-  try {
     final parts = timeStr.split(':');
     final now = DateTime.now();
     int hour = int.tryParse(parts[0].trim()) ?? 0;
     int minute = int.tryParse(parts[1].trim()) ?? 0;
-    return DateTime(now.year, now.month, now.day, hour, minute);
-  } catch (e) {
-    return DateTime.now();
-  }
-}
 
-String _calculateRemaining(String? targetTime) {
-  if (targetTime == null || targetTime.isEmpty || !targetTime.contains(':')) {
-    return "--:--:--"; 
-  }
-
-  try {
-    final targetDateTime = _parseTimeToday(targetTime);
-    final diff = targetDateTime.difference(DateTime.now());
-
-    if (diff.isNegative) {
-      return "00:00:00"; 
+    DateTime dt = DateTime(now.year, now.month, now.day, hour, minute);
+    
+    if (isTomorrow) {
+      dt = dt.add(const Duration(days: 1));
     }
+    
+    return dt;
+  }
+
+  String _calculateRemaining(DateTime targetDateTime) {
+    final now = DateTime.now();
+    final diff = targetDateTime.difference(now);
+
+    if (diff.isNegative) return "00:00:00";
 
     String h = diff.inHours.toString().padLeft(2, '0');
     String m = (diff.inMinutes % 60).toString().padLeft(2, '0');
     String s = (diff.inSeconds % 60).toString().padLeft(2, '0');
 
     return "$h:$m:$s";
-    
-  } catch (e) {
-    return "--:--:--";
   }
-}
 
   @override
   Future<void> close() {

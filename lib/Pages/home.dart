@@ -147,7 +147,7 @@ class HomePage extends StatelessWidget {
                                     [
                                           data["cityName"],
                                           data["subCity"],
-                                          data["goveronrate"],
+                                          data["governorate"],
                                         ]
                                         .where((e) => e != null && e.isNotEmpty)
                                         .toList();

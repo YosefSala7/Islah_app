@@ -14,7 +14,7 @@ Future<Welcome?> getPrayerTimes() async {
 
     String? apiUrl = dotenv.env['API_KEY'];
     if (apiUrl == null) {
-      return await _getFallbackData();
+      return await getFallbackData();
     }
 
     double lat = location['latitude']!;
@@ -34,14 +34,14 @@ Future<Welcome?> getPrayerTimes() async {
       await saveApiData(response.body);
       return welcomeFromJson(response.body);
     } else {
-      return await _getFallbackData();
+      return await getFallbackData();
     }
   } catch (e) {
-    return await _getFallbackData();
+    return await getFallbackData();
   }
 }
 
-Future<Welcome?> _getFallbackData() async {
+Future<Welcome?> getFallbackData() async {
   final offlineData = await getCachedBody();
   if (offlineData != null) {
     return welcomeFromJson(offlineData);

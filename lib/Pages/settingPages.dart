@@ -1,5 +1,6 @@
 import 'package:app/core/Global%20State%20Managment/darkModeCubit.dart';
 import 'package:app/core/Global%20State%20Managment/darkModeState.dart';
+import 'package:app/features/notifcations_feature/noti_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,18 @@ class SettingPage extends StatelessWidget {
               ),
             ],
           ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                await LocalNotiService.instance.show(
+                  id: 999,
+                  title: 'اختبار فوري',
+                  body: 'هذا إشعار فوري للتأكد من الصوت',
+                );
+              },
+              icon: Icon(Icons.notifications_active),
+              label: Text("إشعار فوري"),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+            ),
         ],
       ),
     );

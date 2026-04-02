@@ -11,7 +11,7 @@ sealed class DarkModeState extends Equatable {
 }
 
 class DarkModeInitial extends DarkModeState {
-  DarkModeInitial(bool isDark) : super(isDark: isDark);
+  const DarkModeInitial(bool isDark) : super(isDark: isDark);
 }
 
 class DarkModeUpdated extends DarkModeState {

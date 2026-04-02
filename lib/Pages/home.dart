@@ -42,11 +42,11 @@ class Home extends StatelessWidget {
               );
             case PrayerError():
               return HomePage(
-                fajr: state.cachedDate?.times.fajr,
-                dhuhr: state.cachedDate?.times.dhuhr,
-                asr: state.cachedDate?.times.asr,
-                maghrib: state.cachedDate?.times.maghrib,
-                isha: state.cachedDate?.times.isha,
+                fajr: state.cachedDate?.data.times.fajr,
+                dhuhr: state.cachedDate?.data.times.dhuhr,
+                asr: state.cachedDate?.data.times.asr,
+                maghrib: state.cachedDate?.data.times.maghrib,
+                isha: state.cachedDate?.data.times.fajr,
                 day: state.cachedDate?.data.date.gregorian.day,
                 year: state.cachedDate?.data.date.gregorian.year,
                 month: state.cachedDate?.data.date.gregorian.month.en,
@@ -78,11 +78,11 @@ class HomePage extends StatelessWidget {
     required this.day,
     required this.dayName,
   });
-  String fajr;
-  String dhuhr;
-  String asr;
-  String maghrib;
-  String isha;
+  String? fajr;
+  String? dhuhr;
+  String? asr;
+  String? maghrib;
+  String? isha;
   String? hijriYear;
   String? hijriDay;
   String? hijriMonth;

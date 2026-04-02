@@ -1,7 +1,7 @@
 name: app
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: ^3.10.3
@@ -28,6 +28,9 @@ dependencies:
   weather_icons: ^3.0.0
   geocoding: ^4.0.0
   flutter_local_notifications: ^21.0.0
+  permission_handler: ^11.3.1
+
+
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +51,7 @@ flutter:
     - ".env"
     - "assets/imgs/"
     - "lib/core/translation/"
+    - "assets/sounds/"
   fonts:
   - family: Cairo
     fonts:

@@ -25,7 +25,7 @@ class Welcome {
         data: Data.fromJson(json["data"]),
     );
 
-  get times => null;
+  Null get times => null;
 
     Map<String, dynamic> toJson() => {
         "code": code,

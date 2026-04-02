@@ -12,7 +12,7 @@ class MyCard extends StatelessWidget {
     this.hight,
     this.width,
     this.backgroundColor,
-    this.Content,
+    this.Content, {super.key}
   );
   @override
   Widget build(BuildContext context) {

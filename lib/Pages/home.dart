@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:app/Pages/splashScreen.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/current_prayer_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/date_widget.dart';
+import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/last_third_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/prayers_time_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
@@ -27,6 +28,7 @@ class Home extends StatelessWidget {
               return AnotherSplashScreen();
             case PrayerLoaded():
               return HomePage(
+                lastThird:state.apiData.times.lastthird ,
                 fajr: state.apiData.times.fajr,
                 dhuhr: state.apiData.times.dhuhr,
                 asr: state.apiData.times.asr,
@@ -42,6 +44,7 @@ class Home extends StatelessWidget {
               );
             case PrayerError():
               return HomePage(
+                lastThird: state.cachedDate?.times.lastThird,
                 fajr: state.cachedDate?.times.fajr,
                 dhuhr: state.cachedDate?.times.dhuhr,
                 asr: state.cachedDate?.times.asr,
@@ -77,6 +80,7 @@ class HomePage extends StatelessWidget {
     required this.month,
     required this.day,
     required this.dayName,
+    required this.lastThird,
   });
   String fajr;
   String dhuhr;
@@ -90,6 +94,7 @@ class HomePage extends StatelessWidget {
   String? year;
   String? day;
   String? month;
+  String? lastThird;
   List<Map> get prayers => [
     {
       "name": "prayer_times.fajr".tr(),
@@ -193,6 +198,7 @@ class HomePage extends StatelessWidget {
                           month: month,
                           day: day,
                         ),
+                        LastThirdWidget(time: lastThird!,)
                       ],
                     ),
                   ),

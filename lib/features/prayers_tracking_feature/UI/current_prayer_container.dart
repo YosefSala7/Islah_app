@@ -15,7 +15,7 @@ class CurrentPrayerContainer extends StatelessWidget {
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           height: MediaQuery.heightOf(context) / 3.3,
           width: MediaQuery.widthOf(context),

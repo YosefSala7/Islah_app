@@ -9,6 +9,7 @@ import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCu
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/geoCoding.dart';
+import 'package:app/features/prayers_tracking_feature/UI/prayers_tracking_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,7 @@ class Home extends StatelessWidget {
                 dhuhr: state.cachedDate?.data.times.dhuhr,
                 asr: state.cachedDate?.data.times.asr,
                 maghrib: state.cachedDate?.data.times.maghrib,
-                isha: state.cachedDate?.data.times.fajr,
+                isha: state.cachedDate?.data.times.isha,
                 day: state.cachedDate?.data.date.gregorian.day,
                 year: state.cachedDate?.data.date.gregorian.year,
                 month: state.cachedDate?.data.date.gregorian.month.en,
@@ -66,7 +67,21 @@ class Home extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  HomePage({
+  final String? fajr;
+  final String? dhuhr;
+  final String? asr;
+  final String? maghrib;
+  final String? isha;
+  final String? hijriYear;
+  final String? hijriDay;
+  final String? hijriMonth;
+  final String? dayName;
+  final String? year;
+  final String? day;
+  final String? month;
+  final String? lastThird;
+
+  const HomePage({
     super.key,
     required this.fajr,
     required this.dhuhr,
@@ -77,43 +92,35 @@ class HomePage extends StatelessWidget {
     required this.hijriMonth,
     required this.hijriDay,
     required this.year,
-    required this.month,
     required this.day,
+    required this.month,
     required this.dayName,
     required this.lastThird,
   });
-  String? fajr;
-  String? dhuhr;
-  String? asr;
-  String? maghrib;
-  String? isha;
-  String? hijriYear;
-  String? hijriDay;
-  String? hijriMonth;
-  String? dayName;
-  String? year;
-  String? day;
-  String? month;
-  String? lastThird;
-  List<Map> get prayers => [
+
+  List<Map<String, dynamic>> get prayers => [
     {
       "name": "prayer_times.fajr".tr(),
       "time": fajr,
       "icon": WeatherIcons.sunrise,
+      "isDoneToday": false,
     },
-    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr, "icon": Icons.sunny},
-    {"name": "prayer_times.asr".tr(), "time": asr, "icon": WeatherIcons.cloudy},
+    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr, "icon": Icons.sunny,"isDoneToday": false,},
+    {"name": "prayer_times.asr".tr(), "time": asr, "icon": WeatherIcons.cloudy,"isDoneToday": false,},
     {
       "name": "prayer_times.maghrib".tr(),
       "time": maghrib,
       "icon": WeatherIcons.sunset,
+      "isDoneToday": false,
     },
     {
       "name": "prayer_times.isha".tr(),
       "time": isha,
       "icon": Icons.nights_stay_sharp,
+      "isDoneToday": false,
     },
   ];
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -148,18 +155,16 @@ class HomePage extends StatelessWidget {
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) return const SizedBox();
                                 final data = snapshot.data!;
-                                List address =
-                                    [
-                                          data["cityName"],
-                                          data["subCity"],
-                                          data["governorate"],
-                                        ]
-                                        .where((e) => e != null && e.isNotEmpty)
-                                        .toList();
+                                List address = [
+                                  data["cityName"],
+                                  data["subCity"],
+                                  data["governorate"],
+                                ]
+                                    .where((e) => e != null && e.isNotEmpty)
+                                    .toList();
 
                                 String formattedAddress = address.join(", ");
-                                String shortAddress =
-                                    formattedAddress.length > 12
+                                String shortAddress = formattedAddress.length > 12
                                     ? formattedAddress.substring(0, 17)
                                     : formattedAddress;
                                 return Row(
@@ -170,9 +175,7 @@ class HomePage extends StatelessWidget {
                                     const SizedBox(width: 4),
                                     Text(
                                       shortAddress,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodyMedium,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ],
                                 );
@@ -204,7 +207,13 @@ class HomePage extends StatelessWidget {
                           month: month,
                           day: day,
                         ),
-                        LastThirdWidget(time: lastThird!),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            LastThirdWidget(time: lastThird!),
+                            PrayersTrackingWidget(prayers: prayers),
+                          ],
+                        ),
                       ],
                     ),
                   ),

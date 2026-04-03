@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeState.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 // class PrayerTimeCubit extends Cubit<PrayerTimeState> {
 //   final List<Map> allPrayers; 

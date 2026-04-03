@@ -42,7 +42,7 @@ class LastThirdWidget extends StatelessWidget {
           MyCard(
                 20,
                 MediaQuery.heightOf(context) / 7,
-                MediaQuery.widthOf(context) / 2.6,
+                MediaQuery.widthOf(context) / 2.2,
                 Theme.of(context).cardColor,
                 Padding(
                   padding: const EdgeInsets.all(8.0),

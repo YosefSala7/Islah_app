@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 
 class MyCard extends StatelessWidget {
-  double hight;
-  double width;
-  double bordeRadius;
-  Color backgroundColor;
-  Widget Content;
+  final double height;
+  final double width;
+  final double borderRadius;
+  final Color backgroundColor;
+  final Widget child;
 
-  MyCard(
-    this.bordeRadius,
-    this.hight,
+  const MyCard(
+    this.borderRadius,
+    this.height,
     this.width,
     this.backgroundColor,
-    this.Content, {super.key}
-  );
+    this.child, {
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: hight,
+      height: height,
       width: width,
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -25,9 +27,9 @@ class MyCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.outline,
           width: 1,
         ),
-        borderRadius: BorderRadius.circular(bordeRadius),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
-      child: Content,
+      child: child,
     );
   }
 }

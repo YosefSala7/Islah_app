@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 class PrayerTimeState extends Equatable {
   final String currentTime;
   final Map nextPrayer;

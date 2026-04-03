@@ -22,6 +22,6 @@ class PrayerError extends PrayerApiState {
 
   PrayerError({required this.errorMessage,required this.cachedDate});
 
-  @override
-  List<Object?> get props => [errorMessage];
+@override
+  List<Object?> get props => [errorMessage, cachedDate];
 }

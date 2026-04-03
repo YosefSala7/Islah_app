@@ -15,5 +15,5 @@ class PrayerTimeInit extends PrayerTimeState {
 }
 
 class PrayerTimeUpdate extends PrayerTimeState {
-  const PrayerTimeUpdate(String time, Map next) : super(time, next);
+  const PrayerTimeUpdate(super.time, super.next);
 }

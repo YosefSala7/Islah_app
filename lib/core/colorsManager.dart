@@ -185,6 +185,6 @@ textTheme: const TextTheme(
   colorScheme: const ColorScheme.dark(
     primary: Color(0xFF63B3ED),
     secondary: Color(0xFF2B6CB0),
-    surface: const Color(0xFF172A45),
+    surface: Color(0xFF172A45),
   ),
 );

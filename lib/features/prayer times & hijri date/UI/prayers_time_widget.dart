@@ -13,8 +13,6 @@ class PrayersTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // حساب عرض الكارت بناءً على عرض الشاشة
-    // قسمة العرض على 4.5 عشان يظهر 4 كروت ونص (النص ده عشان اليوزر يعرف ان فيه سكرول)
     double cardWidth = MediaQuery.of(context).size.width / 5.6;
 
     return BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
@@ -31,10 +29,12 @@ class PrayersTime extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Shimmer.fromColors(
+                    baseColor: Theme.of(context).colorScheme.outline.withAlpha(255),
+                    highlightColor: Theme.of(context).colorScheme.secondary,
                     child: MyCard(
                       15,
                       100,
-                      cardWidth, // تم استبدال الثابت بالعرض المتغير
+                      cardWidth,
                       Theme.of(context).colorScheme.outline.withAlpha(70),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,10 +52,6 @@ class PrayersTime extends StatelessWidget {
                         ],
                       ),
                     ),
-                    baseColor: Theme.of(
-                      context,
-                    ).colorScheme.outline.withAlpha(255),
-                    highlightColor: Theme.of(context).colorScheme.secondary,
                   ),
                 );
               } else {
@@ -65,7 +61,7 @@ class PrayersTime extends StatelessWidget {
                       MyCard(
                             15,
                             100,
-                            cardWidth, // تم استبدال الثابت بالعرض المتغير
+                            cardWidth, 
                             Theme.of(context).cardColor,
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,

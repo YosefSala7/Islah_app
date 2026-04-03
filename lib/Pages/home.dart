@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
               return AnotherSplashScreen();
             case PrayerLoaded():
               return HomePage(
-                lastThird:state.apiData.times.lastthird ,
+                lastThird: state.apiData.times.lastthird,
                 fajr: state.apiData.times.fajr,
                 dhuhr: state.apiData.times.dhuhr,
                 asr: state.apiData.times.asr,
@@ -44,12 +44,12 @@ class Home extends StatelessWidget {
               );
             case PrayerError():
               return HomePage(
-                lastThird: state.cachedDate?.times.lastThird,
-                fajr: state.cachedDate?.times.fajr,
-                dhuhr: state.cachedDate?.times.dhuhr,
-                asr: state.cachedDate?.times.asr,
-                maghrib: state.cachedDate?.times.maghrib,
-                isha: state.cachedDate?.times.isha,
+                lastThird: state.cachedDate?.data.times.lastthird,
+                fajr: state.cachedDate?.data.times.fajr,
+                dhuhr: state.cachedDate?.data.times.dhuhr,
+                asr: state.cachedDate?.data.times.asr,
+                maghrib: state.cachedDate?.data.times.maghrib,
+                isha: state.cachedDate?.data.times.fajr,
                 day: state.cachedDate?.data.date.gregorian.day,
                 year: state.cachedDate?.data.date.gregorian.year,
                 month: state.cachedDate?.data.date.gregorian.month.en,
@@ -82,11 +82,11 @@ class HomePage extends StatelessWidget {
     required this.dayName,
     required this.lastThird,
   });
-  String fajr;
-  String dhuhr;
-  String asr;
-  String maghrib;
-  String isha;
+  String? fajr;
+  String? dhuhr;
+  String? asr;
+  String? maghrib;
+  String? isha;
   String? hijriYear;
   String? hijriDay;
   String? hijriMonth;
@@ -128,7 +128,7 @@ class HomePage extends StatelessWidget {
                 centerTitle: true,
                 backgroundColor: Colors.transparent,
                 pinned: true,
-                expandedHeight: MediaQuery.heightOf(context)/10,
+                expandedHeight: MediaQuery.heightOf(context) / 10,
                 flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   background: Stack(
@@ -156,6 +156,12 @@ class HomePage extends StatelessWidget {
                                         ]
                                         .where((e) => e != null && e.isNotEmpty)
                                         .toList();
+
+                                String formattedAddress = address.join(", ");
+                                String shortAddress =
+                                    formattedAddress.length > 12
+                                    ? formattedAddress.substring(0, 17)
+                                    : formattedAddress;
                                 return Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   textDirection: ui.TextDirection.ltr,
@@ -163,7 +169,7 @@ class HomePage extends StatelessWidget {
                                     Icon(Icons.location_on, size: 18),
                                     const SizedBox(width: 4),
                                     Text(
-                                      address.join(", "),
+                                      shortAddress,
                                       style: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium,
@@ -198,7 +204,7 @@ class HomePage extends StatelessWidget {
                           month: month,
                           day: day,
                         ),
-                        LastThirdWidget(time: lastThird!,)
+                        LastThirdWidget(time: lastThird!),
                       ],
                     ),
                   ),

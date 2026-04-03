@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app/Pages/navBar.dart';
+import 'package:app/features/notifcations_feature/noti_service.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/fetchPrayerTimesAPI.dart';

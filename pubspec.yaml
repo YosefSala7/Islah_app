@@ -1,7 +1,7 @@
 name: app
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: ^3.10.3
@@ -27,12 +27,14 @@ dependencies:
   weather_icons: ^3.0.0
   geocoding: ^4.0.0
   flutter_animate: ^4.5.2
+  flutter_local_notifications: ^21.0.0
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  
+
 flutter_launcher_icons:
   android: "ic_launcher"
   ios: true
@@ -45,9 +47,11 @@ flutter:
 
   assets:
     - ".env"
-    - "assets/imgs/"
-    - "lib/core/translation/"
+    - assets/imgs/
+    - lib/core/translation/
+    - assets/sounds/
+
   fonts:
-  - family: Cairo
-    fonts:
-      - asset: "assets/fonts/Cairo-VariableFont_slnt,wght.ttf"
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-VariableFont_slnt,wght.ttf

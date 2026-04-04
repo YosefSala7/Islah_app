@@ -1,7 +1,6 @@
 import 'package:app/features/quran_feature/UI/juz_list.dart';
 import 'package:app/features/quran_feature/UI/surah_list.dart';
 import 'package:flutter/material.dart';
-import 'package:quran/quran.dart' as quran;
 
 class QuranIndexScreen extends StatelessWidget {
   @override

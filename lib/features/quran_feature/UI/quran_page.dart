@@ -1,3 +1,4 @@
+import 'package:app/features/quran_feature/UI/logic/saving_page.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
 
@@ -12,11 +13,14 @@ class QuranReaderScreen extends StatefulWidget {
 }
 
 class _QuranReaderScreenState extends State<QuranReaderScreen> {
-  late PageController _pageController;
+  int _currentPage = 1;
+
+late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+    _currentPage = widget.initialPage;
     _pageController = PageController(initialPage: widget.initialPage - 1);
   }
 
@@ -41,20 +45,32 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () {
+          saveLastPage(_currentPage);
+        },
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor: theme.colorScheme.onPrimary,
+        tooltip: 'حفظ الصفحة',
+        child: const Icon(Icons.bookmark_add_outlined),
+      ),
       body: SafeArea(
         child: PageView.builder(
           controller: _pageController,
+          onPageChanged: (int index) {
+            setState(() {
+              _currentPage = index + 1;
+            });
+          },
           itemCount: 604,
           itemBuilder: (context, index) {
-            int pageNumber = index + 1;
-            List pageData = quran.getPageData(pageNumber);
+            List pageData = quran.getPageData(index + 1);
 
             return Column(
               children: [
-                _buildHeader(pageNumber, theme),
+                _buildHeader(_currentPage, theme),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
@@ -98,7 +114,7 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Text(
-                    "$pageNumber",
+                    "$_currentPage",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -114,15 +130,15 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
     );
   }
 
-  Widget _buildHeader(int page, ThemeData theme) {
-    int firstSurah = quran.getPageData(page).first['surah'];
+  Widget _buildHeader(int currentPage, ThemeData theme) {
+    int firstSurah = quran.getPageData(currentPage).first['surah'];
     int juz = quran.getJuzNumber(
       firstSurah,
-      quran.getPageData(page).first['start'],
+      quran.getPageData(currentPage).first['start'],
     );
 
     return Container(
-      height: MediaQuery.heightOf(context)/16,
+      height: MediaQuery.heightOf(context) / 16,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
         color: theme.cardColor.withAlpha(127),

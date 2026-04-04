@@ -40,8 +40,7 @@ class JuzIndexList extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
           onTap: () {
-            Navigator.push(
-              context,
+            Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(
                 builder: (context) =>
                     QuranReaderScreen(initialPage: firstPageInJuz),

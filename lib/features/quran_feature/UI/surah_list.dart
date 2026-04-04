@@ -58,8 +58,7 @@ class SurahIndexList extends StatelessWidget {
           ),
           onTap: () {
             int firstPage = quran.getSurahPages(surahNumber).first;
-            Navigator.push(
-              context,
+            Navigator.of(context,rootNavigator: true).push(
               MaterialPageRoute(
                 builder: (context) => QuranReaderScreen(
                   initialPage: firstPage,

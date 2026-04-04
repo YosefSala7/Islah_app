@@ -59,7 +59,7 @@ class _NavbarState extends State<Navbar> {
           PersistentTabConfig(
             screen: BlocProvider.value(
               value: context.read<PrayerApiCubit>(),
-              child: const QuranPage(),
+              child: QuranPage(),
             ),
             item: ItemConfig(
               icon: Icon(FlutterIslamicIcons.solidQuran),

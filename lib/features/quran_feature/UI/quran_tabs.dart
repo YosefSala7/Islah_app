@@ -1,6 +1,9 @@
 import 'package:app/features/quran_feature/UI/juz_list.dart';
+import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:app/features/quran_feature/UI/surah_list.dart';
+import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:flutter/material.dart';
+import 'package:quran/quran.dart' as quran;
 
 class QuranIndexScreen extends StatelessWidget {
   @override
@@ -12,6 +15,69 @@ class QuranIndexScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    title: Text(
+                      "تنبيه",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "Cairo",
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    content: Text(
+                      "هل تريد بدأ ختمة جديدة؟",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontFamily: "Cairo"),
+                    ),
+                    actionsAlignment: MainAxisAlignment.spaceEvenly,
+                    actions: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                          foregroundColor: Colors.black,
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(
+                          "لا",
+                          style: TextStyle(fontFamily: "Cairo"),
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.primary,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          int firstPage = quran.getSurahPages(1).first;
+                          saveLastPage(1);
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  QuranReaderScreen(initialPage: firstPage),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "نعم",
+                          style: TextStyle(fontFamily: "Cairo"),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.add),
+          ),
           title: Text(
             "المصحف الشريف",
             style: TextStyle(
@@ -31,7 +97,9 @@ class QuranIndexScreen extends StatelessWidget {
             indicatorColor: theme.colorScheme.secondary,
             indicatorWeight: 3,
             labelColor: theme.appBarTheme.foregroundColor,
-            unselectedLabelColor: theme.appBarTheme.foregroundColor?.withAlpha(127),
+            unselectedLabelColor: theme.appBarTheme.foregroundColor?.withAlpha(
+              127,
+            ),
             labelStyle: TextStyle(
               fontFamily: "Cairo",
               fontSize: 18,
@@ -44,12 +112,7 @@ class QuranIndexScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: TabBarView(
-          children: [
-            SurahIndexList(),
-            JuzIndexList(),
-          ],
-        ),
+        body: TabBarView(children: [SurahIndexList(), JuzIndexList()]),
       ),
     );
   }

@@ -57,6 +57,7 @@ class QuranIndexScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
+
                           int firstPage = quran.getSurahPages(1).first;
                           saveLastPage(1);
                           Navigator.of(context, rootNavigator: true).push(

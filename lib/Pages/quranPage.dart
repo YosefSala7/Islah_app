@@ -1,3 +1,4 @@
+import 'package:app/ads/after_quran_ad.dart';
 import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:app/features/quran_feature/UI/quran_tabs.dart';
@@ -17,6 +18,7 @@ class _QuranPageState extends State<QuranPage> {
   void initState() {
     super.initState();
     loadLastPage();
+    AfterQuranAd.loadInterstitial();
   }
 
   Future<void> loadLastPage() async {

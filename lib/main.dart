@@ -7,11 +7,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  List<String> testDeviceIds = ["58297F7BAC308FD48AE4784C0B50084E"];
+  RequestConfiguration configuration = RequestConfiguration(
+    testDeviceIds: testDeviceIds,
+  );
+  MobileAds.instance.updateRequestConfiguration(configuration);
 
   await LocalNotiService.instance.init();
 

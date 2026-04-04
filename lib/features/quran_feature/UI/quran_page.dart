@@ -1,3 +1,4 @@
+import 'package:app/ads/after_quran_ad.dart';
 import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
@@ -15,8 +16,7 @@ class QuranReaderScreen extends StatefulWidget {
 class _QuranReaderScreenState extends State<QuranReaderScreen> {
   int _currentPage = 1;
 
-late PageController _pageController;
-
+  late PageController _pageController;
   @override
   void initState() {
     super.initState();
@@ -45,86 +45,98 @@ late PageController _pageController;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: () {
-          saveLastPage(_currentPage);
-        },
-        backgroundColor: theme.colorScheme.primary,
-        foregroundColor: theme.colorScheme.onPrimary,
-        tooltip: 'حفظ الصفحة',
-        child: const Icon(Icons.bookmark_add_outlined),
-      ),
-      body: SafeArea(
-        child: PageView.builder(
-          controller: _pageController,
-          onPageChanged: (int index) {
-            setState(() {
-              _currentPage = index + 1;
-            });
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+
+        AfterQuranAd.showInterstitial(() {
+          Navigator.of(context).pop();
+        });
+      },
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        floatingActionButton: FloatingActionButton.small(
+          onPressed: () {
+            
+              saveLastPage(_currentPage);
+            
           },
-          itemCount: 604,
-          itemBuilder: (context, index) {
-            List pageData = quran.getPageData(index + 1);
+          backgroundColor: theme.colorScheme.primary,
+          foregroundColor: theme.colorScheme.onPrimary,
+          tooltip: 'حفظ الصفحة',
+          child: const Icon(Icons.bookmark_add_outlined),
+        ),
+        body: SafeArea(
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (int index) {
+              setState(() {
+                _currentPage = index + 1;
+              });
+            },
+            itemCount: 604,
+            itemBuilder: (context, index) {
+              List pageData = quran.getPageData(index + 1);
 
-            return Column(
-              children: [
-                _buildHeader(_currentPage, theme),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 10,
-                    ),
-                    child: Column(
-                      children: pageData.map((data) {
-                        int surahNum = data['surah'];
-                        int startVerse = data['start'];
-                        int endVerse = data['end'];
+              return Column(
+                children: [
+                  _buildHeader(_currentPage, theme),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 10,
+                      ),
+                      child: Column(
+                        children: pageData.map((data) {
+                          int surahNum = data['surah'];
+                          int startVerse = data['start'];
+                          int endVerse = data['end'];
 
-                        return Column(
-                          children: [
-                            if (startVerse == 1) ...[
-                              _buildSurahBanner(surahNum, theme),
-                              if (surahNum != 1 && surahNum != 9)
-                                _buildBasmalah(theme),
+                          return Column(
+                            children: [
+                              if (startVerse == 1) ...[
+                                _buildSurahBanner(surahNum, theme),
+                                if (surahNum != 1 && surahNum != 9)
+                                  _buildBasmalah(theme),
+                              ],
+                              Text(
+                                _getFilteredVerses(
+                                  surahNum,
+                                  startVerse,
+                                  endVerse,
+                                ),
+                                textAlign: TextAlign.justify,
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(
+                                  fontFamily: 'Amiri',
+                                  fontSize: 25,
+                                  height: 1.9,
+                                  color: theme.textTheme.bodyLarge?.color,
+                                ),
+                              ),
                             ],
-                            Text(
-                              _getFilteredVerses(
-                                surahNum,
-                                startVerse,
-                                endVerse,
-                              ),
-                              textAlign: TextAlign.justify,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                fontFamily: 'Amiri',
-                                fontSize: 25,
-                                height: 1.9,
-                                color: theme.textTheme.bodyLarge?.color,
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    "$_currentPage",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: theme.textTheme.bodySmall?.color,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      "$_currentPage",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: theme.textTheme.bodySmall?.color,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -151,7 +163,9 @@ late PageController _pageController;
         children: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              AfterQuranAd.showInterstitial(() {
+                Navigator.pop(context);
+              });
             },
             icon: Icon(Icons.arrow_back),
             iconSize: 20,

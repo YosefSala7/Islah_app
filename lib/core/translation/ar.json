@@ -50,6 +50,8 @@
     "Assalamu_Alaikum": "السلام عليكم",
     "last_third": "الثلث الأخير من الليل",
     "prayers_tracking":"متابعة الصلاة",
+    "Makkah":"مكية",
+    "Madinah":"مدنية",
     "prayer_times": {
         "am": "ص",
         "pm": "م",

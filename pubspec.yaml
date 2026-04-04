@@ -29,6 +29,7 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_local_notifications: ^21.0.0
   permission_handler: ^11.3.1
+  quran: ^1.4.1
 
 dev_dependencies:
   flutter_test:
@@ -55,3 +56,10 @@ flutter:
     - family: Cairo
       fonts:
         - asset: assets/fonts/Cairo-VariableFont_slnt,wght.ttf
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/AmiriQuran-Regular.ttf
+    - family: Hafs
+      fonts:
+        - asset: assets/fonts/KFGQPC Uthmanic Script HAFS Regular.otf
+        

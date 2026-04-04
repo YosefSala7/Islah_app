@@ -1,3 +1,4 @@
+import 'package:app/features/quran_feature/UI/quran_tabs.dart';
 import 'package:flutter/material.dart';
 
 class QuranPage extends StatelessWidget {
@@ -5,6 +6,17 @@ class QuranPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        children: [
+          SizedBox(
+            height:
+                MediaQuery.heightOf(context) -
+                MediaQuery.heightOf(context) / 9,
+            child: QuranIndexScreen(),
+          ),
+        ],
+      ),
+    );
   }
 }

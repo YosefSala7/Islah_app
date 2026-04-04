@@ -1,4 +1,4 @@
-import 'package:app/features/quran_feature/UI/logic/saving_page.dart';
+import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
 

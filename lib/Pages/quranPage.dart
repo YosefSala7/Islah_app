@@ -1,4 +1,4 @@
-import 'package:app/features/quran_feature/UI/logic/saving_page.dart';
+import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:app/features/quran_feature/UI/quran_tabs.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,7 @@ class _QuranPageState extends State<QuranPage> {
           SizedBox(
             height:
                 MediaQuery.heightOf(context) - MediaQuery.heightOf(context) / 9,
-            child:  QuranIndexScreen(),
+            child: QuranIndexScreen(),
           ),
         ],
       ),

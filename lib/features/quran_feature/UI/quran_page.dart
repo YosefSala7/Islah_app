@@ -1,12 +1,12 @@
 import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:quran/quran.dart' as quran;
 
 class QuranReaderScreen extends StatefulWidget {
   final int initialPage;
 
-  const QuranReaderScreen({Key? key, required this.initialPage})
-    : super(key: key);
+  const QuranReaderScreen({super.key, required this.initialPage});
 
   @override
   State<QuranReaderScreen> createState() => _QuranReaderScreenState();
@@ -14,8 +14,9 @@ class QuranReaderScreen extends StatefulWidget {
 
 class _QuranReaderScreenState extends State<QuranReaderScreen> {
   int _currentPage = 1;
+  double _fontSize = 23;
 
-late PageController _pageController;
+  late PageController _pageController;
 
   @override
   void initState() {
@@ -37,7 +38,7 @@ late PageController _pageController;
           }
         }
       }
-      fullText += verse + " ";
+      fullText += "$verse ";
     }
     return fullText;
   }
@@ -47,15 +48,40 @@ late PageController _pageController;
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: () {
-          saveLastPage(_currentPage);
-        },
-        backgroundColor: theme.colorScheme.primary,
-        foregroundColor: theme.colorScheme.onPrimary,
-        tooltip: 'حفظ الصفحة',
-        child: const Icon(Icons.bookmark_add_outlined),
-      ),
+      floatingActionButton: SpeedDial(
+  overlayOpacity: 0,
+  buttonSize: const Size(45, 45),
+  childrenButtonSize: const Size(40, 40),
+  closeManually: true,
+  icon: Icons.settings,
+  activeIcon: Icons.close,
+  
+  backgroundColor: Theme.of(context).colorScheme.primary,
+  foregroundColor: Theme.of(context).colorScheme.onPrimary, 
+
+  children: [
+    SpeedDialChild(
+      child: Icon(Icons.text_increase),
+      backgroundColor: Theme.of(context).cardColor,
+      foregroundColor: Theme.of(context).iconTheme.color,
+      onTap: () {
+        setState(() {
+          if (_fontSize < 30) _fontSize += 1;
+        });
+      },
+    ),
+        SpeedDialChild(
+      child: Icon(Icons.text_decrease),
+      backgroundColor: Theme.of(context).cardColor,
+      foregroundColor: Theme.of(context).iconTheme.color,
+      onTap: () {
+        setState(() {
+          if (_fontSize > 20) _fontSize -= 1;
+        });
+      },
+    ),
+  ],
+),
       body: SafeArea(
         child: PageView.builder(
           controller: _pageController,
@@ -97,11 +123,10 @@ late PageController _pageController;
                                 endVerse,
                               ),
                               textAlign: TextAlign.justify,
-                              textDirection: TextDirection.rtl,
                               style: TextStyle(
                                 fontFamily: 'Amiri',
-                                fontSize: 25,
-                                height: 1.9,
+                                fontSize: _fontSize,
+                                height: 1.45,
                                 color: theme.textTheme.bodyLarge?.color,
                               ),
                             ),
@@ -136,7 +161,6 @@ late PageController _pageController;
       firstSurah,
       quran.getPageData(currentPage).first['start'],
     );
-
     return Container(
       height: MediaQuery.heightOf(context) / 16,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -158,21 +182,29 @@ late PageController _pageController;
           ),
 
           Text(
-            quran.getSurahNameArabic(firstSurah),
-            style: TextStyle(
-              fontFamily: 'Amiri',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.primary,
-            ),
-          ),
-          Text(
             "الجزء $juz",
             style: TextStyle(
               fontFamily: 'Amiri',
               fontSize: 16,
               color: theme.colorScheme.primary,
             ),
+          ),
+          IconButton(
+            onPressed: () {
+              saveLastPage(_currentPage);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Text(
+      "تم حفظ الصفحة عند $currentPage"
+    ),
+    duration: Duration(seconds: 1), 
+    behavior: SnackBarBehavior.floating, 
+    width: 200,
+  ),
+);
+            },
+            icon: Icon(Icons.bookmark_add_outlined),
           ),
         ],
       ),

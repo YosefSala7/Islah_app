@@ -1,4 +1,6 @@
+import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
+import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,69 +53,95 @@ class _QuranScreenState extends State<QuranScreen> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: QuranPageView(
-                        initialPage: widget.firstPage,
-                        fontFamilyName: "QCF_P000",
-                        isReversed: false,
-                        onAyahTap: (surah, ayah, page) {
-                          print(
-                            'تم الضغط على سورة $surah، آية $ayah، صفحة $page',
-                          );
-                        },
-                        searchIconColor: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!,
-                        searchSheetIconsColor: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!,
-                        searchResultTextColor:
-                            Theme.of(context).textTheme.bodyLarge?.color ??
-                            Colors.white,
-                        searchResultInfoColor: Theme.of(
-                          context,
-                        ).colorScheme.secondary,
-                        searchFieldHintTextColor:
-                            Theme.of(context).textTheme.bodySmall?.color ??
-                            Colors.grey,
-                        searchFieldTextColor:
-                            Theme.of(context).textTheme.bodyMedium?.color ??
-                            Colors.white,
-                        searchFieldHandleColor: Theme.of(
-                          context,
-                        ).colorScheme.primary,
-                        searchFieldBackgroundColor:
-                            Theme.of(context).brightness == Brightness.dark
-                            ? Theme.of(context).cardColor
-                            : const Color(0xFFF5F5F5),
-                        searchFieldDarkBackgroundColor: Theme.of(
-                          context,
-                        ).cardColor,
-                        onPageChanged: (page) {
-                          setState(() {
-                            currentPage = page + 1;
-                          });
-                          print("أنت الآن في صفحة: $page");
-                        },
-                        quranTextColor: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!,
-                        topBarTextColor: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!,
-                        pageNumberColor: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!,
-                        pageNumberDesign: PageNumberDesign.glass,
+                      child: BlocProvider(
+                        create: (context) => AudioCubit(),
+                        child: Builder(
+                          builder: (newContext) {
+                            return BlocProvider.value(
+                              value: newContext.read<AudioCubit>(),
+                              child: Builder(
+                                builder: (ctx) {
+                                  return QuranPageView(
+                                    initialPage: widget.firstPage,
+                                    fontFamilyName: "QCF_P000",
+                                    isReversed: false,
+                                    onAyahTap: (surah, ayah, page) {
+                                      print(
+                                        'تم الضغط على سورة $surah، آية $ayah، صفحة $page',
+                                      );
+                                    },
+                                    searchIconColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    searchSheetIconsColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    searchResultTextColor:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge?.color ??
+                                        Colors.white,
+                                    searchResultInfoColor: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    searchFieldHintTextColor:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall?.color ??
+                                        Colors.grey,
+                                    searchFieldTextColor:
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium?.color ??
+                                        Colors.white,
+                                    searchFieldHandleColor: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    searchFieldBackgroundColor:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Theme.of(context).cardColor
+                                        : const Color(0xFFF5F5F5),
+                                    searchFieldDarkBackgroundColor: Theme.of(
+                                      context,
+                                    ).cardColor,
+                                    onPageChanged: (page) {
+                                      setState(() {
+                                        currentPage = page + 1;
+                                      });
+                                      print("أنت الآن في صفحة: $page");
+                                    },
+                                    quranTextColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    topBarTextColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    pageNumberColor: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color!,
+                                    pageNumberDesign: PageNumberDesign.glass,
 
-                        // customAyahActions: [
-                        //   AyahActionOption(
-                        //     title: 'إضافة للمفضلة',
-                        //     icon: Icons.favorite_border,
-                        //     onPress: (surah, ayah, page) {
-                        //       print('تمت الإضافة للمفضلة');
-                        //     },
-                        //   ),
-                        // ],
+                                    customAyahActions: [
+                                      AyahActionOption(
+                                        title: 'تشغيل الاية',
+                                        icon: Icons.play_arrow,
+                                        onPress: (surah, ayah, page) {
+                                          AudioPlayerDialog()
+                                              .showAudioPlayerDialog(
+                                                newContext,
+                                                surah: surah,
+                                                ayah: ayah,
+                                              );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],

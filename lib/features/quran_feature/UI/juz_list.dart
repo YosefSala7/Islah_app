@@ -1,5 +1,4 @@
 import 'package:app/features/quran_feature/UI/mus7af_page.dart';
-import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
 import 'package:flutter_animate/flutter_animate.dart';
@@ -52,7 +51,7 @@ class JuzIndexList extends StatelessWidget {
               Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
                   builder: (context) =>
-                      QuranReaderScreen(initialPage: firstPageInJuz,),
+                      QuranScreen(firstPage: firstPageInJuz,),
                 ),
               );
             },

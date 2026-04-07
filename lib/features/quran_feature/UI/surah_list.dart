@@ -1,4 +1,4 @@
-import 'package:app/features/quran_feature/UI/quran_page.dart';
+import 'package:app/features/quran_feature/UI/mus7af_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -62,7 +62,7 @@ class SurahIndexList extends StatelessWidget {
                 Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute(
                     builder: (context) =>
-                        QuranReaderScreen(initialPage: firstPage),
+                        QuranScreen(firstPage: firstPage),
                   ),
                 );
               },

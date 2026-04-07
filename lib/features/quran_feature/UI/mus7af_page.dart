@@ -25,7 +25,7 @@ class _QuranScreenState extends State<QuranScreen> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.small(
-        child:Icon(Icons.bookmark_add_outlined) ,
+        child: Icon(Icons.bookmark_add_outlined),
         onPressed: () {
           saveLastPage(currentPage);
           ScaffoldMessenger.of(context).clearSnackBars();
@@ -51,7 +51,6 @@ class _QuranScreenState extends State<QuranScreen> {
                   children: [
                     Expanded(
                       child: QuranPageView(
-                        
                         initialPage: widget.firstPage,
                         fontFamilyName: "QCF_P000",
                         isReversed: false,
@@ -60,9 +59,12 @@ class _QuranScreenState extends State<QuranScreen> {
                             'تم الضغط على سورة $surah، آية $ayah، صفحة $page',
                           );
                         },
+                        searchIconColor: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!,
                         searchSheetIconsColor: Theme.of(
                           context,
-                        ).colorScheme.primary,
+                        ).textTheme.bodyLarge!.color!,
                         searchResultTextColor:
                             Theme.of(context).textTheme.bodyLarge?.color ??
                             Colors.white,
@@ -88,12 +90,20 @@ class _QuranScreenState extends State<QuranScreen> {
                         onPageChanged: (page) {
                           setState(() {
                             currentPage = page + 1;
-
                           });
                           print("أنت الآن في صفحة: $page");
-                          
                         },
-                        themeModeAdaption: true,
+                        quranTextColor: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!,
+                        topBarTextColor: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!,
+                        pageNumberColor: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!,
+                        pageNumberDesign: PageNumberDesign.glass,
+
                         // customAyahActions: [
                         //   AyahActionOption(
                         //     title: 'إضافة للمفضلة',
@@ -115,7 +125,10 @@ class _QuranScreenState extends State<QuranScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).textTheme.bodyLarge!.color!,
+                  ),
                   iconSize: 20,
                 ),
               ),
@@ -135,7 +148,10 @@ class _QuranScreenState extends State<QuranScreen> {
                       ),
                     );
                   },
-                  icon: Icon(Icons.menu_book),
+                  icon: Icon(
+                    Icons.menu_book,
+                    color: Theme.of(context).textTheme.bodyLarge!.color!,
+                  ),
                 ),
               ),
             ],

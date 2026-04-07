@@ -57,10 +57,7 @@ class _NavbarState extends State<Navbar> {
             ),
           ),
           PersistentTabConfig(
-            screen: BlocProvider.value(
-              value: context.read<PrayerApiCubit>(),
-              child: QuranPage(),
-            ),
+            screen: QuranPage(),
             item: ItemConfig(
               icon: Icon(FlutterIslamicIcons.solidQuran),
               inactiveIcon: Icon(FlutterIslamicIcons.quran),
@@ -74,10 +71,7 @@ class _NavbarState extends State<Navbar> {
             ),
           ),
           PersistentTabConfig(
-            screen: BlocProvider.value(
-              value: context.read<PrayerApiCubit>(),
-              child: const SettingPage(),
-            ),
+            screen: const SettingPage(),
             item: ItemConfig(
               icon: Icon(Icons.settings),
               inactiveIcon: Icon(Icons.settings_outlined),

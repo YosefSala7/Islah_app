@@ -1,6 +1,7 @@
 import 'package:app/features/quran_feature/UI/mus7af_page.dart';
-import 'package:app/features/quran_feature/logic/saving_page.dart';
+import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:quran/quran.dart' as quran;
 
@@ -97,7 +98,7 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
 
             return Column(
               children: [
-                buildHeader(_currentPage, theme),
+                buildHeader(_currentPage, theme,context),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
@@ -156,7 +157,7 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
     );
   }
 
-  Widget buildHeader(int currentPage, ThemeData theme) {
+  Widget buildHeader(int currentPage, ThemeData theme,context) {
     int firstSurah = quran.getPageData(currentPage + 1).first['surah'];
     int juz = quran.getJuzNumber(
       firstSurah,
@@ -194,7 +195,7 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
             children: [
               IconButton(
                 onPressed: () {
-                  saveLastPage(_currentPage);
+                  BlocProvider.of<SavePageCubit>(context).savePage(currentPage);
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

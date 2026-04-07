@@ -3,6 +3,7 @@ import 'package:app/core/Global%20State%20Managment/darkModeState.dart';
 import 'package:app/Pages/authGate.dart';
 import 'package:app/core/colorsManager.dart';
 import 'package:app/features/notifcations_feature/noti_service.dart';
+import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   await LocalNotiService.instance.init();
 
@@ -25,8 +25,11 @@ void main() async {
       supportedLocales: const [Locale('ar')],
       path: 'lib/core/translation',
       fallbackLocale: const Locale('ar'),
-      child: BlocProvider<DarkCubit>(
-        create: (context) => DarkCubit(savedDark),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<DarkCubit>(create: (context) => DarkCubit(savedDark)),
+          BlocProvider<SavePageCubit>(create: (context) => SavePageCubit()),
+        ],
         child: MyApp(),
       ),
     ),

@@ -1,8 +1,10 @@
 import 'package:app/features/quran_feature/UI/juz_list.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:app/features/quran_feature/UI/surah_list.dart';
+import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:app/features/quran_feature/logic/saving_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran/quran.dart' as quran;
 
 class QuranIndexScreen extends StatelessWidget {
@@ -58,7 +60,7 @@ class QuranIndexScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop();
                           int firstPage = quran.getSurahPages(1).first;
-                          saveLastPage(1);
+                          BlocProvider.of<SavePageCubit>(context).newKhatma();
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
                               builder: (context) =>

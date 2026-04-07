@@ -1,6 +1,7 @@
 import 'package:app/features/quran_feature/UI/quran_page.dart';
-import 'package:app/features/quran_feature/logic/saving_page.dart';
+import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_pages_with_ayah_detector/quran_pages_with_ayah_detector.dart';
 
 class QuranScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _QuranScreenState extends State<QuranScreen> {
       floatingActionButton: FloatingActionButton.small(
         child: Icon(Icons.bookmark_add_outlined),
         onPressed: () {
-          saveLastPage(currentPage);
+          BlocProvider.of<SavePageCubit>(context).savePage(currentPage);
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

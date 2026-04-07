@@ -1,0 +1,147 @@
+import 'package:app/features/quran_feature/UI/quran_page.dart';
+import 'package:app/features/quran_feature/logic/saving_page.dart';
+import 'package:flutter/material.dart';
+import 'package:quran_pages_with_ayah_detector/quran_pages_with_ayah_detector.dart';
+
+class QuranScreen extends StatefulWidget {
+  QuranScreen({super.key, required this.firstPage});
+  int firstPage;
+
+  @override
+  State<QuranScreen> createState() => _QuranScreenState();
+}
+
+class _QuranScreenState extends State<QuranScreen> {
+  late int currentPage;
+
+  @override
+  void initState() {
+    super.initState();
+    currentPage = widget.firstPage;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.small(
+        child:Icon(Icons.bookmark_add_outlined) ,
+        onPressed: () {
+          saveLastPage(currentPage);
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("تم حفظ الصفحة عند $currentPage"),
+              duration: Duration(seconds: 1),
+              behavior: SnackBarBehavior.floating,
+              width: 200,
+            ),
+          );
+        },
+      ),
+      body: SafeArea(
+        child: SizedBox(
+          height: MediaQuery.heightOf(context),
+          width: MediaQuery.widthOf(context),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: QuranPageView(
+                        
+                        initialPage: widget.firstPage,
+                        fontFamilyName: "QCF_P000",
+                        isReversed: false,
+                        onAyahTap: (surah, ayah, page) {
+                          print(
+                            'تم الضغط على سورة $surah، آية $ayah، صفحة $page',
+                          );
+                        },
+                        searchSheetIconsColor: Theme.of(
+                          context,
+                        ).colorScheme.primary,
+                        searchResultTextColor:
+                            Theme.of(context).textTheme.bodyLarge?.color ??
+                            Colors.white,
+                        searchResultInfoColor: Theme.of(
+                          context,
+                        ).colorScheme.secondary,
+                        searchFieldHintTextColor:
+                            Theme.of(context).textTheme.bodySmall?.color ??
+                            Colors.grey,
+                        searchFieldTextColor:
+                            Theme.of(context).textTheme.bodyMedium?.color ??
+                            Colors.white,
+                        searchFieldHandleColor: Theme.of(
+                          context,
+                        ).colorScheme.primary,
+                        searchFieldBackgroundColor:
+                            Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).cardColor
+                            : const Color(0xFFF5F5F5),
+                        searchFieldDarkBackgroundColor: Theme.of(
+                          context,
+                        ).cardColor,
+                        onPageChanged: (page) {
+                          setState(() {
+                            currentPage = page + 1;
+
+                          });
+                          print("أنت الآن في صفحة: $page");
+                          
+                        },
+                        themeModeAdaption: true,
+                        // customAyahActions: [
+                        //   AyahActionOption(
+                        //     title: 'إضافة للمفضلة',
+                        //     icon: Icons.favorite_border,
+                        //     onPress: (surah, ayah, page) {
+                        //       print('تمت الإضافة للمفضلة');
+                        //     },
+                        //   ),
+                        // ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: MediaQuery.widthOf(context) * 0.34,
+                top: MediaQuery.heightOf(context) * 0.009,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back),
+                  iconSize: 20,
+                ),
+              ),
+              Positioned(
+                left: MediaQuery.widthOf(context) * 0.34,
+                top: MediaQuery.heightOf(context) * 0.007,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return QuranReaderScreen(
+                            initialPage: currentPage + 1,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.menu_book),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

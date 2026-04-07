@@ -1,3 +1,4 @@
+import 'package:app/features/quran_feature/UI/mus7af_page.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
@@ -15,7 +16,7 @@ class JuzIndexList extends StatelessWidget {
         int juzNumber = index + 1;
         var juzData = quran.getSurahAndVersesFromJuz(juzNumber);
         int firstSurahInJuz = juzData.keys.first;
-        int firstPageInJuz = ((juzNumber - 1) * 20) + 2;
+        int firstPageInJuz = ((juzNumber - 1) * 20) + 1;
 
         return Card(
           elevation: 0,
@@ -51,7 +52,7 @@ class JuzIndexList extends StatelessWidget {
               Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
                   builder: (context) =>
-                      QuranReaderScreen(initialPage: firstPageInJuz),
+                      QuranReaderScreen(initialPage: firstPageInJuz,),
                 ),
               );
             },

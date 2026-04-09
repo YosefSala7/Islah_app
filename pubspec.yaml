@@ -34,6 +34,7 @@ dependencies:
   quran_pages_with_ayah_detector: ^1.2.2
   audioplayers: ^6.6.0
   workmanager: ^0.8.0
+  islamic_azkar: ^0.0.2
 
 dev_dependencies:
   flutter_test:

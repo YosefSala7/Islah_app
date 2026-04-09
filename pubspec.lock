@@ -525,6 +525,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
+  islamic_azkar:
+    dependency: "direct main"
+    description:
+      name: islamic_azkar
+      sha256: dfda1b7ab873acb11c677d4c0bfe34c0109a8f4ae865d1032f535d1c2b81c91f
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   json_annotation:
     dependency: transitive
     description:
@@ -1075,5 +1083,5 @@ packages:
     source: hosted
     version: "2.2.4"
 sdks:
-  dart: ">=3.10.3 <4.0.0"
+  dart: ">=3.11.0 <4.0.0"
   flutter: ">=3.38.4"

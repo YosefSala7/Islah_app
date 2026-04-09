@@ -33,6 +33,7 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   quran_pages_with_ayah_detector: ^1.2.2
   audioplayers: ^6.6.0
+  workmanager: ^0.8.0
 
 dev_dependencies:
   flutter_test:

@@ -10,6 +10,7 @@ import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiSt
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/geoCoding.dart';
 import 'package:app/features/prayers_tracking_feature/UI/prayers_tracking_widget.dart';
+import 'package:app/features/quran_feature/UI/dialy_random_verse.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -214,6 +215,7 @@ class HomePage extends StatelessWidget {
                             PrayersTrackingWidget(prayers: prayers),
                           ],
                         ),
+                        DialyRandomVerse(),
                       ],
                     ),
                   ),

@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 class ZekrPage extends StatelessWidget {
   ZekrPage({super.key, required this.azkar});
   List azkar;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

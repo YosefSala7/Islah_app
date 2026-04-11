@@ -1,6 +1,9 @@
 import 'package:app/features/azkar_feature/UI/category_card.dart';
+import 'package:app/features/azkar_feature/UI/tasbih_page.dart';
 import 'package:app/features/azkar_feature/UI/zekr_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:islamic_azkar/islamic_azkar.dart';
 
 class AzkarPage extends StatelessWidget {
@@ -9,10 +12,11 @@ class AzkarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
+      body: SafeArea(
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverList.builder(
               itemCount: azkarCategories.length,
               itemBuilder: (context, index) {
                 final cat = ZekrCategory.values[index];
@@ -20,7 +24,7 @@ class AzkarPage extends StatelessWidget {
                 final count = azkarService.getAzkarByCategory(cat).length;
                 String title = "";
                 IconData icon = Icons.book;
-
+        
                 switch (cat) {
                   case ZekrCategory.morning:
                     title = "أذكار الصباح";
@@ -94,8 +98,24 @@ class AzkarPage extends StatelessWidget {
                 );
               },
             ),
-          ),
-        ],
+            SliverToBoxAdapter(
+              child: AzkarCategoryCard(
+                title: "tasbih".tr(),
+                count: "",
+                icon: FlutterIslamicIcons.solidTasbih,
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TasbihPage();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

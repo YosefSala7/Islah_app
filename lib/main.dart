@@ -13,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
 
-  await LocalNotiService.instance.init();
+  await LocalNotiService().init();
 
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: ".env");

@@ -29,10 +29,23 @@ class SettingPage extends StatelessWidget {
           ),
             ElevatedButton.icon(
               onPressed: () async {
-                await LocalNotiService.instance.show(
+                await LocalNotiService().show(
                   id: 999,
                   title: 'اختبار فوري',
                   body: 'هذا إشعار فوري للتأكد من الصوت',
+                );
+              },
+              icon: Icon(Icons.notifications_active),
+              label: Text("إشعار فوري"),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+            ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                await LocalNotiService().schedule(
+                  id: 200,
+                  title: 'اختبار مجدول',
+                  body: "اختبار مجدول بعد 10 ثواني للتأكد من الصوت",
+                  time: "19:35",
                 );
               },
               icon: Icon(Icons.notifications_active),

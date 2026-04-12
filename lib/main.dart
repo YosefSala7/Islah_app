@@ -14,6 +14,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await scheduelDailyRandomVerseTask();
 
+
+  await LocalNotiService().init();
+
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: ".env");
 

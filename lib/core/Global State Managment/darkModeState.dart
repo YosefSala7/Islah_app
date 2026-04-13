@@ -1,4 +1,3 @@
-import 'package:app/core/Global%20State%20Managment/darkModeCubit.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class DarkModeState extends Equatable {

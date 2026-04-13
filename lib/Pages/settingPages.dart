@@ -41,7 +41,7 @@ class SettingPage extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () async {
-                await LocalNotiService().schedule(
+                await LocalNotiService().schedulePrayerNoti(
                   id: 200,
                   title: 'اختبار مجدول',
                   body: "اختبار مجدول بعد 10 ثواني للتأكد من الصوت",

@@ -66,9 +66,7 @@ class _QuranScreenState extends State<QuranScreen> {
                                     fontFamilyName: "QCF_P000",
                                     isReversed: false,
                                     onAyahTap: (surah, ayah, page) {
-                                      print(
-                                        'تم الضغط على سورة $surah، آية $ayah، صفحة $page',
-                                      );
+                                      
                                     },
                                     searchIconColor: Theme.of(
                                       context,
@@ -109,7 +107,6 @@ class _QuranScreenState extends State<QuranScreen> {
                                       setState(() {
                                         currentPage = page + 1;
                                       });
-                                      print("أنت الآن في صفحة: $page");
                                     },
                                     quranTextColor: Theme.of(
                                       context,

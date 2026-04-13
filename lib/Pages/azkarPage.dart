@@ -79,7 +79,6 @@ class AzkarPage extends StatelessWidget {
                     icon = Icons.volunteer_activism_outlined;
                     break;
                 }
-                print(azkarCategories);
                 return AzkarCategoryCard(
                   count: count.toString(),
                   title: title,

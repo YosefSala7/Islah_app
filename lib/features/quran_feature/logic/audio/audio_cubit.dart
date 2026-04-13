@@ -95,8 +95,14 @@ class AudioCubit extends Cubit<AudioState> {
   }
 
   Future<void> pause() async {
-    await _audioPlayer.pause();
+    try {
+      await _audioPlayer.pause();
+    } catch (e) {
+      print('Pause error: $e');
+    }
   }
+
+
 
   Future<void> resume() async {
     await _audioPlayer.resume();

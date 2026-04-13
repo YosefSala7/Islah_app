@@ -82,10 +82,19 @@ class AudioPlayerDialog extends StatelessWidget {
               right: 0,
               child: IconButton(
                 onPressed: () {
-                  context.read<AudioCubit>().stop();
-                  context.read<AudioCubit>().pause();
+                  try {
+                    context.read<AudioCubit>().stop();
+                  } catch (e) {
+                    print('Stop error: $e');
+                  }
+                  try {
+                    context.read<AudioCubit>().pause();
+                  } catch (e) {
+                    print('Pause error: $e');
+                  }
                   Navigator.pop(context);
                 },
+
                 icon: Icon(
                   Icons.close,
                   color: Theme.of(context).colorScheme.primary,

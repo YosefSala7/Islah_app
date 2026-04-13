@@ -352,14 +352,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_timezone:
-    dependency: "direct main"
-    description:
-      name: flutter_timezone
-      sha256: e8d63f50f2806a3a71a08697286a0369e1d8f0902961327810459871c0bb01c2
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -821,6 +813,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  qcf_quran_lite:
+    dependency: "direct main"
+    description:
+      name: qcf_quran_lite
+      sha256: f653bd55be1861fd9e350c38b4d03330d420588391378a175bc6685a3c892b3b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   quran:
     dependency: "direct main"
     description:
@@ -837,6 +837,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
+  scrollable_positioned_list:
+    dependency: "direct main"
+    description:
+      name: scrollable_positioned_list
+      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.8"
   shared_preferences:
     dependency: "direct main"
     description:

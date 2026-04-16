@@ -105,20 +105,37 @@ class HomePage extends StatelessWidget {
       "name": "prayer_times.fajr".tr(),
       "time": fajr,
       "icon": WeatherIcons.sunrise,
+      "img": "assets/imgs/fajr.png",
       "isDoneToday": false,
     },
-    {"name": "prayer_times.dhuhr".tr(), "time": dhuhr, "icon": Icons.sunny,"isDoneToday": false,},
-    {"name": "prayer_times.asr".tr(), "time": asr, "icon": WeatherIcons.cloudy,"isDoneToday": false,},
+    {
+      "name": "prayer_times.dhuhr".tr(),
+      "time": dhuhr,
+      "icon": Icons.sunny,
+      "img": "assets/imgs/dhuhr.png",
+      "isDoneToday": false,
+    },
+    {
+      "name": "prayer_times.asr".tr(),
+      "time": asr,
+      "icon": WeatherIcons.cloudy,
+      "img": "assets/imgs/asr.png",
+
+      "isDoneToday": false,
+    },
     {
       "name": "prayer_times.maghrib".tr(),
       "time": maghrib,
       "icon": WeatherIcons.sunset,
+      "img": "assets/imgs/maghrib.png",
+
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.isha".tr(),
       "time": isha,
       "icon": Icons.nights_stay_sharp,
+      "img": "assets/imgs/Isha.png",
       "isDoneToday": false,
     },
   ];
@@ -157,16 +174,18 @@ class HomePage extends StatelessWidget {
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) return const SizedBox();
                                 final data = snapshot.data!;
-                                List address = [
-                                  data["cityName"],
-                                  data["subCity"],
-                                  data["governorate"],
-                                ]
-                                    .where((e) => e != null && e.isNotEmpty)
-                                    .toList();
+                                List address =
+                                    [
+                                          data["cityName"],
+                                          data["subCity"],
+                                          data["governorate"],
+                                        ]
+                                        .where((e) => e != null && e.isNotEmpty)
+                                        .toList();
 
                                 String formattedAddress = address.join(", ");
-                                String shortAddress = formattedAddress.length > 12
+                                String shortAddress =
+                                    formattedAddress.length > 12
                                     ? formattedAddress.substring(0, 17)
                                     : formattedAddress;
                                 return Row(
@@ -177,7 +196,9 @@ class HomePage extends StatelessWidget {
                                     const SizedBox(width: 4),
                                     Text(
                                       shortAddress,
-                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
                                     ),
                                   ],
                                 );
@@ -217,7 +238,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         DialyRandomVerse(),
-                        QuickZekr()
+                        QuickZekr(),
                       ],
                     ),
                   ),

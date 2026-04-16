@@ -29,7 +29,7 @@ class PrayersTrackngPage extends StatelessWidget {
                   children: [
                     CurrentPrayerContainer(),
                     Positioned(
-                      top: MediaQuery.of(context).size.height / 3.7,
+                      top: MediaQuery.of(context).size.height / 3,
                       child: Container(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
@@ -38,49 +38,52 @@ class PrayersTrackngPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         padding: const EdgeInsets.all(16.0),
-                        child: BlocBuilder<PrayersTrackingCubit, PrayersTrackingState>(
-                          builder: (context, state) {
-                            if (state is PrayersTrackingInitial) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            final trackingPrayers =
-                                (state as PrayersTrackingLoaded).prayers;
-                            return ListView.separated(
-                              itemCount: trackingPrayers.length,
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 12),
-                              itemBuilder: (context, index) {
-                                final prayer = trackingPrayers[index];
-                                int delay = index * 180;
-                                return PrayerCard(
-                                      prayer: prayer['name'],
-                                      prayerTime: prayer['time'],
-                                      prayerIcon: prayer['icon'],
-                                      prayerState:
-                                          prayer['isDoneToday'] ?? false,
-                                      onToggle: () => context
-                                          .read<PrayersTrackingCubit>()
-                                          .togglePrayer(index, prayer['time']),
-                                    )
-                                    .animate(delay: delay.ms)
-                                    .slideY(
-                                      begin:
-                                          1.0, 
-                                      end: 0.0, 
-                                      duration: 1000
-                                          .ms, 
-                                      curve: Curves
-                                          .easeInOut, 
-                                    )
-                                    .fadeIn(
-                                      duration: 1000.ms,
-                                    ); 
+                        child:
+                            BlocBuilder<
+                              PrayersTrackingCubit,
+                              PrayersTrackingState
+                            >(
+                              builder: (context, state) {
+                                if (state is PrayersTrackingInitial) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                final trackingPrayers =
+                                    (state as PrayersTrackingLoaded).prayers;
+                                return ListView.separated(
+                                  itemCount: trackingPrayers.length,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(height: 12),
+                                  itemBuilder: (context, index) {
+                                    final prayer = trackingPrayers[index];
+                                    int delay = index * 180;
+                                    return PrayerCard(
+                                          prayer: prayer['name'],
+                                          prayerTime: prayer['time'],
+                                          prayerIcon: prayer['icon'],
+                                          prayerImg: prayer['img'],
+                                          prayerState:
+                                              prayer['isDoneToday'] ?? false,
+                                          onToggle: () => context
+                                              .read<PrayersTrackingCubit>()
+                                              .togglePrayer(
+                                                index,
+                                                prayer['time'],
+                                              ),
+                                        )
+                                        .animate(delay: delay.ms)
+                                        .slideY(
+                                          begin: 1.0,
+                                          end: 0.0,
+                                          duration: 1000.ms,
+                                          curve: Curves.easeInOut,
+                                        )
+                                        .fadeIn(duration: 1000.ms);
+                                  },
+                                );
                               },
-                            );
-                          },
-                        ),
+                            ),
                       ),
                     ),
 
@@ -93,7 +96,7 @@ class PrayersTrackngPage extends StatelessWidget {
                           },
                           icon: Icon(
                             Icons.arrow_back,
-                            color: Theme.of(context).colorScheme.surface,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],

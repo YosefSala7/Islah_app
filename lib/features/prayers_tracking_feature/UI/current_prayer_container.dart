@@ -4,7 +4,6 @@ import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeC
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerTimeState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 
 class CurrentPrayerContainer extends StatelessWidget {
   const CurrentPrayerContainer({super.key});
@@ -15,9 +14,12 @@ class CurrentPrayerContainer extends StatelessWidget {
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
+            image: DecorationImage(
+              image: AssetImage("assets/imgs/islamic-background.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-          height: MediaQuery.heightOf(context) / 3.3,
+          height: MediaQuery.heightOf(context) / 2.7,
           width: MediaQuery.widthOf(context),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -27,14 +29,20 @@ class CurrentPrayerContainer extends StatelessWidget {
                 hight: 25,
                 width: 90,
                 isLoading: state.nextPrayer["name"] == null,
-                child: Shimmer.fromColors(
-                  loop: 8,
-                  direction: ShimmerDirection.rtl,
-                  baseColor: Theme.of(context).textTheme.bodyLarge!.color!,
-                  highlightColor: Theme.of(context).colorScheme.secondary,
-                  child: Text(
-                    state.nextPrayer["name"].toString(),
-                    style: Theme.of(context).textTheme.bodyLarge,
+                child: Text(
+                  state.nextPrayer["name"].toString(),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                    fontFamily: "ReemKufi",
+                    fontWeight: FontWeight.normal,
+                    fontSize: 40,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 30.0,
+                        color: Colors.black,
+                        offset: Offset(2.0, 2.0),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -42,13 +50,20 @@ class CurrentPrayerContainer extends StatelessWidget {
                 hight: 25,
                 width: 105,
                 isLoading: state.nextPrayer["time"] == null,
-                child: Shimmer.fromColors(
-                  loop: 8,
-                  baseColor: Theme.of(context).textTheme.bodyLarge!.color!,
-                  highlightColor: Theme.of(context).colorScheme.secondary,
-                  child: Text(
-                    format12hours(state.nextPrayer["time"].toString()),
-                    style: Theme.of(context).textTheme.bodyLarge,
+                child: Text(
+                  format12hours(state.nextPrayer["time"].toString()),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 30.0,
+                        color: Colors.black,
+                        offset: Offset(2.0, 2.0),
+                      ),
+                    ],
+                    fontFamily: "ReemKufi",
+                    fontWeight: FontWeight.normal,
+                    fontSize: 35,
                   ),
                 ),
               ),

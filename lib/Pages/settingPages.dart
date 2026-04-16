@@ -515,7 +515,8 @@ class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
   static const String _email = 'yosefsalah211@gmail.com';
-  static const String _linkedin = 'https://www.linkedin.com/in/youssef-salah-8ab975280/';
+  static const String _linkedin =
+      'https://www.linkedin.com/in/youssef-salah-8ab975280/';
 
   Future<void> _launchEmail() async {
     final Uri emailUri = Uri(
@@ -552,8 +553,11 @@ class SettingPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Settings".tr(),
-          style: theme.textTheme.bodyLarge?.copyWith(
-            fontWeight: FontWeight.bold,
+          style: theme.textTheme.bodyLarge!.copyWith(
+            fontFamily: "ReemKufi",
+            fontWeight: FontWeight.normal,
+            color: Colors.white,
+            fontSize: 30,
           ),
         ),
         centerTitle: true,
@@ -619,7 +623,7 @@ class SettingPage extends StatelessWidget {
 
   Widget _buildDarkModeCard(BuildContext context, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(24),
@@ -661,8 +665,9 @@ class SettingPage extends StatelessWidget {
                   children: [
                     Text(
                       "Dark Mode".tr(),
-                      style: theme.textTheme.bodyLarge?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                     Text(
@@ -691,7 +696,7 @@ class SettingPage extends StatelessWidget {
 
   Widget _buildContactCard(BuildContext context, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(24),
@@ -733,8 +738,9 @@ class SettingPage extends StatelessWidget {
                   children: [
                     Text(
                       "Contact Us".tr(),
-                      style: theme.textTheme.bodyLarge?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                     Text(
@@ -747,7 +753,10 @@ class SettingPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primary,
                   borderRadius: BorderRadius.circular(20),
@@ -777,7 +786,7 @@ class SettingPage extends StatelessWidget {
 
   Widget _buildLinkedInCard(BuildContext context, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(24),
@@ -819,8 +828,9 @@ class SettingPage extends StatelessWidget {
                   children: [
                     Text(
                       "LinkedIn".tr(),
-                      style: theme.textTheme.bodyLarge?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                     Text(
@@ -833,16 +843,25 @@ class SettingPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.secondary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: theme.colorScheme.secondary.withOpacity(0.3)),
+                  border: Border.all(
+                    color: theme.colorScheme.secondary.withOpacity(0.3),
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.open_in_new, size: 18, color: theme.colorScheme.secondary),
+                    Icon(
+                      Icons.open_in_new,
+                      size: 18,
+                      color: theme.colorScheme.secondary,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       "Visit".tr(),
@@ -883,7 +902,7 @@ class SettingPage extends StatelessWidget {
       child: Column(
         children: [
           Icon(
-            Icons.favorite,
+            Icons.info,
             size: 56,
             color: theme.colorScheme.primary.withOpacity(0.3),
           ),

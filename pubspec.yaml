@@ -63,9 +63,7 @@ flutter:
     - lib/core/translation/
     - assets/sounds/
   fonts:
-    - family: Cairo
-      fonts:
-        - asset: assets/fonts/Cairo-VariableFont_slnt,wght.ttf
+ 
     - family: Digital-7
       fonts:
         - asset: assets/fonts/digital-7.ttf
@@ -88,4 +86,10 @@ flutter:
           weight: 600 
         - asset: assets/fonts/ReemKufi-Bold.ttf
           weight: 700 
+    - family: Almarai
+      fonts:
+        - asset: assets/fonts/Almarai-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Almarai-Light.ttf
+          weight: 300
     

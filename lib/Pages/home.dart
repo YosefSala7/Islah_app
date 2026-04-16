@@ -167,7 +167,12 @@ class HomePage extends StatelessWidget {
                           children: [
                             Text(
                               "Assalamu_Alaikum".tr(),
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.bodyLarge!
+                                  .copyWith(
+                                    fontFamily: "ReemKufi",
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 30,
+                                  ),
                             ),
                             FutureBuilder(
                               future: getGeolocationFromCache(),

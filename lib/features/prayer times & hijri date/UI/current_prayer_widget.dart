@@ -32,10 +32,7 @@ class CurrentPrayerWidget extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodySmall,
                             )
                             .animate()
-                            .fadeIn(
-                              duration: 600.ms,
-                              begin: -2.0, 
-                            )
+                            .fadeIn(duration: 600.ms, begin: -2.0)
                             .scale(
                               duration: 600.ms,
                               begin: Offset(-2, -2),
@@ -43,7 +40,7 @@ class CurrentPrayerWidget extends StatelessWidget {
                             ),
 
                         Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(1.0),
                           child:
                               MyShimmer(
                                     hight: 25,
@@ -60,15 +57,18 @@ class CurrentPrayerWidget extends StatelessWidget {
                                       ).colorScheme.secondary,
                                       child: Text(
                                         state.nextPrayer["name"].toString(),
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyLarge,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              fontFamily: "ReemKufi",
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 40,
+                                            ),
                                       ),
                                     ),
                                   )
-                                  .animate(
-                                    delay: 200.ms, 
-                                  )
+                                  .animate(delay: 200.ms)
                                   .fadeIn(duration: 700.ms, begin: -2.0)
                                   .scale(
                                     duration: 700.ms,
@@ -78,7 +78,7 @@ class CurrentPrayerWidget extends StatelessWidget {
                         ),
 
                         Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(2.0),
                           child:
                               MyShimmer(
                                     hight: 25,
@@ -94,9 +94,13 @@ class CurrentPrayerWidget extends StatelessWidget {
                                       ).colorScheme.secondary,
                                       child: Text(
                                         "${"in".tr()} ${format12hours(state.nextPrayer["time"].toString())}",
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyLarge,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                              fontFamily: "ReemKufi",
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                     ),
                                   )

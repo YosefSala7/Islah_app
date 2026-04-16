@@ -29,14 +29,14 @@ class QuranIndexScreen extends StatelessWidget {
                       "تنبيه",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: "Cairo",
+                        fontFamily: "Almarai",
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     content: Text(
                       "هل تريد بدأ ختمة جديدة؟",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: "Cairo"),
+                      style: TextStyle(fontFamily: "Almarai"),
                     ),
                     actionsAlignment: MainAxisAlignment.spaceEvenly,
                     actions: [
@@ -48,7 +48,7 @@ class QuranIndexScreen extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pop(),
                         child: Text(
                           "لا",
-                          style: TextStyle(fontFamily: "Cairo"),
+                          style: TextStyle(fontFamily: "Almarai"),
                         ),
                       ),
                       ElevatedButton(
@@ -69,7 +69,7 @@ class QuranIndexScreen extends StatelessWidget {
                         },
                         child: Text(
                           "نعم",
-                          style: TextStyle(fontFamily: "Cairo"),
+                          style: TextStyle(fontFamily: "Almarai"),
                         ),
                       ),
                     ],
@@ -82,9 +82,9 @@ class QuranIndexScreen extends StatelessWidget {
           title: Text(
             "المصحف الشريف",
             style: TextStyle(
-              fontFamily: "Cairo",
-              fontWeight: FontWeight.bold,
+              fontFamily: "ReemKufi",
               color: theme.appBarTheme.foregroundColor,
+              fontSize: 30
             ),
           ),
           centerTitle: true,
@@ -102,12 +102,12 @@ class QuranIndexScreen extends StatelessWidget {
               127,
             ),
             labelStyle: TextStyle(
-              fontFamily: "Cairo",
+              fontFamily: "Almarai",
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
             unselectedLabelStyle: TextStyle(
-              fontFamily: "Cairo",
+              fontFamily: "Almarai",
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),

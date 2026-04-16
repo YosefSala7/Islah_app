@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // --- Light Theme ---
 final lightTheme = ThemeData(
-  fontFamily: "Cairo",
+  fontFamily: "Almarai",
   useMaterial3: true,
   brightness: Brightness.light,
   scaffoldBackgroundColor: const Color(0xFFF0F4F8), // خلفية سماوي فاتح جداً
@@ -20,7 +20,7 @@ final lightTheme = ThemeData(
       backgroundColor: const Color(0xFF2B6CB0), // خلفية الزرار (أزرق زاهي)
       foregroundColor: Colors.white, // لون نص الزرار
       textStyle: const TextStyle(
-        fontFamily: "Cairo",
+        fontFamily: "Almarai",
         fontWeight: FontWeight.bold,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -61,10 +61,10 @@ textTheme: const TextTheme(
     ), // لون الأيقونة غير المختارة (رمادي مزرق)
     showUnselectedLabels: true,
     selectedLabelStyle: TextStyle(
-      fontFamily: "Cairo",
+      fontFamily: "Almarai",
       fontWeight: FontWeight.bold,
     ),
-    unselectedLabelStyle: TextStyle(fontFamily: "Cairo"),
+    unselectedLabelStyle: TextStyle(fontFamily: "Almarai"),
   ),
 
   colorScheme: const ColorScheme.light(
@@ -76,7 +76,7 @@ textTheme: const TextTheme(
 
 // --- Dark Theme ---
 final darkTheme = ThemeData(
-  fontFamily: "Cairo",
+  fontFamily: "Almarai",
   useMaterial3: true,
   brightness: Brightness.dark,
   scaffoldBackgroundColor: const Color(0xFF0A192F), // كحلي غامق جداً (ليلي)
@@ -94,7 +94,7 @@ final darkTheme = ThemeData(
         0xFF0A192F,
       ), // نص كحلي غامق فوق الزرار الفاتح
       textStyle: const TextStyle(
-        fontFamily: "Cairo",
+        fontFamily: "Almarai",
         fontWeight: FontWeight.bold,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -133,19 +133,19 @@ textTheme: const TextTheme(
 
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Color(0xFF112240), // كحلي أغمق درجة من الكروت
-    selectedItemColor: Color(0xFF63B3ED), // لون الأيقونة المختارة (لبني فاتح)
+    selectedItemColor: Color(0xFFC5A021), // لون الأيقونة المختارة (لبني فاتح)
     unselectedItemColor: Color(0xFF8892B0), 
     showUnselectedLabels: true,
     selectedLabelStyle: TextStyle(
-      fontFamily: "Cairo",
+      fontFamily: "Almarai",
       fontWeight: FontWeight.bold,
     ),
-    unselectedLabelStyle: TextStyle(fontFamily: "Cairo"),
+    unselectedLabelStyle: TextStyle(fontFamily: "Almarai"),
   ),
 
   colorScheme: const ColorScheme.dark(
     primary: Color(0xFF63B3ED),
-    secondary: Color.fromARGB(255, 233, 183, 21),
+    secondary: Color(0xFF2B6CB0),
     surface: Color(0xFF172A45),
   ),
 );

@@ -32,7 +32,7 @@ class SurahIndexList extends StatelessWidget {
                   style: TextStyle(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Cairo",
+                    fontFamily: "Almarai",
                   ),
                 ),
               ),
@@ -42,14 +42,14 @@ class SurahIndexList extends StatelessWidget {
                   color: theme.textTheme.bodyLarge?.color,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Cairo",
+                  fontFamily: "Almarai",
                 ),
               ),
               subtitle: Text(
                 "${quran.getPlaceOfRevelation(surahNumber).tr()} - آياتها ${quran.getVerseCount(surahNumber)}",
                 style: TextStyle(
                   color: theme.textTheme.bodySmall?.color,
-                  fontFamily: "Cairo",
+                  fontFamily: "Almarai",
                 ),
               ),
               trailing: Icon(

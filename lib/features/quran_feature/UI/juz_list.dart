@@ -33,14 +33,14 @@ class JuzIndexList extends StatelessWidget {
                 color: theme.textTheme.bodyLarge?.color,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
-                fontFamily: "Cairo",
+                fontFamily: "Almarai",
               ),
             ),
             subtitle: Text(
               "بداية من سورة ${quran.getSurahNameArabic(firstSurahInJuz)}",
               style: TextStyle(
                 color: theme.textTheme.bodySmall?.color,
-                fontFamily: "Cairo",
+                fontFamily: "Almarai",
               ),
             ),
             trailing: Icon(

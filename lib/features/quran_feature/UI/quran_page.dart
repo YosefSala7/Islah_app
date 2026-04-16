@@ -234,7 +234,7 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
       margin: const EdgeInsets.only(top: 20, bottom: 10),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: theme.colorScheme.secondary.withOpacity(0.1),
+        color: theme.colorScheme.secondary.withAlpha(26),
         border: Border.symmetric(
           horizontal: BorderSide(color: theme.colorScheme.primary, width: 1.2),
         ),

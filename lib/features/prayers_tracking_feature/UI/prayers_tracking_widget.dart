@@ -31,8 +31,8 @@ class PrayersTrackingWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          child: Image.asset("assets/imgs/pray.png"),
                           height: MediaQuery.heightOf(context) / 12,
+                          child: Image.asset("assets/imgs/pray.png"),
                         ),
                         Text(
                           "prayers_tracking".tr(),

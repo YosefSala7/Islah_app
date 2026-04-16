@@ -15,71 +15,71 @@ class SurahIndexList extends StatelessWidget {
       itemBuilder: (context, index) {
         int surahNumber = index + 1;
         return ListTile(
-              leading: Container(
-                width: 45,
-                height: 45,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: theme.colorScheme.secondary.withOpacity(0.1),
-                  border: Border.all(
-                    color: theme.colorScheme.secondary.withOpacity(0.5),
-                    width: 1,
-                  ),
-                ),
-                child: Text(
-                  "$surahNumber",
-                  style: TextStyle(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Almarai",
-                  ),
-                ),
+          leading: Container(
+            width: 45,
+            height: 45,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: theme.colorScheme.secondary.withAlpha(26),
+              border: Border.all(
+                color: theme.colorScheme.secondary.withAlpha(128),
+                width: 1,
               ),
-              title: Text(
-                quran.getSurahNameArabic(surahNumber),
-                style: TextStyle(
-                  color: theme.textTheme.bodyLarge?.color,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Almarai",
-                ),
-              ),
-              subtitle: Text(
-                "${quran.getPlaceOfRevelation(surahNumber).tr()} - آياتها ${quran.getVerseCount(surahNumber)}",
-                style: TextStyle(
-                  color: theme.textTheme.bodySmall?.color,
-                  fontFamily: "Almarai",
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                size: 14,
+            ),
+            child: Text(
+              "$surahNumber",
+              style: TextStyle(
                 color: theme.colorScheme.primary,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Almarai",
               ),
-              onTap: () {
-                int firstPage = quran.getSurahPages(surahNumber).first;
-                Navigator.of(context, rootNavigator: true).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        QuranScreen(firstPage: firstPage),
-                  ),
-                );
-              },
-            )
-            .animate()
-            .fade(duration: 350.ms, curve: Curves.easeIn)
-            .slideX(
-              begin: 0.3,
-              end: 0,
-              duration: 450.ms,
-              curve: Curves.easeOutCubic,
-            )
-            .shimmer(
-              delay: 50.ms,
-              duration: 1000.ms,
-              color: theme.colorScheme.primary.withAlpha(60),
+            ),
+          ),
+          title: Text(
+            quran.getSurahNameArabic(surahNumber),
+            style: TextStyle(
+              color: theme.textTheme.bodyLarge?.color,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Almarai",
+            ),
+          ),
+          subtitle: Text(
+            "${quran.getPlaceOfRevelation(surahNumber).tr()} - آياتها ${quran.getVerseCount(surahNumber)}",
+            style: TextStyle(
+              color: theme.textTheme.bodySmall?.color,
+              fontFamily: "Almarai",
+            ),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: 14,
+            color: theme.colorScheme.primary,
+          ),
+          onTap: () {
+            int firstPage = quran.getSurahPages(surahNumber).first;
+            Navigator.of(context, rootNavigator: true).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    QuranScreen(firstPage: firstPage),
+              ),
             );
+          },
+        )
+        .animate()
+        .fade(duration: 350.ms, curve: Curves.easeIn)
+        .slideX(
+          begin: 0.3,
+          end: 0,
+          duration: 450.ms,
+          curve: Curves.easeOutCubic,
+        )
+        .shimmer(
+          delay: 50.ms,
+          duration: 1000.ms,
+          color: theme.colorScheme.primary.withAlpha(60),
+        );
       },
     );
   }

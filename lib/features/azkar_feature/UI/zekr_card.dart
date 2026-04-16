@@ -17,7 +17,7 @@ class ZekrCard extends StatefulWidget {
 
 class _ZekrCardState extends State<ZekrCard> {
   int currentCount = 0;
-  bool isFinished = false; // ضفنا متغير يراقب الحالة
+  bool isFinished = false; 
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _ZekrCardState extends State<ZekrCard> {
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
         child: isFinished
-            ? const SizedBox(width: double.infinity, height: 0) 
+            ? const SizedBox(width: double.infinity, height: 0)
             : GestureDetector(
                 onTap: () {
                   if (currentCount < widget.count) {
@@ -55,7 +55,7 @@ class _ZekrCardState extends State<ZekrCard> {
                     borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withAlpha(10),
                         blurRadius: 15,
                         offset: const Offset(0, 8),
                       ),
@@ -73,7 +73,7 @@ class _ZekrCardState extends State<ZekrCard> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      Divider(color: theme.dividerColor.withOpacity(0.1), thickness: 1),
+                      Divider(color: theme.dividerColor.withAlpha(26), thickness: 1),
                       const SizedBox(height: 10),
                       Text(
                         widget.reference,

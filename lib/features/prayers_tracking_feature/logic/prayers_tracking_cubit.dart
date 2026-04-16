@@ -93,7 +93,6 @@ class PrayersTrackingCubit extends Cubit<PrayersTrackingState> {
       await prefs.setString(_prefsKey, json.encode(data));
     } catch (e) {
       // Log error for debug
-      print('Save error: $e');
     }
   }
 }

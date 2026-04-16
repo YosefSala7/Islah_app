@@ -86,11 +86,9 @@ class AudioCubit extends Cubit<AudioState> {
 
       await _audioPlayer.stop(); // Stop previous
       await _audioPlayer.play(UrlSource(url));
-      print('تم تشغيل سورة $surah آية $verse');
     } catch (e) {
       await _audioPlayer.stop(); // Stop previous
       emit(ErrorState(error: 'خطأ في تشغيل الصوت: $e'));
-      print('خطأ: $e');
     }
   }
 
@@ -98,7 +96,7 @@ class AudioCubit extends Cubit<AudioState> {
     try {
       await _audioPlayer.pause();
     } catch (e) {
-      print('Pause error: $e');
+      return;
     }
   }
 

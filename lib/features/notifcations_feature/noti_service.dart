@@ -11,7 +11,6 @@ class LocalNotiService {
     tz_data.initializeTimeZones();
     tz.setLocalLocation(tz.local);
 
-    print('🌍 Timezone set to ${tz.local}');
 
     await _requestPermissions();
     final androidPlugin = notifications
@@ -37,16 +36,13 @@ class LocalNotiService {
     await notifications.initialize(
       settings: const InitializationSettings(android: android, iOS: ios),
       onDidReceiveNotificationResponse: (details) {
-        print('🔔 Notification payload: ${details.payload}');
       },
     );
 
-    print('🎉 Notifications initialized successfully!');
   }
 
   Future<void> _requestPermissions() async {
     var status = await Permission.notification.request();
-    print('📱 Notification permission: ${status.name}');
 
     await Permission.scheduleExactAlarm.request();
 
@@ -86,7 +82,6 @@ class LocalNotiService {
       body: body,
       notificationDetails: _notificationDetails,
     );
-    print('📢 Showing notification ID: $id');
   }
 
   Future<void> schedulePrayerNoti({
@@ -108,7 +103,6 @@ class LocalNotiService {
 
     final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
 
-    print('📅 Scheduling for: ${tzDateTime.toLocal()}');
 
     await notifications.zonedSchedule(
       id: id,
@@ -135,7 +129,6 @@ class LocalNotiService {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
     );
-    print('✅ Scheduled notification ID: $id');
   }
 
   Future<void> scheduleAzkarNoti({
@@ -156,7 +149,6 @@ class LocalNotiService {
     }
 
     final tzDateTime = tz.TZDateTime.from(scheduledDate, tz.local);
-    print('📅 Scheduling for: ${tzDateTime.toLocal()}');
     await notifications.zonedSchedule(
       id: id,
       title: title,
@@ -182,17 +174,14 @@ class LocalNotiService {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
     );
-    print('✅ Scheduled notification ID: $id');
   }
 
   Future<void> cancelAllNoti() async {
     await notifications.cancelAll();
-    print('🗑️ All notifications cancelled');
   }
 
   // ✅ دالة لإلغاء إشعار معين
   Future<void> cancel(int id) async {
     await notifications.cancel(id: id);
-    print('❌ Cancelled notification ID: $id');
   }
 }

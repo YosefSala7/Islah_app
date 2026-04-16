@@ -32,7 +32,6 @@ dependencies:
   quran: ^1.4.1
   flutter_speed_dial: ^7.0.0
   audioplayers: ^6.6.0
-  workmanager: ^0.8.0
   islamic_azkar: ^0.0.2
   flutter_timezone: ^5.0.2
 
@@ -45,6 +44,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  change_app_package_name: ^1.5.0
 
 flutter_launcher_icons:
   android: "ic_launcher"
@@ -63,7 +63,6 @@ flutter:
     - lib/core/translation/
     - assets/sounds/
   fonts:
- 
     - family: Digital-7
       fonts:
         - asset: assets/fonts/digital-7.ttf

@@ -85,12 +85,12 @@ class AudioPlayerDialog extends StatelessWidget {
                   try {
                     context.read<AudioCubit>().stop();
                   } catch (e) {
-                    print('Stop error: $e');
+                    return;
                   }
                   try {
                     context.read<AudioCubit>().pause();
                   } catch (e) {
-                    print('Pause error: $e');
+                    return;
                   }
                   Navigator.pop(context);
                 },

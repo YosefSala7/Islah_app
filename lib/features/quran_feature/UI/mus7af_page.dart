@@ -1,4 +1,3 @@
-
 import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
@@ -234,7 +233,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           : SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.05,
                               width: MediaQuery.sizeOf(context).width,
-                              
+
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -269,7 +268,7 @@ class _QuranScreenState extends State<QuranScreen> {
                                     icon: Icon(Icons.search),
                                   ),
                                   Text(
-                                    currentSurahName,
+                                    "سورة ${currentSurahName}",
                                     style: Theme.of(context).textTheme.bodyLarge
                                         ?.copyWith(
                                           fontFamily: "QCF_Surah",

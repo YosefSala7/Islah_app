@@ -32,7 +32,7 @@ android {
     defaultConfig {
         applicationId = "com.multiverse.IslahApp"
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 34
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         

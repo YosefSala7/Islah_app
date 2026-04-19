@@ -39,6 +39,7 @@ dependencies:
   qcf_quran_lite: ^0.0.3
   scrollable_positioned_list: ^0.3.8
   url_launcher: ^6.3.2
+  timezone: ^0.11.0
 
 dev_dependencies:
   flutter_test:

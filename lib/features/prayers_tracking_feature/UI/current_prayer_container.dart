@@ -15,7 +15,7 @@ class CurrentPrayerContainer extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/imgs/islamic-background.png"),
+              image: AssetImage("assets/imgs/Islamic-background.png"),
               fit: BoxFit.cover,
             ),
           ),

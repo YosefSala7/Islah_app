@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SavePageCubit extends Cubit<PageState> {
   SavePageCubit() : super(InitPage());
-  void savePage(int currentPage) {
-    saveLastPage(currentPage);
+  void savePage(int currentPage) async {
+    await saveLastPage(currentPage);
     emit(UpdatePage(page: currentPage));
   }
 
@@ -14,7 +14,8 @@ class SavePageCubit extends Cubit<PageState> {
     emit(UpdatePage(page: page));
   }
 
-  void newKhatma() {
+  void newKhatma() async {
+    await saveLastPage(1);
     emit(InitPage());
   }
 }

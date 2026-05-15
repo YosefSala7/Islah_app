@@ -195,7 +195,7 @@ class _QuranReaderScreenState extends State<QuranReaderScreen> {
             children: [
               IconButton(
                 onPressed: () {
-                  BlocProvider.of<SavePageCubit>(context).savePage(currentPage);
+                  context.read<SavePageCubit>().savePage(currentPage);
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

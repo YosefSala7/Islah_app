@@ -220,10 +220,12 @@ class _QuranScreenState extends State<QuranScreen> {
                             currentSurahNumber = newSurahNum;
                             currentJuzNumber = newJuz;
                           });
+                          context.read<SavePageCubit>().savePage(page);
                         } else {
                           setState(() {
                             currentPage = page;
                           });
+                          context.read<SavePageCubit>().savePage(page);
                         }
                       },
                       topBar:

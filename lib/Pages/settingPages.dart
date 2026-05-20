@@ -70,23 +70,11 @@ class SettingPage extends StatelessWidget {
         ),
       ),
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        theme.colorScheme.primary.withAlpha(20),
-                        theme.scaffoldBackgroundColor,
-                      ],
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: EdgeInsets.only(
                     top: MediaQuery.of(context).padding.top + 120,

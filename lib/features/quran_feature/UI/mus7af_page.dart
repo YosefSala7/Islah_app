@@ -1,5 +1,4 @@
 import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
-import 'package:app/features/quran_feature/UI/quran_page.dart';
 import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -268,7 +267,7 @@ class _QuranScreenState extends State<QuranScreen> {
                                     icon: Icon(Icons.search),
                                   ),
                                   Text(
-                                    "سورة ${currentSurahName}",
+                                    "سورة $currentSurahName",
                                     style: Theme.of(context).textTheme.bodyLarge
                                         ?.copyWith(
                                           fontFamily: "QCF_Surah",
@@ -279,27 +278,6 @@ class _QuranScreenState extends State<QuranScreen> {
                                             context,
                                           ).colorScheme.primary,
                                         ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return QuranReaderScreen(
-                                              initialPage: currentPage,
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.menu_book,
-                                      color: Theme.of(context).iconTheme.color,
-                                      size:
-                                          MediaQuery.sizeOf(context).width *
-                                          0.05,
-                                    ),
                                   ),
                                 ],
                               ),
@@ -328,27 +306,7 @@ class _QuranScreenState extends State<QuranScreen> {
                                             0.04,
                                       ),
                                 ),
-                              IconButton(
-                                onPressed: () {
-                                  BlocProvider.of<SavePageCubit>(
-                                    context,
-                                  ).savePage(currentPage);
-                                  ScaffoldMessenger.of(
-                                    context,
-                                  ).clearSnackBars();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        "تم حفظ الصفحة عند $currentPage",
-                                      ),
-                                      duration: Duration(seconds: 1),
-                                      behavior: SnackBarBehavior.floating,
-                                      width: 200,
-                                    ),
-                                  );
-                                },
-                                icon: Icon(Icons.bookmark_add_outlined),
-                              ),
+
                               Container(
                                 padding: EdgeInsets.symmetric(
                                   horizontal:
@@ -373,6 +331,27 @@ class _QuranScreenState extends State<QuranScreen> {
                                         ).colorScheme.primary,
                                       ),
                                 ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  BlocProvider.of<SavePageCubit>(
+                                    context,
+                                  ).savePage(currentPage);
+                                  ScaffoldMessenger.of(
+                                    context,
+                                  ).clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        "تم حفظ الصفحة عند $currentPage",
+                                      ),
+                                      duration: Duration(seconds: 1),
+                                      behavior: SnackBarBehavior.floating,
+                                      width: 200,
+                                    ),
+                                  );
+                                },
+                                icon: Icon(Icons.bookmark_add_outlined),
                               ),
                             ],
                           ),

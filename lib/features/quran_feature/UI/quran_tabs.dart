@@ -1,5 +1,5 @@
 import 'package:app/features/quran_feature/UI/juz_list.dart';
-import 'package:app/features/quran_feature/UI/quran_page.dart';
+import 'package:app/features/quran_feature/UI/mus7af_page.dart';
 import 'package:app/features/quran_feature/UI/surah_list.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class QuranIndexScreen extends StatelessWidget {
                           Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
                               builder: (context) =>
-                                  QuranReaderScreen(initialPage: firstPage),
+                                  QuranScreen(firstPage: firstPage),
                             ),
                           );
                         },
@@ -84,7 +84,7 @@ class QuranIndexScreen extends StatelessWidget {
             style: TextStyle(
               fontFamily: "ReemKufi",
               color: theme.appBarTheme.foregroundColor,
-              fontSize: 30
+              fontSize: 30,
             ),
           ),
           centerTitle: true,

@@ -10,6 +10,7 @@ class SurahIndexList extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemCount: 114,
       padding: const EdgeInsets.symmetric(vertical: 10),
       itemBuilder: (context, index) {

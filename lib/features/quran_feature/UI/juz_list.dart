@@ -9,6 +9,7 @@ class JuzIndexList extends StatelessWidget {
     final theme = Theme.of(context);
 
     return ListView.builder(
+      physics: BouncingScrollPhysics(),
       itemCount: 30,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       itemBuilder: (context, index) {

@@ -1,5 +1,6 @@
 import 'package:app/core/Global State Managment/darkModeCubit.dart';
 import 'package:app/core/Global State Managment/darkModeState.dart';
+import 'package:app/core/components/Theme_Switch.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -163,10 +164,7 @@ class SettingPage extends StatelessWidget {
               ),
               BlocBuilder<DarkCubit, DarkModeState>(
                 builder: (context, state) {
-                  return Switch(
-                    value: state.isDark,
-                    onChanged: (_) => context.read<DarkCubit>().onClick(),
-                  );
+                  return ToggleSwitch(onChange: (_) => context.read<DarkCubit>().onClick(),);
                 },
               ),
             ],

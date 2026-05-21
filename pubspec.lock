@@ -270,6 +270,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.1.1"
+  flutter_compass:
+    dependency: transitive
+    description:
+      name: flutter_compass
+      sha256: "1b4d7e6c95a675ec8482b5c9c9ccf1ebf0ced3dbec59dce28ad609da953de850"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.1"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -861,6 +869,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.3"
+  qibla_compass:
+    dependency: "direct main"
+    description:
+      name: qibla_compass
+      sha256: "9ef917ea504b45b90f8b8414ed17e15977aa05ecfa77966963c6c3a609d0903a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   quran:
     dependency: "direct main"
     description:

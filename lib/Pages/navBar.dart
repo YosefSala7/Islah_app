@@ -1,5 +1,6 @@
 import 'package:app/Pages/azkarPage.dart';
 import 'package:app/Pages/home.dart';
+import 'package:app/features/Qibla_Feature/UI/qibla_page.dart';
 import 'package:app/Pages/quranPage.dart';
 import 'package:app/Pages/settingPages.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';

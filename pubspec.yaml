@@ -42,6 +42,7 @@ dependencies:
   timezone: ^0.11.0
   flutter_inset_shadow: ^2.0.3
   flutter_svg: ^2.3.0
+  qibla_compass: ^1.0.1
 
 dev_dependencies:
   flutter_test:

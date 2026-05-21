@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:app/Pages/splashScreen.dart';
+import 'package:app/features/Qibla_Feature/UI/qibla_widget.dart';
 import 'package:app/features/azkar_feature/UI/random_zekr_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/current_prayer_widget.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/UI/date_widget.dart';
@@ -244,6 +245,7 @@ class HomePage extends StatelessWidget {
                         ),
                         DialyRandomVerse(),
                         QuickZekr(),
+                        QiblaWidget()
                       ],
                     ),
                   ),

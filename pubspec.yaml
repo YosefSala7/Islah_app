@@ -36,6 +36,7 @@ dependencies:
   workmanager: ^0.8.0
   qcf_quran_lite: ^0.0.3
   scrollable_positioned_list: ^0.3.8
+  tafsir_library: ^1.0.1
 
 dev_dependencies:
   flutter_test:

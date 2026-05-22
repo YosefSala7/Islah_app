@@ -198,6 +198,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qcf_quran_lite/qcf_quran_lite.dart';
+import 'package:quran/quran.dart' as quran;
+import 'package:tafsir_library/tafsir_library.dart';
 
 class QuranScreen extends StatefulWidget {
   QuranScreen({super.key, required this.firstPage});
@@ -217,6 +219,7 @@ class _QuranScreenState extends State<QuranScreen> {
   List<HighlightVerse> _activeHighlights = [];
   bool isSearchOpen = false;
   List<Map<String, dynamic>> searchResults = [];
+
   Widget _buildSearchOverlay(BuildContext context) {
     final sw = MediaQuery.sizeOf(context).width;
     final sh = MediaQuery.sizeOf(context).height;
@@ -330,6 +333,18 @@ class _QuranScreenState extends State<QuranScreen> {
                     width: MediaQuery.widthOf(context),
                     child: QuranPageView(
                       onLongPress: (surahNumber, verseNumber, details) {
+                        setState(() {
+                          _activeHighlights.add(
+                            HighlightVerse(
+                              verseNumber: verseNumber,
+                              page: currentPage + 1,
+                              surah: surahNumber,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withAlpha(113),
+                            ),
+                          );
+                        });
                         showModalBottomSheet(
                           context: parentContext,
                           isScrollControlled: true,
@@ -352,7 +367,6 @@ class _QuranScreenState extends State<QuranScreen> {
                                     ),
                                   ),
                                   SizedBox(height: 10),
-
                                   ListTile(
                                     leading: Icon(Icons.copy),
                                     title: Text("نسخ الآية"),
@@ -382,22 +396,45 @@ class _QuranScreenState extends State<QuranScreen> {
                                       );
                                     },
                                   ),
-
                                   ListTile(
                                     leading: Icon(Icons.menu_book),
                                     title: Text("تفسير"),
                                     onTap: () {
                                       Navigator.pop(buttomSheetContext);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Scaffold(
+                                              body: ShowTafsir(
+                                                context: context,
+                                                surahNumber: surahNumber,
+                                                ayahNumber: verseNumber,
+                                                ayahUQNumber: getAyahUQNumber(
+                                                  surahNumber: surahNumber,
+                                                  ayahNumber: verseNumber,
+                                                ),
+                                                pageIndex: currentPage,
+                                                isDark: true,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
                                     },
                                   ),
                                 ],
                               ),
                             );
                           },
-                        );
+                        ).whenComplete(() {
+                          setState(() {
+                            _activeHighlights = [];
+                          });
+                        });
                       },
-
                       pageController: _controller,
+                      highlights: _activeHighlights,
                       onPageChanged: (page) {
                         int newSurahNum = getPageData(page)[0]["surah"];
                         String newSurahName = getSurahNameArabic(newSurahNum);
@@ -425,7 +462,6 @@ class _QuranScreenState extends State<QuranScreen> {
                           : SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.05,
                               width: MediaQuery.sizeOf(context).width,
-                              
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -581,4 +617,12 @@ class _QuranScreenState extends State<QuranScreen> {
       ),
     );
   }
+}
+
+int getAyahUQNumber({required int surahNumber, required int ayahNumber}) {
+  int totalPreviousAyahs = 0;
+  for (int i = 1; i < surahNumber; i++) {
+    totalPreviousAyahs += quran.getVerseCount(i);
+  }
+  return totalPreviousAyahs + ayahNumber;
 }

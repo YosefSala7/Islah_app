@@ -52,6 +52,8 @@
     "prayers_tracking":"متابعة الصلاة",
     "Makkah":"مكية",
     "Madinah":"مدنية",
+    "verse":"آية",
+    "tr":"الترجمة",
     "prayer_times": {
         "am": "ص",
         "pm": "م",

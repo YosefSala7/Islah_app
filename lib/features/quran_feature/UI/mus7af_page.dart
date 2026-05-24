@@ -192,6 +192,7 @@
 // }
 import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
 import 'package:app/features/quran_feature/UI/quran_page.dart';
+import 'package:app/features/quran_feature/UI/tafsir_page.dart';
 import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -405,18 +406,10 @@ class _QuranScreenState extends State<QuranScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) {
-                                            return Scaffold(
-                                              body: ShowTafsir(
-                                                context: context,
-                                                surahNumber: surahNumber,
-                                                ayahNumber: verseNumber,
-                                                ayahUQNumber: getAyahUQNumber(
-                                                  surahNumber: surahNumber,
-                                                  ayahNumber: verseNumber,
-                                                ),
-                                                pageIndex: currentPage,
-                                                isDark: true,
-                                              ),
+                                            return TafsirPage(
+                                              currentPage: currentPage,
+                                              surahNumber: surahNumber,
+                                              verseNumber: verseNumber,
                                             );
                                           },
                                         ),
@@ -617,12 +610,4 @@ class _QuranScreenState extends State<QuranScreen> {
       ),
     );
   }
-}
-
-int getAyahUQNumber({required int surahNumber, required int ayahNumber}) {
-  int totalPreviousAyahs = 0;
-  for (int i = 1; i < surahNumber; i++) {
-    totalPreviousAyahs += quran.getVerseCount(i);
-  }
-  return totalPreviousAyahs + ayahNumber;
 }

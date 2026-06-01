@@ -239,13 +239,14 @@ class HomePage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            LastThirdWidget(time: lastThird!),
+                            // LastThirdWidget(time: lastThird!),
+                            QiblaWidget(),
                             PrayersTrackingWidget(prayers: prayers),
                           ],
                         ),
                         DialyRandomVerse(),
                         QuickZekr(),
-                        QiblaWidget()
+                        
                       ],
                     ),
                   ),

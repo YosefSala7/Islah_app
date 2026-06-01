@@ -37,7 +37,7 @@ class QuranPage extends StatelessWidget {
               SizedBox(
                 height:
                     MediaQuery.heightOf(context) -
-                    MediaQuery.heightOf(context) / 9,
+                    MediaQuery.heightOf(context) / 12,
                 child: QuranIndexScreen(),
               ),
             ],

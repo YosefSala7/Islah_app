@@ -1,6 +1,7 @@
 import 'package:app/core/Global State Managment/darkModeCubit.dart';
 import 'package:app/core/Global State Managment/darkModeState.dart';
 import 'package:app/core/components/Theme_Switch.dart';
+import 'package:app/core/components/appBar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,31 +46,7 @@ class SettingPage extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text(
-          "Settings".tr(),
-          style: theme.textTheme.bodyLarge!.copyWith(
-            fontFamily: "ReemKufi",
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-            fontSize: 30,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.primary.withAlpha(229),
-                theme.colorScheme.primary.withAlpha(153),
-              ],
-            ),
-          ),
-        ),
-      ),
+      appBar: MyAppBar(title: "Settings".tr()),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [

@@ -1,3 +1,4 @@
+import 'package:app/core/components/appBar.dart';
 import 'package:app/features/azkar_feature/UI/category_card.dart';
 import 'package:app/features/azkar_feature/UI/tasbih_page.dart';
 import 'package:app/features/azkar_feature/UI/zekr_page.dart';
@@ -12,6 +13,7 @@ class AzkarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(title: "Azkar".tr()),
       body: SafeArea(
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
@@ -24,7 +26,7 @@ class AzkarPage extends StatelessWidget {
                 final count = azkarService.getAzkarByCategory(cat).length;
                 String title = "";
                 IconData icon = Icons.book;
-        
+
                 switch (cat) {
                   case ZekrCategory.morning:
                     title = "أذكار الصباح";
@@ -89,6 +91,7 @@ class AzkarPage extends StatelessWidget {
                         builder: (context) {
                           return ZekrPage(
                             azkar: azkarService.getAzkarByCategory(cat),
+                            category: cat,
                           );
                         },
                       ),

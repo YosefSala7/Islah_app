@@ -7,7 +7,7 @@ class ToggleSwitch extends StatefulWidget {
   const ToggleSwitch({
     super.key,
     this.initiallyDark = false,
-    this.duration = const Duration(milliseconds: 200),
+    this.duration = const Duration(milliseconds: 700),
     this.size = 30,
     this.onChange,
   });

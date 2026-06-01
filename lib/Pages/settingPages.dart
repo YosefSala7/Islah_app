@@ -164,7 +164,11 @@ class SettingPage extends StatelessWidget {
               ),
               BlocBuilder<DarkCubit, DarkModeState>(
                 builder: (context, state) {
-                  return ToggleSwitch(onChange: (_) => context.read<DarkCubit>().onClick(),);
+                  return ToggleSwitch(
+                    initiallyDark:
+                        Theme.of(context).brightness == Brightness.dark,
+                    onChange: (_) => context.read<DarkCubit>().onClick(),
+                  );
                 },
               ),
             ],
@@ -409,4 +413,3 @@ class SettingPage extends StatelessWidget {
 // Commented old code with replacements
 // import 'package:app/core/Global State Managment/darkModeCubit.dart';
 // ... (rest commented with all withOpacity changed to withAlpha with int values, but omitted for brevity as it's inactive)
-

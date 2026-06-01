@@ -8,9 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qcf_quran_lite/qcf_quran_lite.dart';
 
 class QuranScreen extends StatefulWidget {
-  QuranScreen({super.key, required this.firstPage});
+  QuranScreen({super.key, required this.firstPage, this.firstVerse});
   int firstPage;
-
+  int? firstVerse;
   @override
   State<QuranScreen> createState() => _QuranScreenState();
 }
@@ -122,6 +122,28 @@ class _QuranScreenState extends State<QuranScreen> {
       getPageData(currentPage)[0]["start"],
     );
     _controller = PageController(initialPage: widget.firstPage - 1);
+Future.delayed(Duration.zero, () {
+  if (widget.firstVerse != null) {
+    setState(() {
+      _activeHighlights.add(
+        HighlightVerse(
+          verseNumber: widget.firstVerse!,
+          page: currentPage + 1, 
+          surah: currentSurahNumber,
+          color: Theme.of(context).colorScheme.primary.withAlpha(113), 
+        ),
+      );
+    });
+
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _activeHighlights.clear();
+        });
+      }
+    });
+  }
+});
   }
 
   @override
@@ -173,6 +195,32 @@ class _QuranScreenState extends State<QuranScreen> {
                                     ),
                                   ),
                                   SizedBox(height: 10),
+                                  ListTile(
+                                    leading: Icon(Icons.save_alt_outlined),
+                                    title: Text("حفظ عند الآية"),
+                                    onTap: () {
+                                      BlocProvider.of<SavePageCubit>(
+                                        context,
+                                      ).savePageAndVerse(currentPage, verseNumber);
+                                      
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).clearSnackBars();
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            "تم حفظ الصفحة عند $currentPage و الآية عند $verseNumber",
+                                          ),
+                                          duration: Duration(seconds: 1),
+                                          behavior: SnackBarBehavior.floating,
+                                          width: 200,
+                                        ),
+                                      );
+                                      Navigator.pop(buttomSheetContext);
+                                    },
+                                  ),
                                   ListTile(
                                     leading: Icon(Icons.copy),
                                     title: Text("نسخ الآية"),
@@ -260,7 +308,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           : SizedBox(
                               height: MediaQuery.sizeOf(context).height * 0.05,
                               width: MediaQuery.sizeOf(context).width,
-                              
+
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -364,7 +412,7 @@ class _QuranScreenState extends State<QuranScreen> {
                                 onPressed: () {
                                   BlocProvider.of<SavePageCubit>(
                                     context,
-                                  ).savePage(currentPage);
+                                  ).savePageAndVerse(currentPage, 0);
                                   ScaffoldMessenger.of(
                                     context,
                                   ).clearSnackBars();

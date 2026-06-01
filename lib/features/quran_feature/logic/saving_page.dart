@@ -12,3 +12,15 @@ Future<int> getLastPage() async {
   print("القيمة اللي اتقرت من الذاكرة: $page"); // شوف هيطبع كام أول ما تفتح
   return page;
 }
+Future<void> saveVerse(int verseNumber) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('last_verse', verseNumber);
+  print(prefs.getInt('last_verse') == verseNumber);
+}
+
+Future<int> getLastVerse() async {
+  final prefs = await SharedPreferences.getInstance();
+  int verse = prefs.getInt('last_verse') ?? 0;
+  print("القيمة اللي اتقرت من الذاكرة: $verse"); // شوف هيطبع كام أول ما تفتح
+  return verse;
+}

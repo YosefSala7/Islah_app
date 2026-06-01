@@ -1,18 +1,15 @@
 import 'package:equatable/equatable.dart';
 
-sealed class PageState extends Equatable { 
-  final int page;
+class PageState extends Equatable {
+  final int? page;
+  final int? verse;
 
-  const PageState({required this.page});
+  const PageState({required this.page, required this.verse});
+
+  PageState copyWith({int? page, int? verse}) {
+    return PageState(page: page ?? this.page, verse: verse ?? this.verse);
+  }
 
   @override
-  List<Object?> get props => [page]; 
-}
-
-class InitPage extends PageState {
-  const InitPage() : super(page: 1);
-}
-
-class UpdatePage extends PageState {
-  const UpdatePage({required super.page});
+  List<Object?> get props => [page,verse];
 }

@@ -12,12 +12,12 @@ class QuranPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SavePageCubit, PageState>(
       builder: (context, state) {
-        context.read<SavePageCubit>().getPage();
+        context.read<SavePageCubit>().getPageAndVerse();
         return Scaffold(
           floatingActionButton: FloatingActionButton.extended(
             label: Row(
               children: [
-                state.page > 1
+                (state.page ?? 1) > 1
                     ? const Text("متابعة الختمة")
                     : const Text("ابدأ ختمة"),
               ],
@@ -25,9 +25,7 @@ class QuranPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
-                  builder: (context) => QuranScreen(
-                    firstPage: state.page,
-                  ),
+                  builder: (context) => QuranScreen(firstPage: state.page ?? 1,firstVerse: state.verse ?? 1,),
                 ),
               );
             },

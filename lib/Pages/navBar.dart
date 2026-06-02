@@ -22,6 +22,7 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
+        
         tabs: [
           PersistentTabConfig(
             screen: BlocProvider.value(
@@ -87,7 +88,7 @@ class _NavbarState extends State<Navbar> {
           ),
         ],
 
-        navBarBuilder: (navBarConfig) => Style1BottomNavBar(
+        navBarBuilder: (navBarConfig) => Style2BottomNavBar(
           navBarConfig: navBarConfig,
           navBarDecoration: NavBarDecoration(
             color: Theme.of(context).bottomNavigationBarTheme.backgroundColor!,

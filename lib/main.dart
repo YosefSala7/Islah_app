@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tafsir_library/tafsir_library.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,11 +43,16 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+void _updateColor(bool isDark) async {
+    await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+    await FlutterStatusbarcolor.setStatusBarWhiteForeground(isDark);
+    await FlutterStatusbarcolor.setNavigationBarColor(isDark ? Colors.black : Colors.white);
+}
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DarkCubit, DarkModeState>(
       builder: (context, state) {
+        _updateColor(state.isDark);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,

@@ -47,6 +47,7 @@ void _updateColor(bool isDark) async {
     await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
     await FlutterStatusbarcolor.setStatusBarWhiteForeground(isDark);
     await FlutterStatusbarcolor.setNavigationBarColor(isDark ? Color(0xFF112240) : Colors.white);
+    await FlutterStatusbarcolor.setNavigationBarColor(isDark ? Colors.black : Colors.white);
 }
   @override
   Widget build(BuildContext context) {

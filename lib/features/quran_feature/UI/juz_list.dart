@@ -1,4 +1,5 @@
 import 'package:app/features/quran_feature/UI/mus7af_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
 import 'package:flutter_animate/flutter_animate.dart';
@@ -45,7 +46,7 @@ class JuzIndexList extends StatelessWidget {
               ),
             ),
             trailing: Icon(
-              Icons.chrome_reader_mode_outlined,
+              CupertinoIcons.book_fill,
               color: theme.colorScheme.primary,
             ),
             onTap: () {

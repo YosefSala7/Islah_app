@@ -38,7 +38,7 @@ class _NavbarState extends State<Navbar> {
                 context,
               ).bottomNavigationBarTheme.unselectedItemColor!,
               inactiveIcon: Icon(FlutterIslamicIcons.mosque),
-              title: "Home".tr(),
+              title: " ${"Home".tr()}",
             ),
           ),
           PersistentTabConfig(
@@ -55,7 +55,7 @@ class _NavbarState extends State<Navbar> {
               inactiveForegroundColor: Theme.of(
                 context,
               ).bottomNavigationBarTheme.unselectedItemColor!,
-              title: "Azkar".tr(),
+              title: " ${"Azkar".tr()}",
             ),
           ),
           PersistentTabConfig(
@@ -69,7 +69,7 @@ class _NavbarState extends State<Navbar> {
               inactiveForegroundColor: Theme.of(
                 context,
               ).bottomNavigationBarTheme.unselectedItemColor!,
-              title: "Quran".tr(),
+              title: " ${"Quran".tr()}",
             ),
           ),
           PersistentTabConfig(
@@ -83,7 +83,7 @@ class _NavbarState extends State<Navbar> {
               inactiveForegroundColor: Theme.of(
                 context,
               ).bottomNavigationBarTheme.unselectedItemColor!,
-              title: "Settings".tr(),
+              title:" ${ "Settings".tr()}",
             ),
           ),
         ],

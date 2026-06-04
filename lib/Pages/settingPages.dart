@@ -49,16 +49,16 @@ class SettingPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: MyAppBar(title: "Settings".tr()),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
+            MyAppBar(title: "Settings".tr()),
             SliverToBoxAdapter(
               child: Stack(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top + 120,
+                      top: 24,
                       left: 24,
                       right: 24,
                     ),

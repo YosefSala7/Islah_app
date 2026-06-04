@@ -6,7 +6,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SliverAppBar(
+      floating: true,
+      snap: true,
       title: Text(
         title,
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(

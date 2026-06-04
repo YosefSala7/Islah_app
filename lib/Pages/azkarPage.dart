@@ -12,12 +12,12 @@ class AzkarPage extends StatelessWidget {
   List azkarCategories = ZekrCategory.values;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: MyAppBar(title: "Azkar".tr()),
-        body: CustomScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
+            MyAppBar(title: "Azkar".tr()),
             SliverList.builder(
               itemCount: azkarCategories.length,
               itemBuilder: (context, index) {

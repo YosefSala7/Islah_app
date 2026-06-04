@@ -13,32 +13,34 @@ class QuranPage extends StatelessWidget {
     return BlocBuilder<SavePageCubit, PageState>(
       builder: (context, state) {
         context.read<SavePageCubit>().getPageAndVerse();
-        return Scaffold(
-          floatingActionButton: FloatingActionButton.extended(
-            label: Row(
+        return SafeArea(
+          child: Scaffold(
+            floatingActionButton: FloatingActionButton.extended(
+              label: Row(
+                children: [
+                  (state.page ?? 1) > 1
+                      ? const Text("متابعة الختمة")
+                      : const Text("ابدأ ختمة"),
+                ],
+              ),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute(
+                    builder: (context) => QuranScreen(firstPage: state.page ?? 1,firstVerse: state.verse ?? 1,),
+                  ),
+                );
+              },
+            ),
+            body: Column(
               children: [
-                (state.page ?? 1) > 1
-                    ? const Text("متابعة الختمة")
-                    : const Text("ابدأ ختمة"),
+                SizedBox(
+                  height:
+                      MediaQuery.heightOf(context) -
+                      MediaQuery.heightOf(context) / 10,
+                  child: QuranIndexScreen(),
+                ),
               ],
             ),
-            onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute(
-                  builder: (context) => QuranScreen(firstPage: state.page ?? 1,firstVerse: state.verse ?? 1,),
-                ),
-              );
-            },
-          ),
-          body: Column(
-            children: [
-              SizedBox(
-                height:
-                    MediaQuery.heightOf(context) -
-                    MediaQuery.heightOf(context) / 12,
-                child: QuranIndexScreen(),
-              ),
-            ],
           ),
         );
       },

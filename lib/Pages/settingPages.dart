@@ -46,39 +46,41 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: MyAppBar(title: "Settings".tr()),
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top + 120,
-                    left: 24,
-                    right: 24,
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: MyAppBar(title: "Settings".tr()),
+        body: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).padding.top + 120,
+                      left: 24,
+                      right: 24,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildDarkModeCard(context, theme),
+                        const SizedBox(height: 20),
+                        _buildContactCard(context, theme),
+                        const SizedBox(height: 20),
+                        _buildLinkedInCard(context, theme),
+                        const SizedBox(height: 20),
+                        _buildInfoCard(context, theme),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _buildDarkModeCard(context, theme),
-                      const SizedBox(height: 20),
-                      _buildContactCard(context, theme),
-                      const SizedBox(height: 20),
-                      _buildLinkedInCard(context, theme),
-                      const SizedBox(height: 20),
-                      _buildInfoCard(context, theme),
-                      const SizedBox(height: 40),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

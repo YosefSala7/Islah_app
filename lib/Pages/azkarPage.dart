@@ -12,10 +12,10 @@ class AzkarPage extends StatelessWidget {
   List azkarCategories = ZekrCategory.values;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(title: "Azkar".tr()),
-      body: SafeArea(
-        child: CustomScrollView(
+    return SafeArea(
+      child: Scaffold(
+        appBar: MyAppBar(title: "Azkar".tr()),
+        body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
             SliverList.builder(
@@ -26,7 +26,7 @@ class AzkarPage extends StatelessWidget {
                 final count = azkarService.getAzkarByCategory(cat).length;
                 String title = "";
                 IconData icon = Icons.book;
-
+        
                 switch (cat) {
                   case ZekrCategory.morning:
                     title = "أذكار الصباح";

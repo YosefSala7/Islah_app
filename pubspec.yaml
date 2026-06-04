@@ -43,6 +43,8 @@ dependencies:
   qibla_compass: ^1.0.1
   flutter_svg: ^2.3.0
   flutter_statusbarcolor_ns: ^0.6.0
+  cupertino_icons: ^1.0.9
+
 
 dev_dependencies:
   flutter_test:

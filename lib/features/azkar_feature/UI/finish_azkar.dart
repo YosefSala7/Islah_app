@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FinishAzkarButton extends StatelessWidget {
@@ -31,7 +32,7 @@ class FinishAzkarButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.check_circle_outline, size: 22),
+            const Icon(CupertinoIcons.checkmark_alt_circle, size: 22),
             const SizedBox(width: 12),
             Text(
               label,

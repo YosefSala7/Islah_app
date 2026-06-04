@@ -14,6 +14,7 @@ import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/geoCod
 import 'package:app/features/prayers_tracking_feature/UI/prayers_tracking_widget.dart';
 import 'package:app/features/quran_feature/UI/dialy_random_verse.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_icons/weather_icons.dart';
@@ -105,21 +106,22 @@ class HomePage extends StatelessWidget {
     {
       "name": "prayer_times.fajr".tr(),
       "time": fajr,
-      "icon": WeatherIcons.sunrise,
+      "icon": CupertinoIcons.sun_haze_fill,
       "img": "assets/imgs/fajr.png",
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.dhuhr".tr(),
       "time": dhuhr,
-      "icon": Icons.sunny,
+      "icon": CupertinoIcons.sun_max_fill,
       "img": "assets/imgs/dhuhr.png",
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.asr".tr(),
       "time": asr,
-      "icon": WeatherIcons.cloudy,
+      "icon": CupertinoIcons.sun_min,
+
       "img": "assets/imgs/asr.png",
 
       "isDoneToday": false,
@@ -127,7 +129,7 @@ class HomePage extends StatelessWidget {
     {
       "name": "prayer_times.maghrib".tr(),
       "time": maghrib,
-      "icon": WeatherIcons.sunset,
+      "icon": CupertinoIcons.cloud_sun_fill,
       "img": "assets/imgs/maghrib.png",
 
       "isDoneToday": false,
@@ -135,7 +137,8 @@ class HomePage extends StatelessWidget {
     {
       "name": "prayer_times.isha".tr(),
       "time": isha,
-      "icon": Icons.nights_stay_sharp,
+      "icon": CupertinoIcons.moon_stars_fill,
+
       "img": "assets/imgs/Isha.png",
       "isDoneToday": false,
     },
@@ -246,7 +249,6 @@ class HomePage extends StatelessWidget {
                         ),
                         DialyRandomVerse(),
                         QuickZekr(),
-                        
                       ],
                     ),
                   ),

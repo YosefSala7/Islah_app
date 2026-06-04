@@ -127,7 +127,7 @@ class CurrentPrayerWidget extends StatelessWidget {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Icon(
-                                          Icons.hourglass_bottom_rounded,
+                                          Icons.hourglass_top_rounded,
                                           color: Theme.of(
                                             context,
                                           ).iconTheme.color,

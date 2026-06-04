@@ -3,8 +3,10 @@ import 'package:app/core/Global State Managment/darkModeState.dart';
 import 'package:app/core/components/Theme_Switch.dart';
 import 'package:app/core/components/appBar.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingPage extends StatelessWidget {
@@ -107,14 +109,14 @@ class SettingPage extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primary.withAlpha(26),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Icons.dark_mode_outlined,
-                  size: 28,
+                  CupertinoIcons.moon_circle_fill,
+                  size: 40,
                   color: theme.colorScheme.primary,
                 ),
               ),
@@ -142,6 +144,7 @@ class SettingPage extends StatelessWidget {
               BlocBuilder<DarkCubit, DarkModeState>(
                 builder: (context, state) {
                   return ToggleSwitch(
+                    size: 25,
                     initiallyDark:
                         Theme.of(context).brightness == Brightness.dark,
                     onChange: (_) => context.read<DarkCubit>().onClick(),
@@ -187,9 +190,9 @@ class SettingPage extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Icons.email_outlined,
+                  CupertinoIcons.mail_solid,
                   size: 28,
-                  color: theme.colorScheme.secondary,
+                  color: theme.colorScheme.primary,
                 ),
               ),
               const SizedBox(width: 20),
@@ -215,8 +218,8 @@ class SettingPage extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
+                  horizontal: 15,
+                  vertical: 10,
                 ),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primary,
@@ -225,8 +228,6 @@ class SettingPage extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.send, size: 18, color: Colors.white),
-                    const SizedBox(width: 6),
                     Text(
                       "Send".tr(),
                       style: const TextStyle(
@@ -234,6 +235,12 @@ class SettingPage extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                       ),
+                    ),
+                    const SizedBox(width: 6),
+                    Icon(
+                      CupertinoIcons.paperplane_fill,
+                      size: 18,
+                      color: Colors.white,
                     ),
                   ],
                 ),
@@ -276,8 +283,8 @@ class SettingPage extends StatelessWidget {
                   color: theme.colorScheme.primary.withAlpha(26),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.people_outline,
+                child: FaIcon(
+                  FontAwesomeIcons.linkedin,
                   size: 28,
                   color: theme.colorScheme.primary,
                 ),
@@ -305,11 +312,11 @@ class SettingPage extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
+                  horizontal: 18,
+                  vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.secondary.withAlpha(26),
+                  color: theme.colorScheme.primary,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: theme.colorScheme.secondary.withAlpha(77),
@@ -318,20 +325,16 @@ class SettingPage extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.open_in_new,
-                      size: 18,
-                      color: theme.colorScheme.secondary,
-                    ),
-                    const SizedBox(width: 6),
                     Text(
                       "Visit".tr(),
                       style: TextStyle(
-                        color: theme.colorScheme.secondary,
+                        color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
                       ),
                     ),
+                    const SizedBox(width: 6),
+                    Icon(Icons.open_in_new, size: 18, color: Colors.white),
                   ],
                 ),
               ),
@@ -363,9 +366,9 @@ class SettingPage extends StatelessWidget {
       child: Column(
         children: [
           Icon(
-            Icons.info,
+            CupertinoIcons.info_circle,
             size: 56,
-            color: theme.colorScheme.primary.withAlpha(77),
+            color: theme.colorScheme.primary.withAlpha(120),
           ),
           const SizedBox(height: 20),
           Text(

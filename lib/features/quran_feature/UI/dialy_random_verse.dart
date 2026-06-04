@@ -3,6 +3,7 @@ import 'package:app/core/scheduel_Daily_Tasks.dart';
 import 'package:app/features/notifcations_feature/noti_service.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/fetchPrayerTimesAPI.dart';
 import 'package:app/features/quran_feature/UI/mus7af_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart' as quran;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,7 +76,7 @@ class DialyRandomVerse extends StatelessWidget {
                                   ),
                                   SizedBox(width: 7),
                                   Icon(
-                                    Icons.menu_book,
+                                    CupertinoIcons.book_solid,
                                     color: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium!.color!,
@@ -143,7 +144,7 @@ class DialyRandomVerse extends StatelessWidget {
                                   ),
                                   SizedBox(width: 7),
                                   Icon(
-                                    Icons.book_rounded,
+                                    CupertinoIcons.quote_bubble_fill,
                                     color: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium!.color!,

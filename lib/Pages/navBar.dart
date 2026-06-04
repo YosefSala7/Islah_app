@@ -5,6 +5,7 @@ import 'package:app/Pages/quranPage.dart';
 import 'package:app/Pages/settingPages.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
@@ -22,7 +23,6 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
-        
         tabs: [
           PersistentTabConfig(
             screen: BlocProvider.value(
@@ -75,8 +75,8 @@ class _NavbarState extends State<Navbar> {
           PersistentTabConfig(
             screen: const SettingPage(),
             item: ItemConfig(
-              icon: Icon(Icons.settings),
-              inactiveIcon: Icon(Icons.settings_outlined),
+              icon: Icon(CupertinoIcons.gear_solid),
+              inactiveIcon: Icon(CupertinoIcons.gear),
               activeForegroundColor: Theme.of(
                 context,
               ).bottomNavigationBarTheme.selectedItemColor!,

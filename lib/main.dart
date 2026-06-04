@@ -4,7 +4,6 @@ import 'package:app/Pages/authGate.dart';
 import 'package:app/core/colorsManager.dart';
 import 'package:app/core/scheduel_Daily_Tasks.dart';
 import 'package:app/features/notifcations_feature/noti_service.dart';
-import 'package:app/features/quran_feature/UI/dialy_random_verse.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,6 @@ void _updateColor(bool isDark) async {
     await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
     await FlutterStatusbarcolor.setStatusBarWhiteForeground(isDark);
     await FlutterStatusbarcolor.setNavigationBarColor(isDark ? Color(0xFF112240) : Colors.white);
-    await FlutterStatusbarcolor.setNavigationBarColor(isDark ? Colors.black : Colors.white);
 }
   @override
   Widget build(BuildContext context) {

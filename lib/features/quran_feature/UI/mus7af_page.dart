@@ -2,9 +2,11 @@ import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
 import 'package:app/features/quran_feature/UI/tafsir_page.dart';
 import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qcf_quran_lite/qcf_quran_lite.dart';
 
 class QuranScreen extends StatefulWidget {
@@ -196,7 +198,7 @@ Future.delayed(Duration.zero, () {
                                   ),
                                   SizedBox(height: 10),
                                   ListTile(
-                                    leading: Icon(Icons.save_alt_outlined),
+                                    leading: FaIcon(FontAwesomeIcons.bookBookmark),
                                     title: Text("حفظ عند الآية"),
                                     onTap: () {
                                       BlocProvider.of<SavePageCubit>(
@@ -222,7 +224,7 @@ Future.delayed(Duration.zero, () {
                                     },
                                   ),
                                   ListTile(
-                                    leading: Icon(Icons.copy),
+                                    leading: FaIcon(FontAwesomeIcons.solidCopy),
                                     title: Text("نسخ الآية"),
                                     onTap: () {
                                       Clipboard.setData(
@@ -238,7 +240,7 @@ Future.delayed(Duration.zero, () {
                                   ),
 
                                   ListTile(
-                                    leading: Icon(Icons.play_arrow),
+                                    leading: FaIcon(FontAwesomeIcons.play),
                                     title: Text("استماع الآية"),
                                     onTap: () {
                                       Navigator.pop(buttomSheetContext);
@@ -251,7 +253,7 @@ Future.delayed(Duration.zero, () {
                                     },
                                   ),
                                   ListTile(
-                                    leading: Icon(Icons.menu_book),
+                                    leading: FaIcon(FontAwesomeIcons.bookOpen),
                                     title: Text("تفسير"),
                                     onTap: () {
                                       Navigator.pop(buttomSheetContext);
@@ -309,53 +311,57 @@ Future.delayed(Duration.zero, () {
                               height: MediaQuery.sizeOf(context).height * 0.05,
                               width: MediaQuery.sizeOf(context).width,
 
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: Icon(Icons.arrow_back),
-                                  ),
-                                  Text(
-                                    "الجزء ${currentJuzNumber == 0 ? 1 : currentJuzNumber}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                          fontFamily: "QCF_Surah",
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
-                                          fontSize:
-                                              MediaQuery.sizeOf(context).width *
-                                              0.04,
-                                        ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        isSearchOpen = true;
-                                      });
-                                    },
-                                    icon: Icon(Icons.search),
-                                  ),
-                                  Text(
-                                    "سورة $currentSurahName",
-                                    style: Theme.of(context).textTheme.bodyLarge
-                                        ?.copyWith(
-                                          fontFamily: "QCF_Surah",
-                                          fontSize:
-                                              MediaQuery.sizeOf(context).width *
-                                              0.05,
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
-                                        ),
-                                  ),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: Icon(Icons.arrow_back),
+                                    ),
+                                    Text(
+                                      "الجزء ${currentJuzNumber == 0 ? 1 : currentJuzNumber}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                            fontFamily: "QCF_Surah",
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
+                                            fontSize:
+                                                MediaQuery.sizeOf(context).width *
+                                                0.04,
+                                          ),
+                                    ),
+                                    
+                                    Text(
+                                      "سورة $currentSurahName",
+                                      style: Theme.of(context).textTheme.bodyLarge
+                                          ?.copyWith(
+                                            fontFamily: "QCF_Surah",
+                                            fontSize:
+                                                MediaQuery.sizeOf(context).width *
+                                                0.05,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
+                                          ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          isSearchOpen = true;
+                                        });
+                                      },
+                                      icon: Icon(Icons.search),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                       bottomBar: SizedBox(
@@ -427,7 +433,7 @@ Future.delayed(Duration.zero, () {
                                     ),
                                   );
                                 },
-                                icon: Icon(Icons.bookmark_add_outlined),
+                                icon: FaIcon(FontAwesomeIcons.solidBookmark,size:20),
                               ),
                             ],
                           ),

@@ -58,7 +58,7 @@ class _QuickZekrState extends State<QuickZekr> {
                             ),
                             SizedBox(width: 7),
                             Icon(
-                              Icons.speed,
+                              Icons.rocket_launch,
                               color: Theme.of(
                                 context,
                               ).textTheme.bodyMedium!.color!,
@@ -116,11 +116,11 @@ class _QuickZekrState extends State<QuickZekr> {
                             ),
                             SizedBox(width: 7),
                             Icon(
-                              Icons.ads_click_outlined,
+                              Icons.touch_app_rounded,
                               color: Theme.of(
                                 context,
                               ).textTheme.bodyMedium!.color!,
-                              size: 18,
+                              size: 22,
                             ),
                           ],
                         ),

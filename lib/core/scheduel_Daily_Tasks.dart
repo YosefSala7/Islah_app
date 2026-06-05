@@ -1,4 +1,3 @@
-
 import 'package:app/features/notifcations_feature/noti_service.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/fetchPrayerTimesAPI.dart';
 import 'package:app/features/quran_feature/UI/dialy_random_verse.dart';
@@ -53,6 +52,27 @@ Future<void> scheduelDailyTasks() async {
         title: "العشاء",
         body: "حان الآن موعد صلاة العشاء",
         time: data.data.times.isha,
+      );
+      await LocalNotiService().scheduleWeeklyNoti(
+        id: 7,
+        title: "سورة الكهف 📖",
+        body: "نورٌ ما بين الجمعتين، لا تنسى قراءتها اليوم.",
+        time: "10:00",
+        dayOfWeek: DateTime.friday,
+      );
+      await LocalNotiService().scheduleWeeklyNoti(
+        id: 8,
+        title: "لا تنسى صيام غداً الأثنين",
+        body: "غداً الأثنين.. صيام سُنّة النبي ﷺ.",
+        time: "22:00",
+        dayOfWeek: DateTime.sunday,
+      );
+      await LocalNotiService().scheduleWeeklyNoti(
+        id: 9,
+        title: "لا تنسى صيام غداً الخميس",
+        body: "غداً الخميس.. صيام سُنّة النبي ﷺ.",
+        time: "22:00",
+        dayOfWeek: DateTime.wednesday,
       );
     }
     await prefs.setString("lastRunDate", today);

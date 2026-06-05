@@ -3,6 +3,7 @@ import 'package:app/features/azkar_feature/UI/category_card.dart';
 import 'package:app/features/azkar_feature/UI/tasbih_page.dart';
 import 'package:app/features/azkar_feature/UI/zekr_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:islamic_azkar/islamic_azkar.dart';
@@ -26,15 +27,15 @@ class AzkarPage extends StatelessWidget {
                 final count = azkarService.getAzkarByCategory(cat).length;
                 String title = "";
                 IconData icon = Icons.book;
-        
+
                 switch (cat) {
                   case ZekrCategory.morning:
                     title = "أذكار الصباح";
-                    icon = Icons.wb_sunny_outlined;
+                    icon = CupertinoIcons.sun_max_fill;
                     break;
                   case ZekrCategory.evening:
                     title = "أذكار المساء";
-                    icon = Icons.dark_mode_outlined;
+                    icon = CupertinoIcons.moon_stars_fill;
                     break;
                   case ZekrCategory.eating:
                     title = "أذكار الطعام";
@@ -42,43 +43,43 @@ class AzkarPage extends StatelessWidget {
                     break;
                   case ZekrCategory.mosque:
                     title = "أذكار المسجد";
-                    icon = Icons.mosque_outlined;
+                    icon = Icons.mosque;
                     break;
                   case ZekrCategory.house:
                     title = "أذكار المنزل";
-                    icon = Icons.home_outlined;
+                    icon = CupertinoIcons.house_fill;
                     break;
                   case ZekrCategory.wakingUp:
                     title = "أذكار الاستيقاظ";
-                    icon = Icons.alarm_on;
+                    icon = CupertinoIcons.alarm_fill;
                     break;
                   case ZekrCategory.protection:
                     title = "أذكار التحصين";
-                    icon = Icons.verified_user_outlined;
+                    icon = CupertinoIcons.shield_fill;
                     break;
                   case ZekrCategory.travel:
                     title = "أذكار السفر";
-                    icon = Icons.flight_takeoff;
+                    icon = CupertinoIcons.airplane;
                     break;
                   case ZekrCategory.prayerSupplications:
                     title = "أدعية الصلاة";
-                    icon = Icons.menu_book_outlined;
+                    icon = CupertinoIcons.book_fill;
                     break;
                   case ZekrCategory.wudu:
                     title = "أذكار الوضوء";
-                    icon = Icons.water_drop_outlined;
+                    icon = CupertinoIcons.drop_fill;
                     break;
                   case ZekrCategory.nature:
                     title = "أذكار الطبيعة";
-                    icon = Icons.wb_cloudy_outlined;
+                    icon = CupertinoIcons.cloud_sun_fill;
                     break;
                   case ZekrCategory.fasting:
                     title = "أذكار الصيام";
-                    icon = Icons.nights_stay_outlined;
+                    icon = Icons.nights_stay;
                     break;
                   case ZekrCategory.emotions:
                     title = "أذكار الضيق والفرج";
-                    icon = Icons.volunteer_activism_outlined;
+                    icon = CupertinoIcons.heart_fill;
                     break;
                 }
                 return AzkarCategoryCard(

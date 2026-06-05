@@ -30,12 +30,13 @@ class DialyRandomVerse extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) {
                       return QuranScreen(
+                        firstVerse: data["verseNumber"],
                         firstPage:
                             (quran.getPageNumber(
                               data["surahNumber"],
                               data["verseNumber"],
-                            )) -
-                            1,
+                            ))
+                            ,
                       );
                     },
                   ),

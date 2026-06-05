@@ -20,45 +20,48 @@ class JuzIndexList extends StatelessWidget {
         int firstPageInJuz = ((juzNumber - 1) * 20) + 1;
 
         return Card(
-          elevation: 0,
-          margin: const EdgeInsets.only(bottom: 12),
-          color: theme.cardColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: theme.dividerColor.withAlpha(30)),
-          ),
-          child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            title: Text(
-              "الجزء $juzNumber",
-              style: TextStyle(
-                color: theme.textTheme.bodyLarge?.color,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                fontFamily: "Almarai",
+              elevation: 0,
+              margin: const EdgeInsets.only(bottom: 12),
+              color: theme.cardColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(color: theme.dividerColor.withAlpha(30)),
               ),
-            ),
-            subtitle: Text(
-              "بداية من سورة ${quran.getSurahNameArabic(firstSurahInJuz)}",
-              style: TextStyle(
-                color: theme.textTheme.bodySmall?.color,
-                fontFamily: "Almarai",
-              ),
-            ),
-            trailing: Icon(
-              CupertinoIcons.book_fill,
-              color: theme.colorScheme.primary,
-            ),
-            onTap: () {
-              Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      QuranScreen(firstPage: firstPageInJuz,),
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 5,
                 ),
-              );
-            },
-          ),
-        )
+                title: Text(
+                  "الجزء $juzNumber",
+                  style: TextStyle(
+                    color: theme.textTheme.bodyLarge?.color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: "Almarai",
+                  ),
+                ),
+                subtitle: Text(
+                  "بداية من سورة ${quran.getSurahNameArabic(firstSurahInJuz)}",
+                  style: TextStyle(
+                    color: theme.textTheme.bodySmall?.color,
+                    fontFamily: "Almarai",
+                  ),
+                ),
+                trailing: Icon(
+                  CupertinoIcons.book_fill,
+                  color: theme.colorScheme.primary,
+                ),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          QuranScreen(firstPage: firstPageInJuz + 1),
+                    ),
+                  );
+                },
+              ),
+            )
             .animate()
             .fade(duration: 350.ms, curve: Curves.easeIn)
             .slideX(

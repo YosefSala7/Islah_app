@@ -158,285 +158,281 @@ Future.delayed(Duration.zero, () {
             body: SafeArea(
               child: Stack(
                 children: [
-                  SizedBox(
-                    height: MediaQuery.heightOf(context),
-                    width: MediaQuery.widthOf(context),
-                    child: QuranPageView(
-                      onLongPress: (surahNumber, verseNumber, details) {
-                        setState(() {
-                          _activeHighlights.add(
-                            HighlightVerse(
-                              verseNumber: verseNumber,
-                              page: currentPage + 1,
-                              surah: surahNumber,
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.primary.withAlpha(113),
+                  QuranPageView(
+                    onLongPress: (surahNumber, verseNumber, details) {
+                      setState(() {
+                        _activeHighlights.add(
+                          HighlightVerse(
+                            verseNumber: verseNumber,
+                            page: currentPage + 1,
+                            surah: surahNumber,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withAlpha(113),
+                          ),
+                        );
+                      });
+                      showModalBottomSheet(
+                        context: parentContext,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
+                        builder: (buttomSheetContext) {
+                          return Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "سورة ${getSurahNameArabic(surahNumber)} - آية $verseNumber",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.bookBookmark),
+                                  title: Text("حفظ عند الآية"),
+                                  onTap: () {
+                                    BlocProvider.of<SavePageCubit>(
+                                      context,
+                                    ).savePageAndVerse(currentPage, verseNumber);
+                                    
+                                    ScaffoldMessenger.of(
+                                      context,
+                                    ).clearSnackBars();
+                                    ScaffoldMessenger.of(
+                                      context,
+                                    ).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "تم حفظ الصفحة عند $currentPage و الآية عند $verseNumber",
+                                        ),
+                                        duration: Duration(seconds: 1),
+                                        behavior: SnackBarBehavior.floating,
+                                        width: 200,
+                                      ),
+                                    );
+                                    Navigator.pop(buttomSheetContext);
+                                  },
+                                ),
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.solidCopy),
+                                  title: Text("نسخ الآية"),
+                                  onTap: () {
+                                    Clipboard.setData(
+                                      ClipboardData(
+                                        text: getVerse(
+                                          surahNumber,
+                                          verseNumber,
+                                        ),
+                                      ),
+                                    );
+                                    Navigator.pop(buttomSheetContext);
+                                  },
+                                ),
+                  
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.play),
+                                  title: Text("استماع الآية"),
+                                  onTap: () {
+                                    Navigator.pop(buttomSheetContext);
+                  
+                                    AudioPlayerDialog().showAudioPlayerDialog(
+                                      parentContext,
+                                      surah: surahNumber,
+                                      ayah: verseNumber,
+                                    );
+                                  },
+                                ),
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.bookOpen),
+                                  title: Text("تفسير"),
+                                  onTap: () {
+                                    Navigator.pop(buttomSheetContext);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return TafsirPage(
+                                            currentPage: currentPage,
+                                            surahNumber: surahNumber,
+                                            verseNumber: verseNumber,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
                           );
+                        },
+                      ).whenComplete(() {
+                        setState(() {
+                          _activeHighlights = [];
                         });
-                        showModalBottomSheet(
-                          context: parentContext,
-                          isScrollControlled: true,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          builder: (buttomSheetContext) {
-                            return Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                      });
+                    },
+                    pageController: _controller,
+                    highlights: _activeHighlights,
+                    onPageChanged: (page) {
+                      int newSurahNum = getPageData(page)[0]["surah"];
+                      String newSurahName = getSurahNameArabic(newSurahNum);
+                      String newHezb = getCurrentHizbTextForPage(page);
+                      int newJuz = ((page - 2) / 20).floor() + 1;
+                      if (newSurahNum != currentSurahNumber ||
+                          newHezb != currentHezb) {
+                        setState(() {
+                          currentPage = page;
+                          currentSurahName = newSurahName;
+                          currentHezb = newHezb;
+                          currentSurahNumber = newSurahNum;
+                          currentJuzNumber = newJuz;
+                        });
+                      } else {
+                        setState(() {
+                          currentPage = page;
+                        });
+                      }
+                    },
+                    topBar:
+                        MediaQuery.sizeOf(context).width >
+                            MediaQuery.sizeOf(context).height
+                        ? const SizedBox.shrink()
+                        : SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.05,
+                            width: MediaQuery.sizeOf(context).width,
+                  
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.arrow_back),
+                                  ),
                                   Text(
-                                    "سورة ${getSurahNameArabic(surahNumber)} - آية $verseNumber",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  ListTile(
-                                    leading: FaIcon(FontAwesomeIcons.bookBookmark),
-                                    title: Text("حفظ عند الآية"),
-                                    onTap: () {
-                                      BlocProvider.of<SavePageCubit>(
-                                        context,
-                                      ).savePageAndVerse(currentPage, verseNumber);
-                                      
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).clearSnackBars();
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            "تم حفظ الصفحة عند $currentPage و الآية عند $verseNumber",
-                                          ),
-                                          duration: Duration(seconds: 1),
-                                          behavior: SnackBarBehavior.floating,
-                                          width: 200,
+                                    "الجزء ${currentJuzNumber == 0 ? 1 : currentJuzNumber > 30? 30 : currentJuzNumber}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          fontFamily: "QCF_Surah",
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                          fontSize:
+                                              MediaQuery.sizeOf(context).width *
+                                              0.04,
                                         ),
-                                      );
-                                      Navigator.pop(buttomSheetContext);
-                                    },
                                   ),
-                                  ListTile(
-                                    leading: FaIcon(FontAwesomeIcons.solidCopy),
-                                    title: Text("نسخ الآية"),
-                                    onTap: () {
-                                      Clipboard.setData(
-                                        ClipboardData(
-                                          text: getVerse(
-                                            surahNumber,
-                                            verseNumber,
-                                          ),
+                                  
+                                  Text(
+                                    "سورة $currentSurahName",
+                                    style: Theme.of(context).textTheme.bodyLarge
+                                        ?.copyWith(
+                                          fontFamily: "QCF_Surah",
+                                          fontSize:
+                                              MediaQuery.sizeOf(context).width *
+                                              0.05,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
                                         ),
-                                      );
-                                      Navigator.pop(buttomSheetContext);
-                                    },
                                   ),
-
-                                  ListTile(
-                                    leading: FaIcon(FontAwesomeIcons.play),
-                                    title: Text("استماع الآية"),
-                                    onTap: () {
-                                      Navigator.pop(buttomSheetContext);
-
-                                      AudioPlayerDialog().showAudioPlayerDialog(
-                                        parentContext,
-                                        surah: surahNumber,
-                                        ayah: verseNumber,
-                                      );
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        isSearchOpen = true;
+                                      });
                                     },
-                                  ),
-                                  ListTile(
-                                    leading: FaIcon(FontAwesomeIcons.bookOpen),
-                                    title: Text("تفسير"),
-                                    onTap: () {
-                                      Navigator.pop(buttomSheetContext);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return TafsirPage(
-                                              currentPage: currentPage,
-                                              surahNumber: surahNumber,
-                                              verseNumber: verseNumber,
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
+                                    icon: Icon(Icons.search),
                                   ),
                                 ],
                               ),
-                            );
-                          },
-                        ).whenComplete(() {
-                          setState(() {
-                            _activeHighlights = [];
-                          });
-                        });
-                      },
-                      pageController: _controller,
-                      highlights: _activeHighlights,
-                      onPageChanged: (page) {
-                        int newSurahNum = getPageData(page)[0]["surah"];
-                        String newSurahName = getSurahNameArabic(newSurahNum);
-                        String newHezb = getCurrentHizbTextForPage(page);
-                        int newJuz = ((page - 2) / 20).floor() + 1;
-                        if (newSurahNum != currentSurahNumber ||
-                            newHezb != currentHezb) {
-                          setState(() {
-                            currentPage = page;
-                            currentSurahName = newSurahName;
-                            currentHezb = newHezb;
-                            currentSurahNumber = newSurahNum;
-                            currentJuzNumber = newJuz;
-                          });
-                        } else {
-                          setState(() {
-                            currentPage = page;
-                          });
-                        }
-                      },
-                      topBar:
+                            ),
+                          ),
+                    bottomBar: SizedBox(
+                      height:
                           MediaQuery.sizeOf(context).width >
                               MediaQuery.sizeOf(context).height
-                          ? const SizedBox.shrink()
-                          : SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.05,
-                              width: MediaQuery.sizeOf(context).width,
-
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: Icon(Icons.arrow_back),
+                          ? MediaQuery.sizeOf(context).height * 0.08
+                          : MediaQuery.sizeOf(context).height * 0.06,
+                      width: MediaQuery.sizeOf(context).width,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (!(MediaQuery.sizeOf(context).width >
+                                MediaQuery.sizeOf(context).height))
+                              Text(
+                                currentHezb,
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      fontFamily: "QCF_Surah",
+                                      fontSize:
+                                          MediaQuery.sizeOf(context).width *
+                                          0.04,
                                     ),
-                                    Text(
-                                      "الجزء ${currentJuzNumber == 0 ? 1 : currentJuzNumber}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                            fontFamily: "QCF_Surah",
-                                            color: Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                            fontSize:
-                                                MediaQuery.sizeOf(context).width *
-                                                0.04,
-                                          ),
-                                    ),
-                                    
-                                    Text(
-                                      "سورة $currentSurahName",
-                                      style: Theme.of(context).textTheme.bodyLarge
-                                          ?.copyWith(
-                                            fontFamily: "QCF_Surah",
-                                            fontSize:
-                                                MediaQuery.sizeOf(context).width *
-                                                0.05,
-                                            color: Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                          ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          isSearchOpen = true;
-                                        });
-                                      },
-                                      icon: Icon(Icons.search),
-                                    ),
-                                  ],
+                              ),
+                  
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.sizeOf(context).width * 0.03,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withAlpha(125),
                                 ),
+                              ),
+                              child: Text(
+                                currentPage.toString(),
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                               ),
                             ),
-                      bottomBar: SizedBox(
-                        height:
-                            MediaQuery.sizeOf(context).width >
-                                MediaQuery.sizeOf(context).height
-                            ? MediaQuery.sizeOf(context).height * 0.08
-                            : MediaQuery.sizeOf(context).height * 0.06,
-                        width: MediaQuery.sizeOf(context).width,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (!(MediaQuery.sizeOf(context).width >
-                                  MediaQuery.sizeOf(context).height))
-                                Text(
-                                  currentHezb,
-                                  style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(
-                                        fontFamily: "QCF_Surah",
-                                        fontSize:
-                                            MediaQuery.sizeOf(context).width *
-                                            0.04,
-                                      ),
-                                ),
-
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.sizeOf(context).width * 0.03,
-                                  vertical: 2,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.secondary.withAlpha(125),
-                                  ),
-                                ),
-                                child: Text(
-                                  currentPage.toString(),
-                                  style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
-                                      ),
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  BlocProvider.of<SavePageCubit>(
-                                    context,
-                                  ).savePageAndVerse(currentPage, 0);
-                                  ScaffoldMessenger.of(
-                                    context,
-                                  ).clearSnackBars();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        "تم حفظ الصفحة عند $currentPage",
-                                      ),
-                                      duration: Duration(seconds: 1),
-                                      behavior: SnackBarBehavior.floating,
-                                      width: 200,
+                            IconButton(
+                              onPressed: () {
+                                BlocProvider.of<SavePageCubit>(
+                                  context,
+                                ).savePageAndVerse(currentPage, 0);
+                                ScaffoldMessenger.of(
+                                  context,
+                                ).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "تم حفظ الصفحة عند $currentPage",
                                     ),
-                                  );
-                                },
-                                icon: FaIcon(FontAwesomeIcons.solidBookmark,size:20),
-                              ),
-                            ],
-                          ),
+                                    duration: Duration(seconds: 1),
+                                    behavior: SnackBarBehavior.floating,
+                                    width: 200,
+                                  ),
+                                );
+                              },
+                              icon: FaIcon(FontAwesomeIcons.solidBookmark,size:20),
+                            ),
+                          ],
                         ),
                       ),
                     ),

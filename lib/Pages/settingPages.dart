@@ -380,12 +380,6 @@ class SettingPage extends StatelessWidget {
               fontSize: 18,
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Made with ❤️ in Egypt".tr(),
-            style: theme.textTheme.bodySmall,
-            textAlign: TextAlign.center,
-          ),
         ],
       ),
     );

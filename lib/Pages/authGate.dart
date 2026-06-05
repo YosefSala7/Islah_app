@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:app/Pages/navBar.dart';
+import 'package:app/ads/app_apening_ad.dart';
+import 'package:app/features/notifcations_feature/noti_service.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiCubit.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/logic/prayerApiState.dart';
 import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/fetchPrayerTimesAPI.dart';
@@ -27,6 +29,7 @@ class _AuthGateState extends State<AuthGate> {
     super.initState();
     _targetScreenFuture = _determineTargetScreen();
     getGeoLocation();
+    AppOpenAdService().loadAd();
   }
 
   Future<bool> _showErrorDialog({

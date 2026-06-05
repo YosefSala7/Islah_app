@@ -45,6 +45,7 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.6.0
   cupertino_icons: ^1.0.9
 
+  google_mobile_ads: ^7.0.0
 
 dev_dependencies:
   flutter_test:

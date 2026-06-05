@@ -17,7 +17,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_icons/weather_icons.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

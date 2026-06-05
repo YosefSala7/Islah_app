@@ -1,3 +1,4 @@
+import 'package:app/ads/after_quran_ad.dart';
 import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
 import 'package:app/features/quran_feature/UI/tafsir_page.dart';
 import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
@@ -124,28 +125,28 @@ class _QuranScreenState extends State<QuranScreen> {
       getPageData(currentPage)[0]["start"],
     );
     _controller = PageController(initialPage: widget.firstPage - 1);
-Future.delayed(Duration.zero, () {
-  if (widget.firstVerse != null) {
-    setState(() {
-      _activeHighlights.add(
-        HighlightVerse(
-          verseNumber: widget.firstVerse!,
-          page: currentPage + 1, 
-          surah: currentSurahNumber,
-          color: Theme.of(context).colorScheme.primary.withAlpha(113), 
-        ),
-      );
-    });
-
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
+    Future.delayed(Duration.zero, () {
+      if (widget.firstVerse != null) {
         setState(() {
-          _activeHighlights.clear();
+          _activeHighlights.add(
+            HighlightVerse(
+              verseNumber: widget.firstVerse!,
+              page: currentPage + 1,
+              surah: currentSurahNumber,
+              color: Theme.of(context).colorScheme.primary.withAlpha(113),
+            ),
+          );
+        });
+
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) {
+            setState(() {
+              _activeHighlights.clear();
+            });
+          }
         });
       }
     });
-  }
-});
   }
 
   @override
@@ -195,19 +196,22 @@ Future.delayed(Duration.zero, () {
                                 ),
                                 SizedBox(height: 10),
                                 ListTile(
-                                  leading: FaIcon(FontAwesomeIcons.bookBookmark),
+                                  leading: FaIcon(
+                                    FontAwesomeIcons.bookBookmark,
+                                  ),
                                   title: Text("حفظ عند الآية"),
                                   onTap: () {
                                     BlocProvider.of<SavePageCubit>(
                                       context,
-                                    ).savePageAndVerse(currentPage, verseNumber);
-                                    
+                                    ).savePageAndVerse(
+                                      currentPage,
+                                      verseNumber,
+                                    );
+
                                     ScaffoldMessenger.of(
                                       context,
                                     ).clearSnackBars();
-                                    ScaffoldMessenger.of(
-                                      context,
-                                    ).showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                           "تم حفظ الصفحة عند $currentPage و الآية عند $verseNumber",
@@ -235,13 +239,13 @@ Future.delayed(Duration.zero, () {
                                     Navigator.pop(buttomSheetContext);
                                   },
                                 ),
-                  
+
                                 ListTile(
                                   leading: FaIcon(FontAwesomeIcons.play),
                                   title: Text("استماع الآية"),
                                   onTap: () {
                                     Navigator.pop(buttomSheetContext);
-                  
+
                                     AudioPlayerDialog().showAudioPlayerDialog(
                                       parentContext,
                                       surah: surahNumber,
@@ -307,24 +311,30 @@ Future.delayed(Duration.zero, () {
                         : SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.05,
                             width: MediaQuery.sizeOf(context).width,
-                  
+
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
+                                      AfterQuranAd.showInterstitial(() {
+                                        Navigator.pop(context);
+                                      });
                                     },
                                     icon: Icon(Icons.arrow_back),
                                   ),
                                   Text(
-                                    "الجزء ${currentJuzNumber == 0 ? 1 : currentJuzNumber > 30? 30 : currentJuzNumber}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
+                                    "الجزء ${currentJuzNumber == 0
+                                        ? 1
+                                        : currentJuzNumber > 30
+                                        ? 30
+                                        : currentJuzNumber}",
+                                    style: Theme.of(context).textTheme.bodyLarge
                                         ?.copyWith(
                                           fontFamily: "QCF_Surah",
                                           color: Theme.of(
@@ -335,7 +345,7 @@ Future.delayed(Duration.zero, () {
                                               0.04,
                                         ),
                                   ),
-                                  
+
                                   Text(
                                     "سورة $currentSurahName",
                                     style: Theme.of(context).textTheme.bodyLarge
@@ -385,7 +395,7 @@ Future.delayed(Duration.zero, () {
                                           0.04,
                                     ),
                               ),
-                  
+
                             Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal:
@@ -416,9 +426,7 @@ Future.delayed(Duration.zero, () {
                                 BlocProvider.of<SavePageCubit>(
                                   context,
                                 ).savePageAndVerse(currentPage, 0);
-                                ScaffoldMessenger.of(
-                                  context,
-                                ).clearSnackBars();
+                                ScaffoldMessenger.of(context).clearSnackBars();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -430,7 +438,10 @@ Future.delayed(Duration.zero, () {
                                   ),
                                 );
                               },
-                              icon: FaIcon(FontAwesomeIcons.solidBookmark,size:20),
+                              icon: FaIcon(
+                                FontAwesomeIcons.solidBookmark,
+                                size: 20,
+                              ),
                             ),
                           ],
                         ),

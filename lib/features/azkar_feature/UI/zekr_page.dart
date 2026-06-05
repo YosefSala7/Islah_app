@@ -1,4 +1,5 @@
-import 'package:app/core/components/appBar.dart'; // لو هتحتاجه في مكان تاني
+import 'package:app/ads/after_azkar_ad.dart';
+import 'package:app/core/components/appBar.dart';
 import 'package:app/features/azkar_feature/UI/finish_azkar.dart';
 import 'package:app/features/azkar_feature/UI/zekr_card.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,35 +14,46 @@ class ZekrPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            CustomScrollView(
-              slivers: [
-                MyAppBar(title: category.toString().tr()),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    final zekr = azkar[index];
-                    return ZekrCard(
-                      text: zekr.text,
-                      reference: zekr.reference,
-                      count: zekr.repeat,
-                    );
-                  }, childCount: azkar.length),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: FinishAzkarButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) return;
+          AfterAzkarAd.showInterstitial(() {
+            Navigator.of(context).pop();
+          });
+        },
+        child: Scaffold(
+          body: Stack(
+            children: [
+              CustomScrollView(
+                slivers: [
+                  MyAppBar(title: category.toString().tr()),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final zekr = azkar[index];
+                      return ZekrCard(
+                        text: zekr.text,
+                        reference: zekr.reference,
+                        count: zekr.repeat,
+                      );
+                    }, childCount: azkar.length),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: FinishAzkarButton(
+                        onPressed: () {
+                          AfterAzkarAd.showInterstitial(() {
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tafsir_library/tafsir_library.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
@@ -17,6 +18,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotiService().init();
   await scheduelDailyTasks();
+  await MobileAds.instance.initialize();
+  List<String> testDeviceIds = ["58297F7BAC308FD48AE4784C0B50084E"];
+  RequestConfiguration configuration = RequestConfiguration(
+    testDeviceIds: testDeviceIds,
+  );
+  MobileAds.instance.updateRequestConfiguration(configuration);
+
+  await LocalNotiService().init();
+
   await EasyLocalization.ensureInitialized();
   await TafsirLibrary.initialize();
   await dotenv.load(fileName: ".env");

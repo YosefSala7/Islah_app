@@ -1,3 +1,4 @@
+import 'package:app/ads/after_azkar_ad.dart';
 import 'package:app/core/components/appBar.dart';
 import 'package:app/features/azkar_feature/UI/category_card.dart';
 import 'package:app/features/azkar_feature/UI/tasbih_page.dart';
@@ -8,10 +9,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:islamic_azkar/islamic_azkar.dart';
 
-class AzkarPage extends StatelessWidget {
+class AzkarPage extends StatefulWidget {
   AzkarPage({super.key});
+
+  @override
+  State<AzkarPage> createState() => _AzkarPageState();
+}
+
+class _AzkarPageState extends State<AzkarPage> {
   List azkarCategories = ZekrCategory.values;
   @override
+  void initState() {
+    super.initState();
+    AfterAzkarAd.loadInterstitial();
+  }
+  @override
+
+  
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(

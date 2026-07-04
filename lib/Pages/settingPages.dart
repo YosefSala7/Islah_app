@@ -1,5 +1,7 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:app/core/Global State Managment/darkModeCubit.dart';
 import 'package:app/core/Global State Managment/darkModeState.dart';
+import 'package:app/core/colorsManager.dart';
 import 'package:app/core/components/Theme_Switch.dart';
 import 'package:app/core/components/appBar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -47,39 +49,37 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: [
-            MyAppBar(title: "Settings".tr()),
-            SliverToBoxAdapter(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 24,
-                      left: 24,
-                      right: 24,
+      child: ThemeSwitchingArea(
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          body: CustomScrollView(
+            physics: BouncingScrollPhysics(),
+            slivers: [
+              MyAppBar(title: "Settings".tr()),
+              SliverToBoxAdapter(
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 24, left: 24, right: 24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildDarkModeCard(context, theme),
+                          const SizedBox(height: 20),
+                          _buildContactCard(context, theme),
+                          const SizedBox(height: 20),
+                          _buildLinkedInCard(context, theme),
+                          const SizedBox(height: 20),
+                          _buildInfoCard(context, theme),
+                          const SizedBox(height: 40),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        _buildDarkModeCard(context, theme),
-                        const SizedBox(height: 20),
-                        _buildContactCard(context, theme),
-                        const SizedBox(height: 20),
-                        _buildLinkedInCard(context, theme),
-                        const SizedBox(height: 20),
-                        _buildInfoCard(context, theme),
-                        const SizedBox(height: 40),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -105,56 +105,65 @@ class SettingPage extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(24),
-          onTap: () => context.read<DarkCubit>().onClick(),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withAlpha(26),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  CupertinoIcons.moon_circle_fill,
-                  size: 40,
-                  color: theme.colorScheme.primary,
-                ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary.withAlpha(26),
+                shape: BoxShape.circle,
               ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Dark Mode".tr(),
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+              child: Icon(
+                CupertinoIcons.moon_circle_fill,
+                size: 40,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Dark Mode".tr(),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-                    Text(
-                      "Toggle dark theme".tr(),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withAlpha(153),
-                      ),
+                  ),
+                  Text(
+                    "Toggle dark theme".tr(),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withAlpha(153),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              BlocBuilder<DarkCubit, DarkModeState>(
-                builder: (context, state) {
-                  return ToggleSwitch(
-                    size: 25,
-                    initiallyDark:
-                        Theme.of(context).brightness == Brightness.dark,
-                    onChange: (_) => context.read<DarkCubit>().onClick(),
-                  );
-                },
-              ),
-            ],
-          ),
+            ),
+        
+            BlocBuilder<DarkCubit, DarkModeState>(
+              builder: (context, state) {
+                return ThemeSwitcher.withTheme(
+                  
+                  builder: (context, switcher, theme) {
+                    final isDark = theme.brightness == Brightness.dark;
+                    return ToggleSwitch(
+                      size: 25,
+                      initiallyDark: isDark,
+                      onChange: (_) {
+                        ThemeData newTheme = isDark ? lightTheme : darkTheme;
+                        switcher.changeTheme(
+                          theme: newTheme,
+                          isReversed: isDark,
+                        );
+                        context.read<DarkCubit>().onClick();
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

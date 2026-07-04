@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:app/core/Global%20State%20Managment/darkModeCubit.dart';
 import 'package:app/core/Global%20State%20Managment/darkModeState.dart';
 import 'package:app/Pages/authGate.dart';
@@ -65,15 +66,21 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<DarkCubit, DarkModeState>(
       builder: (context, state) {
         _updateColor(state.isDark);
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          locale: context.locale,
-          supportedLocales: context.supportedLocales,
-          localizationsDelegates: context.localizationDelegates,
-          home: AuthGate(),
+        return ThemeProvider(
+          duration: Duration(milliseconds: 800),
+          initTheme: state.isDark ? ThemeData.dark() : ThemeData.light(),
+          builder: (context, theme) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              home: AuthGate(),
+            );
+          },
         );
       },
     );

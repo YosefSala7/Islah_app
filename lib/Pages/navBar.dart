@@ -33,10 +33,10 @@ class _NavbarState extends State<Navbar> {
               icon: Icon(FlutterIslamicIcons.solidMosque),
               activeForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.selectedItemColor!,
+              ).bottomNavigationBarTheme.selectedItemColor ?? Colors.white,
               inactiveForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.unselectedItemColor!,
+              ).bottomNavigationBarTheme.unselectedItemColor?? Colors.white,
               inactiveIcon: Icon(FlutterIslamicIcons.mosque),
               title: " ${"Home".tr()}",
             ),
@@ -51,10 +51,10 @@ class _NavbarState extends State<Navbar> {
               inactiveIcon: Icon(FlutterIslamicIcons.tasbih3),
               activeForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.selectedItemColor!,
+              ).bottomNavigationBarTheme.selectedItemColor?? Colors.white,
               inactiveForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.unselectedItemColor!,
+              ).bottomNavigationBarTheme.unselectedItemColor?? Colors.white,
               title: " ${"Azkar".tr()}",
             ),
           ),
@@ -65,10 +65,10 @@ class _NavbarState extends State<Navbar> {
               inactiveIcon: Icon(FlutterIslamicIcons.quran),
               activeForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.selectedItemColor!,
+              ).bottomNavigationBarTheme.selectedItemColor?? Colors.white,
               inactiveForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.unselectedItemColor!,
+              ).bottomNavigationBarTheme.unselectedItemColor?? Colors.white,
               title: " ${"Quran".tr()}",
             ),
           ),
@@ -79,10 +79,10 @@ class _NavbarState extends State<Navbar> {
               inactiveIcon: Icon(CupertinoIcons.gear),
               activeForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.selectedItemColor!,
+              ).bottomNavigationBarTheme.selectedItemColor?? Colors.white,
               inactiveForegroundColor: Theme.of(
                 context,
-              ).bottomNavigationBarTheme.unselectedItemColor!,
+              ).bottomNavigationBarTheme.unselectedItemColor?? Colors.white,
               title:" ${ "Settings".tr()}",
             ),
           ),
@@ -91,7 +91,7 @@ class _NavbarState extends State<Navbar> {
         navBarBuilder: (navBarConfig) => Style2BottomNavBar(
           navBarConfig: navBarConfig,
           navBarDecoration: NavBarDecoration(
-            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor?? Colors.white,
           ),
         ),
       ),

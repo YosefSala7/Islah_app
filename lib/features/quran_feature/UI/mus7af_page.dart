@@ -3,6 +3,7 @@ import 'package:app/features/quran_feature/UI/audio_player_dialog.dart';
 import 'package:app/features/quran_feature/UI/tafsir_page.dart';
 import 'package:app/features/quran_feature/logic/audio/audio_cubit.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -329,11 +330,11 @@ class _QuranScreenState extends State<QuranScreen> {
                                     icon: Icon(Icons.arrow_back),
                                   ),
                                   Text(
-                                    "الجزء ${currentJuzNumber == 0
+                                    "الجزء ${"juz_number.${currentJuzNumber <= 0
                                         ? 1
                                         : currentJuzNumber > 30
                                         ? 30
-                                        : currentJuzNumber}",
+                                        : currentJuzNumber}".tr()}",
                                     style: Theme.of(context).textTheme.bodyLarge
                                         ?.copyWith(
                                           fontFamily: "QCF_Surah",

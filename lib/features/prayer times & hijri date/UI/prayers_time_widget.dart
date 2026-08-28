@@ -13,12 +13,13 @@ class PrayersTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardWidth = MediaQuery.of(context).size.width / 5.6;
+    double cardWidth = MediaQuery.of(context).size.width / 6;
+    double cardHight = MediaQuery.of(context).size.height / 7;
 
     return BlocBuilder<PrayerTimeCubit, PrayerTimeState>(
       builder: (context, state) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height / 7.8,
+          height: MediaQuery.of(context).size.height / 7,
           width: double.infinity,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -28,53 +29,117 @@ class PrayersTime extends StatelessWidget {
               if (prayers[index]["name"] == state.nextPrayer["name"]) {
                 return Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: Shimmer.fromColors(
-                    baseColor: Theme.of(context).colorScheme.outline.withAlpha(255),
-                    highlightColor: Theme.of(context).colorScheme.secondary,
-                    child: MyCard(
-                      15,
-                      100,
-                      cardWidth,
-                      Theme.of(context).colorScheme.outline.withAlpha(70),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(prayers[index]["icon"], size: 20),
-                          Text(
-                            prayers[index]["name"],
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          Text(
-                            format12hours(prayers[index]["time"]),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
+                  child: Stack(
+                    children: [
+                      MyCard(
+                        15,
+                        cardHight,
+                        cardWidth,
+                        Theme.of(context).scaffoldBackgroundColor,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              prayers[index]["icon"],
+                              height: cardWidth / 1.35,
+                            ),
+                            Text(
+                              prayers[index]["name"],
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
+                                    fontSize: cardWidth / 4.2,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.outline,
+                                  ),
+                            ),
+                            Text(
+                              format12hours(prayers[index]["time"]),
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
+                                    fontSize: cardWidth / 4.4,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.outline,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      Shimmer(
+                        enabled: true,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Theme.brightnessOf(context) == Brightness.dark
+                                ? Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor!
+                                      .withAlpha(20)
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withAlpha(20),
+                            Theme.brightnessOf(context) == Brightness.dark
+                                ? Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor!
+                                      .withAlpha(150)
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withAlpha(150),
+                            Theme.brightnessOf(context) == Brightness.dark
+                                ? Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .selectedItemColor!
+                                      .withAlpha(20)
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withAlpha(20),
+                            Colors.transparent,
+                          ],
+                          stops: const [0.0, 0.35, 0.5, 0.65, 1.0],
+                        ),
+                        child: Container(
+                          height: cardHight,
+                          width: cardWidth,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.outline.withAlpha(255),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               } else {
                 return Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(3.0),
                   child:
                       MyCard(
                             15,
-                            100,
-                            cardWidth, 
+                            cardHight,
+                            cardWidth,
                             Theme.of(context).cardColor,
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(prayers[index]["icon"], size: 20),
+                                Image.asset(
+                                  prayers[index]["icon"],
+                                  height: cardWidth / 1.35,
+                                ),
                                 Text(
                                   prayers[index]["name"],
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                  style: Theme.of(context).textTheme.bodySmall!
+                                      .copyWith(fontSize: cardWidth / 4.2),
                                 ),
                                 Text(
                                   format12hours(prayers[index]["time"]).trim(),
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                  style: Theme.of(context).textTheme.bodySmall!
+                                      .copyWith(fontSize: cardWidth / 4.4),
                                 ),
                               ],
                             ),

@@ -35,19 +35,39 @@ class _QuranPageState extends State<QuranPage> {
       builder: (context, state) {
         context.read<SavePageCubit>().getPageAndVerse();
         return SafeArea(
+          top: false,
           child: Scaffold(
             floatingActionButton: FloatingActionButton.extended(
               label: Row(
                 children: [
                   (state.page ?? 1) > 1
-                      ? const Text("متابعة الختمة")
-                      : const Text("ابدأ ختمة"),
+                      ? Row(
+                          children: [
+                            Image.asset(
+                              "assets/imgs/quranBookIconWithHand.webp",
+                              width:40
+                            ),
+                            Text("متابعة الختمة",style:TextStyle(color: Colors.white)),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            Image.asset(
+                              "assets/imgs/quranBookIconWithHand.webp",
+                              width:40
+                            ),
+                            Text("ابدأ ختمة",style:TextStyle(color: Colors.white)),
+                          ],
+                        ) 
                 ],
               ),
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute(
-                    builder: (context) => QuranScreen(firstPage: state.page ?? 1,firstVerse: state.verse ?? 1,),
+                    builder: (context) => QuranScreen(
+                      firstPage: state.page ?? 1,
+                      firstVerse: state.verse ?? 1,
+                    ),
                   ),
                 );
               },
@@ -57,7 +77,7 @@ class _QuranPageState extends State<QuranPage> {
                 SizedBox(
                   height:
                       MediaQuery.heightOf(context) -
-                      MediaQuery.heightOf(context) / 8.5,
+                      MediaQuery.heightOf(context) / 14,
                   child: QuranIndexScreen(),
                 ),
               ],

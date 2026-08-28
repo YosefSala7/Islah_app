@@ -50,21 +50,21 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  void _updateColor(bool isDark) async {
-    await FlutterStatusbarcolor.setStatusBarColor(
-      isDark ? Color(0xFF0A192F) : Color(0xFFF0F4F8),
-    );
-    await FlutterStatusbarcolor.setStatusBarWhiteForeground(isDark);
-    await FlutterStatusbarcolor.setNavigationBarColor(
-      isDark ? Color(0xFF112240) : Colors.white,
-    );
-  }
+  // void _updateColor(bool isDark) async {
+  //   await FlutterStatusbarcolor.setStatusBarColor(
+  //     isDark ? Color(0xFF0A192F) : Color(0xFFF0F4F8),
+  //   );
+  //   await FlutterStatusbarcolor.setStatusBarWhiteForeground(isDark);
+  //   await FlutterStatusbarcolor.setNavigationBarColor(
+  //     isDark ? Color(0xFF112240) : Colors.white,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DarkCubit, DarkModeState>(
       builder: (context, state) {
-        _updateColor(state.isDark);
+        // _updateColor(state.isDark);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,

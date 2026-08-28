@@ -21,23 +21,26 @@ class PrayersTrackingWidget extends StatelessWidget {
           MyCard(
                 20,
                 MediaQuery.heightOf(context) / 7,
-                MediaQuery.widthOf(context) / 2.2,
+                MediaQuery.widthOf(context) / 2.3,
                 Theme.of(context).cardColor,
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(7.0),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: MediaQuery.heightOf(context) / 12,
-                          child: Image.asset("assets/imgs/pray.png"),
+                          height: MediaQuery.heightOf(context) / 11,
+                          child: Image.asset("assets/imgs/pray.webp"),
                         ),
                         Text(
                           "prayers_tracking".tr(),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(
+                                fontSize: MediaQuery.heightOf(context) / 50,
+                              ),
                         ),
                       ],
                     ),

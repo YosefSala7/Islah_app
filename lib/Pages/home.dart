@@ -14,9 +14,9 @@ import 'package:app/features/prayer%20times%20&%20hijri%20date/data/repos/geoCod
 import 'package:app/features/prayers_tracking_feature/UI/prayers_tracking_widget.dart';
 import 'package:app/features/quran_feature/UI/dialy_random_verse.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -33,6 +33,7 @@ class Home extends StatelessWidget {
             case PrayerLoaded():
               return HomePage(
                 lastThird: state.apiData.times.lastthird,
+                sunrise: state.apiData.times.sunrise,
                 fajr: state.apiData.times.fajr,
                 dhuhr: state.apiData.times.dhuhr,
                 asr: state.apiData.times.asr,
@@ -49,6 +50,7 @@ class Home extends StatelessWidget {
             case PrayerError():
               return HomePage(
                 lastThird: state.cachedDate?.data.times.lastthird,
+                sunrise: state.cachedDate?.data.times.sunrise,
                 fajr: state.cachedDate?.data.times.fajr,
                 dhuhr: state.cachedDate?.data.times.dhuhr,
                 asr: state.cachedDate?.data.times.asr,
@@ -83,6 +85,7 @@ class HomePage extends StatelessWidget {
   final String? day;
   final String? month;
   final String? lastThird;
+  final String? sunrise;
 
   const HomePage({
     super.key,
@@ -99,46 +102,47 @@ class HomePage extends StatelessWidget {
     required this.month,
     required this.dayName,
     required this.lastThird,
+    required this.sunrise,
   });
 
   List<Map<String, dynamic>> get prayers => [
     {
       "name": "prayer_times.fajr".tr(),
       "time": fajr,
-      "icon": CupertinoIcons.sun_haze_fill,
-      "img": "assets/imgs/fajr.png",
+      "icon": "assets/imgs/FajrIcon.webp",
+      "img": "assets/imgs/fajr.webp",
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.dhuhr".tr(),
       "time": dhuhr,
-      "icon": CupertinoIcons.sun_max_fill,
-      "img": "assets/imgs/dhuhr.png",
+      "icon": "assets/imgs/DhuhrIcon.webp",
+      "img": "assets/imgs/dhuhr.webp",
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.asr".tr(),
       "time": asr,
-      "icon": CupertinoIcons.sun_min,
+      "icon": "assets/imgs/AsrIcon.webp",
 
-      "img": "assets/imgs/asr.png",
+      "img": "assets/imgs/asr.webp",
 
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.maghrib".tr(),
       "time": maghrib,
-      "icon": CupertinoIcons.cloud_sun_fill,
-      "img": "assets/imgs/maghrib.png",
+      "icon": "assets/imgs/MaghribIcon.webp",
+      "img": "assets/imgs/maghrib.webp",
 
       "isDoneToday": false,
     },
     {
       "name": "prayer_times.isha".tr(),
       "time": isha,
-      "icon": CupertinoIcons.moon_stars_fill,
+      "icon": "assets/imgs/IshaIcon.webp",
 
-      "img": "assets/imgs/Isha.png",
+      "img": "assets/imgs/Isha.webp",
       "isDoneToday": false,
     },
   ];
@@ -149,109 +153,138 @@ class HomePage extends StatelessWidget {
       create: (context) => PrayerTimeCubit(prayers),
       child: Scaffold(
         body: SafeArea(
-          child: CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            slivers: [
-              SliverAppBar(
-                surfaceTintColor: Colors.transparent,
-                centerTitle: true,
-                backgroundColor: Colors.transparent,
-                pinned: true,
-                expandedHeight: MediaQuery.heightOf(context) / 10,
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.parallax,
-                  background: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Assalamu_Alaikum".tr(),
-                              style: Theme.of(context).textTheme.bodyLarge!
-                                  .copyWith(
-                                    fontFamily: "ReemKufi",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 30,
-                                  ),
+          child: Stack(
+            children: [
+              Center(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Image.asset(
+                    "assets/imgs/background.webp",
+                    fit: BoxFit.cover,
+                    color: Theme.of(context).textTheme.bodyLarge!.color!,
+                  ),
+                ),
+              ),
+              CustomScrollView(
+                physics: BouncingScrollPhysics(),
+                slivers: [
+                  SliverAppBar(
+                    surfaceTintColor: Colors.transparent,
+                    centerTitle: true,
+                    backgroundColor: Colors.transparent,
+                    pinned: true,
+                    expandedHeight: MediaQuery.heightOf(context) / 10,
+                    flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.parallax,
+                      background: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Assalamu_Alaikum".tr(),
+                                  style: Theme.of(context).textTheme.bodyLarge!
+                                      .copyWith(
+                                        fontFamily: "ReemKufi",
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 30,
+                                      ),
+                                ),
+                                FutureBuilder(
+                                  future: getGeolocationFromCache(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData)
+                                      return const SizedBox.shrink();
+                                    final data = snapshot.data!;
+                                    List address =
+                                        [
+                                              data["cityName"],
+                                              data["subCity"],
+                                              data["governorate"],
+                                            ]
+                                            .where(
+                                              (e) => e != null && e.isNotEmpty,
+                                            )
+                                            .toList();
+                                    String formattedAddress = address.join(
+                                      ", ",
+                                    );
+                                    String shortAddress =
+                                        formattedAddress.length > 12
+                                        ? formattedAddress.substring(0, 17)
+                                        : formattedAddress;
+                                    return Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      textDirection: ui.TextDirection.ltr,
+                                      children: [
+                                        Icon(Icons.location_on, size: 18),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          shortAddress,
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
-                            FutureBuilder(
-                              future: getGeolocationFromCache(),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) return const SizedBox();
-                                final data = snapshot.data!;
-                                List address =
-                                    [
-                                          data["cityName"],
-                                          data["subCity"],
-                                          data["governorate"],
-                                        ]
-                                        .where((e) => e != null && e.isNotEmpty)
-                                        .toList();
+                          ),
+                        ],
+                      ),
+                      expandedTitleScale: 1.2,
+                    ),
+                  ),
 
-                                String formattedAddress = address.join(", ");
-                                String shortAddress =
-                                    formattedAddress.length > 12
-                                    ? formattedAddress.substring(0, 17)
-                                    : formattedAddress;
-                                return Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  textDirection: ui.TextDirection.ltr,
-                                  children: [
-                                    Icon(Icons.location_on, size: 18),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      shortAddress,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodyMedium,
-                                    ),
-                                  ],
-                                );
-                              },
+                  SliverToBoxAdapter(
+                    child: GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          children: [
+                            CurrentPrayerWidget(),
+                            PrayersTime(prayers: prayers),
+                            DateWidget(
+                              dayName: dayName,
+                              hijriDay: hijriDay,
+                              hijriMonth: hijriMonth,
+                              hijriYear: hijriYear,
+                              year: year,
+                              month: month,
+                              day: day,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                
+                                QiblaWidget(),
+                                Gap(10),
+                                PrayersTrackingWidget(prayers: prayers),
+                              ],
+                            ),
+                            Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TimeWidget(time: lastThird!,clickable: true,img: "assets/imgs/last_third.webp",),
+                                Gap(10),
+                                TimeWidget(time: sunrise!,clickable: false,img: "assets/imgs/shourok.webp",),
+                              ],
+                            ),
+                            DialyRandomVerse(),
+                            QuickZekr(),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                  expandedTitleScale: 1.2,
-                ),
-              ),
-
-              SliverToBoxAdapter(
-                child: GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        CurrentPrayerWidget(),
-                        PrayersTime(prayers: prayers),
-                        DateWidget(
-                          dayName: dayName,
-                          hijriDay: hijriDay,
-                          hijriMonth: hijriMonth,
-                          hijriYear: hijriYear,
-                          year: year,
-                          month: month,
-                          day: day,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // LastThirdWidget(time: lastThird!),
-                            QiblaWidget(),
-                            PrayersTrackingWidget(prayers: prayers),
-                          ],
-                        ),
-                        DialyRandomVerse(),
-                        QuickZekr(),
-                      ],
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

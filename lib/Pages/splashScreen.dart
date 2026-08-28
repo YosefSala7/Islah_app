@@ -48,34 +48,42 @@ class AnotherSplashScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 27, 58, 87),
-              Color.fromARGB(255, 15, 34, 51),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          gradient: RadialGradient(
+            center: Alignment.bottomCenter,
+            radius: 1.2,
+            colors: [Color.fromARGB(255, 47, 113, 117), Color(0xFF0F1E2A)],
+            stops: [0.0, 1.0],
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Stack(
           children: [
-            const SizedBox(height: 0),
-            Image.asset("assets/imgs/splashScreen_logo.png", width: 200),
-            const CircularProgressIndicator(color: Colors.white),
-                        const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                "يحتوي هذا التطبيق على إعلانات بسيطة لدعم استمرار العمل عليه والتفرغ لتطويره.. جزاكم الله خيراً",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
+            Positioned(
+              bottom: -110,
+              left: MediaQuery.widthOf(context) / 5,
+              child: Image.asset(
+                "assets/imgs/pattern.webp",
+                color: Colors.white24,
+                width: 220,
               ),
             ),
-            const SizedBox(height: 20),
-            const Text('V 1.0.0', style: TextStyle(color: Colors.white)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(height: 0),
+                Image.asset("assets/imgs/splashScreen_logo.png", width: 200),
+                const CircularProgressIndicator(color: Colors.white),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Text(
+                    "يحتوي هذا التطبيق على إعلانات بسيطة لدعم استمرار العمل عليه والتفرغ لتطويره.. جزاكم الله خيراً",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text('V 1.0.0', style: TextStyle(color: Colors.white)),
+              ],
+            ),
           ],
         ),
       ),

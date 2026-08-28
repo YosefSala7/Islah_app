@@ -47,39 +47,53 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SafeArea(
+      top: false,
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: [
-            MyAppBar(title: "Settings".tr()),
-            SliverToBoxAdapter(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 24,
-                      left: 24,
-                      right: 24,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Stack(
+            children: [
+              Center(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Image.asset(
+                    "assets/imgs/background.webp",
+                    fit: BoxFit.cover,
+                    color: Theme.of(context).textTheme.bodyLarge!.color!,
+                  ),
+                ),
+              ),
+              CustomScrollView(
+                physics: BouncingScrollPhysics(),
+                slivers: [
+                  MyAppBar(title: "Settings".tr(),themeData: Theme.of(context)),
+                  SliverToBoxAdapter(
+                    child: Stack(
                       children: [
-                        _buildDarkModeCard(context, theme),
-                        const SizedBox(height: 20),
-                        _buildContactCard(context, theme),
-                        const SizedBox(height: 20),
-                        _buildLinkedInCard(context, theme),
-                        const SizedBox(height: 20),
-                        _buildInfoCard(context, theme),
-                        const SizedBox(height: 40),
+                        Padding(
+                          padding: EdgeInsets.only(top: 24, left: 24, right: 24),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _buildDarkModeCard(context, theme),
+                              const SizedBox(height: 20),
+                              _buildContactCard(context, theme),
+                              const SizedBox(height: 20),
+                              _buildLinkedInCard(context, theme),
+                              const SizedBox(height: 20),
+                              _buildInfoCard(context, theme),
+                              const SizedBox(height: 40),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

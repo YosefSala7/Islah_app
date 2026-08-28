@@ -28,147 +28,169 @@ class DateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
-      child: MyCard(
-        25,
-        MediaQuery.heightOf(context) / 4.2,
-        double.infinity,
-        Theme.of(context).cardColor,
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Text(
-                dayName!.tr(),
-                style: Theme.of(context).textTheme.bodyMedium,
-              ).animate(delay: 200.ms).slideX(
-                begin: 1,
+      child:
+          MyCard(
+                25,
+                MediaQuery.heightOf(context) / 4.2,
+                double.infinity,
+                Theme.of(context).cardColor,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Text(
+                            dayName!.tr(),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                          .animate(delay: 200.ms)
+                          .slideX(
+                            begin: 1,
+                            end: 0,
+                            duration: 200.ms,
+                            curve: Curves.easeIn,
+                          )
+                          .fadeIn(),
+                      Divider(
+                        color: Theme.of(context).colorScheme.outline,
+                        height: 10,
+                        thickness: 1,
+                        indent: MediaQuery.widthOf(context) / 3,
+                        endIndent: MediaQuery.widthOf(context) / 3,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Image.asset(
+                                    "assets/imgs/calander.webp",
+                                    height: 60,
+                                  )
+                                  .animate(delay: 200.ms)
+                                  .fadeIn(duration: 600.ms, begin: -2.0)
+                                  .scale(
+                                    duration: 600.ms,
+                                    begin: Offset(-2, -2),
+                                    curve: Curves.elasticOut,
+                                  ),
+                              Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "Gregorian".tr(),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                  )
+                                  .animate(delay: 200.ms)
+                                  .fade()
+                                  .slideY(
+                                    begin: 0.7,
+                                    end: 0,
+                                    duration: 800.ms,
+                                    curve: Curves.easeOutBack,
+                                  )
+                                  .fadeIn(
+                                    duration: Duration(milliseconds: 800),
+                                  ),
+                              Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "${year!} ${month!.tr()} ${day!}",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                  )
+                                  .animate(delay: 200.ms)
+                                  .fade()
+                                  .slideY(
+                                    begin: 0.7,
+                                    end: 0,
+                                    duration: 800.ms,
+                                    curve: Curves.easeOutBack,
+                                  )
+                                  .fadeIn(
+                                    duration: Duration(milliseconds: 800),
+                                  ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.heightOf(context) / 9,
+                            child: VerticalDivider(
+                              thickness: 1,
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Image.asset(
+                                "assets/imgs/Allah.webp",
+                                height: 60,
+                              )
+                                  .animate(delay: 200.ms)
+                                  .fadeIn(duration: 600.ms, begin: -2.0)
+                                  .scale(
+                                    duration: 600.ms,
+                                    begin: Offset(-2, -2),
+                                    curve: Curves.elasticOut,
+                                  ),
+                              Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "Hijri".tr(),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                  )
+                                  .animate(delay: 200.ms)
+                                  .fade()
+                                  .slideY(
+                                    begin: 0.7,
+                                    end: 0,
+                                    duration: 1000.ms,
+                                    curve: Curves.easeOutBack,
+                                  )
+                                  .fadeIn(
+                                    duration: Duration(milliseconds: 800),
+                                  ),
+                              Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "${hijriYear!} ${hijriMonth!.tr()} ${hijriDay!}",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                  )
+                                  .animate(delay: 200.ms)
+                                  .fade()
+                                  .slideY(
+                                    begin: 0.7,
+                                    end: 0,
+                                    duration: 800.ms,
+                                    curve: Curves.easeOutBack,
+                                  )
+                                  .fadeIn(
+                                    duration: Duration(milliseconds: 800),
+                                  ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              .animate(delay: 150.ms)
+              .slideY(
+                begin: 0.7,
                 end: 0,
-                duration: 200.ms,
-                curve: Curves.easeIn,
-              ).fadeIn(),
-              Divider(
-                color: Theme.of(context).colorScheme.outline,
-                height: 20,
-                thickness: 1,
-                indent: MediaQuery.widthOf(context) / 3,
-                endIndent: MediaQuery.widthOf(context) / 3,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary.withAlpha(100),
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.calendar_month_outlined,
-                            color: Theme.of(context).colorScheme.secondary.withBlue(230).withGreen(150),
-                            size: 28,
-                          ),
-                        ),
-                      ).animate(delay: 200.ms).fadeIn(duration: 600.ms, begin: -2.0).scale(
-                        duration: 600.ms,
-                        begin: Offset(-2, -2),
-                        curve: Curves.elasticOut,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Text(
-                          "Gregorian".tr(),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ).animate(delay: 200.ms).fade().slideY(
-                        begin: 0.7,
-                        end: 0,
-                        duration: 800.ms,
-                        curve: Curves.easeOutBack,
-                      ).fadeIn(duration: Duration(milliseconds: 800)),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Text(
-                          "${year!} ${month!.tr()} ${day!}",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ).animate(delay: 200.ms).fade().slideY(
-                        begin: 0.7,
-                        end: 0,
-                        duration: 800.ms,
-                        curve: Curves.easeOutBack,
-                      ).fadeIn(duration: Duration(milliseconds: 800)),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.heightOf(context) / 9,
-                    child: VerticalDivider(
-                      thickness: 1,
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary.withAlpha(100),
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Icon(
-                            FlutterIslamicIcons.solidAllah,
-                            color: Theme.of(context).colorScheme.secondary.withBlue(230).withGreen(150),
-                            size: 28,
-                          ),
-                        ),
-                      ).animate(delay: 200.ms).fadeIn(duration: 600.ms, begin: -2.0).scale(
-                        duration: 600.ms,
-                        begin: Offset(-2, -2),
-                        curve: Curves.elasticOut,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Text(
-                          "Hijri".tr(),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ).animate(delay: 200.ms).fade().slideY(
-                        begin: 0.7,
-                        end: 0,
-                        duration: 1000.ms,
-                        curve: Curves.easeOutBack,
-                      ).fadeIn(duration: Duration(milliseconds: 800)),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Text(
-                          "${hijriYear!} ${hijriMonth!.tr()} ${hijriDay!}",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ).animate(delay: 200.ms).fade().slideY(
-                        begin: 0.7,
-                        end: 0,
-                        duration: 800.ms,
-                        curve: Curves.easeOutBack,
-                      ).fadeIn(duration: Duration(milliseconds: 800)),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      )
-      .animate(delay: 150.ms)
-      .slideY(
-        begin: 0.7,
-        end: 0,
-        duration: 800.ms,
-        curve: Curves.easeOutBack,
-      )
-      .fadeIn(duration: Duration(milliseconds: 800)),
+                duration: 800.ms,
+                curve: Curves.easeOutBack,
+              )
+              .fadeIn(duration: Duration(milliseconds: 800)),
     );
   }
 }

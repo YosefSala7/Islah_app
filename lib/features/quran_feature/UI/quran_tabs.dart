@@ -133,6 +133,8 @@ import 'package:app/features/quran_feature/UI/surah_list.dart';
 import 'package:app/features/quran_feature/logic/save%20page%20state%20management/save_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import 'package:gap/gap.dart';
 import 'package:quran/quran.dart' as quran;
 
 class QuranIndexScreen extends StatelessWidget {
@@ -148,11 +150,33 @@ class QuranIndexScreen extends StatelessWidget {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                floating: true,
-                snap: true,
-                pinned: true, 
+                toolbarHeight: 60,
+                pinned: true,
                 elevation: 0,
                 backgroundColor: theme.appBarTheme.backgroundColor,
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Color.fromARGB(255, 32, 56, 104),
+                        Color.fromARGB(255, 50, 118, 179),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  Opacity(
+                    opacity: 0.6,
+                    child: Image.asset(
+                      "assets/imgs/decoration.webp",
+                      height: double.infinity,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Gap(15),
+                ],
                 leading: IconButton(
                   onPressed: () {
                     showDialog(
@@ -196,7 +220,9 @@ class QuranIndexScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 int firstPage = quran.getSurahPages(1).first;
-                                BlocProvider.of<SavePageCubit>(context).newKhatma();
+                                BlocProvider.of<SavePageCubit>(
+                                  context,
+                                ).newKhatma();
                                 Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(
                                     builder: (context) =>
@@ -214,26 +240,37 @@ class QuranIndexScreen extends StatelessWidget {
                       },
                     );
                   },
-                  icon: Icon(Icons.add),
+                  icon: Icon(Icons.add, color: Colors.white),
                 ),
-                title: Text(
-                  "المصحف الشريف",
-                  style: TextStyle(
-                    fontFamily: "ReemKufi",
-                    color: theme.appBarTheme.foregroundColor,
-                    fontSize: 30,
-                  ),
+                title: Image.asset(
+                  "assets/imgs/mus7af typo.webp",
+                  width: 120,
+                  color: Colors.white,
                 ),
                 centerTitle: true,
                 bottom: TabBar(
                   tabs: [
-                    Tab(text: "السور"),
-                    Tab(text: "الأجزاء"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(FlutterIslamicIcons.solidQuran, size: 20),
+                        Gap(3),
+                        Tab(text: "السور"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.nights_stay_rounded),
+                        Gap(3),
+                        Tab(text: "الأجزاء"),
+                      ],
+                    ),
                   ],
                   indicatorColor: theme.colorScheme.secondary,
                   indicatorWeight: 3,
-                  labelColor: theme.appBarTheme.foregroundColor,
-                  unselectedLabelColor: theme.appBarTheme.foregroundColor?.withAlpha(127),
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white.withAlpha(127),
                   labelStyle: TextStyle(
                     fontFamily: "Almarai",
                     fontSize: 18,
@@ -248,12 +285,7 @@ class QuranIndexScreen extends StatelessWidget {
               ),
             ];
           },
-          body: TabBarView(
-            children: [
-              SurahIndexList(), 
-              JuzIndexList(),
-            ],
-          ),
+          body: TabBarView(children: [SurahIndexList(), JuzIndexList()]),
         ),
       ),
     );

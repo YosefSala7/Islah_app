@@ -27,7 +27,7 @@ class ZekrPage extends StatelessWidget {
             children: [
               CustomScrollView(
                 slivers: [
-                  MyAppBar(title: category.toString().tr()),
+                  MyAppBar(title: category.toString().tr(),themeData: Theme.of(context)),
                   SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                       final zekr = azkar[index];

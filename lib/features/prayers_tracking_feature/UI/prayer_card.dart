@@ -1,5 +1,6 @@
 import 'package:app/core/translation/translateClockNumbers.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class PrayerCard extends StatelessWidget {
   const PrayerCard({
@@ -15,7 +16,7 @@ class PrayerCard extends StatelessWidget {
   final String prayer;
   final String prayerTime;
   final String prayerImg;
-  final IconData prayerIcon;
+  final String prayerIcon;
   final bool prayerState;
   final VoidCallback? onToggle;
 
@@ -48,10 +49,7 @@ class PrayerCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Icon(prayerIcon, size: 20),
-                ),
+                Gap(15),
                 Text(
                   prayer,
                   style: TextStyle(

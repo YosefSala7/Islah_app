@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class AzkarCategoryCard extends StatelessWidget {
   final String title;
   final String count;
-  final IconData icon;
+  final String icon;
   final VoidCallback onTap;
 
   const AzkarCategoryCard({
     super.key,
     required this.title,
     required this.count,
-    this.icon = Icons.auto_awesome,
+    required this.icon,
     required this.onTap,
   });
 
@@ -44,14 +44,7 @@ class AzkarCategoryCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withAlpha(100),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Icon(icon, color: theme.colorScheme.primary, size: 28),
-                ),
+                Image.asset(icon,height: 50,),
                 SizedBox(width: 10,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
